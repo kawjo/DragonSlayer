@@ -1,0 +1,81 @@
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
+import java.awt.*;
+public class Board {
+
+private Container gameContentPane;
+private JLabel[] mazeJLabels;
+private Maze maze;
+private int[] board;
+private Dragon dragon;
+private Knight knight;
+private final int DRAGON = 9;
+private final int KNIGHT = 5;
+private final int PIXELS_PER_SPACE;
+private final int WALL = 2;
+private final int CORRIDOR = 1;
+
+
+public Board(Maze m,Container gameContentPane){
+	maze = m;
+	PIXELS_PER_SPACE = maze.PIXELS_PER_SPACE;
+	this.gameContentPane = gameContentPane;
+	gameContentPane.setLayout(null);
+    gameContentPane.setBackground(Color.BLACK);
+    board = maze.fillBoardArray();
+    mazeJLabels = new JLabel[board.length];
+    for(int i = 0; i < mazeJLabels.length; i++){
+    	mazeJLabels[i] = new JLabel();
+    	if(board[i] == 1){
+    		mazeJLabels[i].setIcon(new ImageIcon("BlackSquare.jpg"));
+    	} else {
+    		mazeJLabels[i].setIcon(new ImageIcon("WhiteSquare.jpg"));
+    	}
+    	mazeJLabels[i].setBounds(getXPosition(i),getYPosition(i),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+    	gameContentPane.add(mazeJLabels[i]);
+    	mazeJLabels[i].setVisible(true);
+    }
+}
+
+
+private int getXPosition(int co){
+	int squaresPerWidth = DragonController.SCREEN_WIDTH/PIXELS_PER_SPACE;
+	return (co%squaresPerWidth)*PIXELS_PER_SPACE;
+}
+
+private int getYPosition(int co){
+	int squaresPerWidth = DragonController.SCREEN_WIDTH/PIXELS_PER_SPACE;
+	return (co/squaresPerWidth)*PIXELS_PER_SPACE;
+}
+
+public Container getBoard(){
+	return gameContentPane;
+}
+
+public Knight knight(){}
+
+public Dragon dragon(){}
+
+public void move(Dragon d){}
+
+public void move(Knight k){}
+
+public boolean isAtIntersection(Dragon d){}
+
+public boolean isAtIntersection(Knight k){}
+
+public boolean didDragonEatKnight(){}
+
+public boolean didKnightKillDragon(){}
+
+private void drawKnight(){}
+
+private void drawDragon(){}
+
+public int whereIsKnight(Dragon d){}
+
+public int whereIsDragon(Dragon d){}
+
+}
