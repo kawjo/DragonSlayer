@@ -24,7 +24,7 @@ public Board(Maze m,Container gameContentPane){
 	this.gameContentPane = gameContentPane;
 	gameContentPane.setLayout(null);
     gameContentPane.setBackground(Color.BLACK);
-    board = maze.fillBoardArray();
+    board = maze.fillMazeArray();
     mazeJLabels = new JLabel[board.length];
     for(int i = 0; i < mazeJLabels.length; i++){
     	mazeJLabels[i] = new JLabel();
