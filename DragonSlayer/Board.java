@@ -29,9 +29,9 @@ public Board(Maze m,Container gameContentPane){
     for(int i = 0; i < mazeJLabels.length; i++){
     	mazeJLabels[i] = new JLabel();
     	if(board[i] == 1){
-    		mazeJLabels[i].setIcon(new ImageIcon("BlackSquare.jpg"));
+    		mazeJLabels[i].setIcon(new ImageIcon("img/BlackSquare.jpg"));
     	} else {
-    		mazeJLabels[i].setIcon(new ImageIcon("WhiteSquare.jpg"));
+    		mazeJLabels[i].setIcon(new ImageIcon("img/WhiteSquare.jpg"));
     	}
     	mazeJLabels[i].setBounds(getXPosition(i),getYPosition(i),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
     	gameContentPane.add(mazeJLabels[i]);
