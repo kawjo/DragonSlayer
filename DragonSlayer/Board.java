@@ -9,8 +9,8 @@ private Container gameContentPane;
 private JLabel[] mazeJLabels;
 private Maze maze;
 private int[] board;
-private Dragon dragon;
-private Knight knight;
+//private Dragon dragon;
+//private Knight knight;
 private final int DRAGON = 9;
 private final int KNIGHT = 5;
 private final int PIXELS_PER_SPACE;
@@ -54,6 +54,7 @@ public Container getBoard(){
 	return gameContentPane;
 }
 
+/*
 public Knight knight(){}
 
 public Dragon dragon(){}
@@ -77,5 +78,6 @@ private void drawDragon(){}
 public int whereIsKnight(Dragon d){}
 
 public int whereIsDragon(Dragon d){}
+*/
 
 }
