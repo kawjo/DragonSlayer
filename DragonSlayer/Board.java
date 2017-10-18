@@ -23,7 +23,7 @@ public Board(Maze m,Container gameContentPane){
 	PIXELS_PER_SPACE = maze.PIXELS_PER_SPACE;
 	this.gameContentPane = gameContentPane;
 	gameContentPane.setLayout(null);
-    gameContentPane.setBackground(Color.BLACK);
+    gameContentPane.setBackground(Color.GREEN);
     board = maze.fillMazeArray();
     mazeJLabels = new JLabel[board.length];
     for(int i = 0; i < mazeJLabels.length; i++){
@@ -31,7 +31,8 @@ public Board(Maze m,Container gameContentPane){
     	if(board[i] == 1){
     		mazeJLabels[i].setIcon(new ImageIcon("img/BlackSquare.jpg"));
     	} else {
-    		mazeJLabels[i].setIcon(new ImageIcon("img/WhiteSquare.jpg"));
+    		String image = "img/StoneBlock"+PIXELS_PER_SPACE+".jpg";
+    		mazeJLabels[i].setIcon(new ImageIcon(image));
     	}
     	mazeJLabels[i].setBounds(getXPosition(i),getYPosition(i),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
     	gameContentPane.add(mazeJLabels[i]);
