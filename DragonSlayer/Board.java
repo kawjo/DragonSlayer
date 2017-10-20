@@ -22,6 +22,7 @@ public Board(Maze m,Container gameContentPane){
 	maze = m;
 	PIXELS_PER_SPACE = maze.PIXELS_PER_SPACE;
 	this.gameContentPane = gameContentPane;
+	gameContentPane.setPreferredSize(new Dimension(DragonController.SCREEN_WIDTH, DragonController.SCREEN_HEIGHT));
 	gameContentPane.setLayout(null);
     gameContentPane.setBackground(Color.GREEN);
     board = maze.fillMazeArray();

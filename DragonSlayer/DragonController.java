@@ -32,9 +32,11 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         gameContentPane = boardHolder.getContentPane();
         
         gameBoard = new Board(new Maze(), gameContentPane);
-        
         gameBoard = B1;
-    		//boardHolder.add(gameBoard.getBoard());
+  
+        boardHolder.pack();
+        boardHolder.setResizable(false);
+        
         boardHolder.setVisible(true);
         
         //gameKnight = new Knight();// JFrame, pushes required, % change direction

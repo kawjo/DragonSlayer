@@ -14,8 +14,8 @@ public class Maze
 	
 	public Maze()
 	{
-		PIXELS_PER_SPACE = DragonController.SCREEN_WIDTH/col;
-		String fileName = "Maze3.txt";
+		
+		String fileName = "Maze4.txt";
 		File myFile = new File(fileName);
 		try
 		{
@@ -23,6 +23,7 @@ public class Maze
 			Scanner inputFile = new Scanner(myFile);
 			nums = inputFile.nextInt();
 			col = inputFile.nextInt();
+			PIXELS_PER_SPACE = DragonController.SCREEN_WIDTH/col;
 			maze = new int[nums];
 			for(int i = 0; i < nums; i++)
 			{
