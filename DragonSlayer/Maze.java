@@ -9,7 +9,7 @@ public class Maze
 	private boolean satisfied = false;
 	private int nums;
 	private boolean initialized = false;
-	public final int PIXELS_PER_SPACE;
+	public int PIXELS_PER_SPACE = 0;
 	private int col;
 	
 	public Maze()
