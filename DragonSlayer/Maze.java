@@ -14,6 +14,7 @@ public class Maze
 	
 	public Maze()
 	{
+		PIXELS_PER_SPACE = DragonController.SCREEN_WIDTH/col;
 		String fileName = "Maze3.txt";
 		File myFile = new File(fileName);
 		try
@@ -34,7 +35,6 @@ public class Maze
 			System.out.println("File " + fileName + " not found.");
 			return;
 		}
-		PIXELS_PER_SPACE = DragonController.SCREEN_WIDTH/col;
 		initialized = true;
 		
 	}
