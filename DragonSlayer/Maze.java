@@ -14,8 +14,12 @@ public class Maze
 	
 	public Maze()
 	{
+<<<<<<< HEAD
 		
 		String fileName = "Maze4.txt";
+=======
+		String fileName = "Maze3.txt";
+>>>>>>> 2750a172a64dd9c7da7db16b818e53844a3d43b8
 		File myFile = new File(fileName);
 		try
 		{
