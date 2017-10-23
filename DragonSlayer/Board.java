@@ -12,10 +12,14 @@ private int[] board;
 //private Dragon dragon;
 //private Knight knight;
 private final int DRAGON = 9;
-private final int KNIGHT = 5;
+private final int KNIGHT = 7;
 private final int PIXELS_PER_SPACE;
 private final int WALL = 2;
 private final int CORRIDOR = 1;
+private final int LEFT = 3;
+private final int RIGHT = 4;
+private final int UP = 5;
+private final int DOWN = 6;
 
 
 public Board(Maze m,Container gameContentPane){
