@@ -12,7 +12,7 @@ private int[] board;
 //private Dragon dragon;
 //private Knight knight;
 private final int DRAGON = 9;
-private final int KNIGHT = 5;
+private final int KNIGHT = 7;
 private final int PIXELS_PER_SPACE;
 private final int WALL = 2;
 private final int CORRIDOR = 1;
@@ -28,10 +28,11 @@ public Board(Maze m,Container gameContentPane){
     board = maze.fillMazeArray();
     mazeJLabels = new JLabel[board.length];
     for(int i = 0; i < mazeJLabels.length; i++){
-    	mazeJLabels[i] = new JLabel();
-    	if(board[i] == 1){
-    		mazeJLabels[i].setIcon(new ImageIcon("img/BlackSquare.jpg"));
-    	} else {
+    		mazeJLabels[i] = new JLabel();
+    		if(board[i] == 1){
+    			mazeJLabels[i].setIcon(new ImageIcon("img/BlackSquare.jpg"));
+    		} 
+    		else if(board[i] == 2) {
     		String image = "img/StoneBlock"+PIXELS_PER_SPACE+".jpg";
     		mazeJLabels[i].setIcon(new ImageIcon(image));
     	}

@@ -20,6 +20,11 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     
     public final static int SCREEN_WIDTH = 1600;
     public final static int SCREEN_HEIGHT = 900;
+    public final static int LEFT = 3;
+    public final static int RIGHT = 4;
+    public final static int UP = 5;
+    public final static int DOWN = 6;
+    
     public static Board gameBoard;
     public static JFrame boardHolder;
     
@@ -39,7 +44,8 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         
         boardHolder.setVisible(true);
         
-        //gameKnight = new Knight();// JFrame, pushes required, % change direction
+        Knight gameKnight = new Knight(1,1,1);// JFrame, pushes required, % change direction
+       
         //gameDragon = new Dragon();// JFrame, pushes required, % change direction           
         //resetGame();
         // start the timer
@@ -98,21 +104,18 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         DragonController myController = new DragonController("", 50,50, 1600, 900, gameBoard);// window title, int gameWindowX, int gameWindowY, int gameWindowWidth, int gameWindowHeight){
     }
 
-	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
+		;
 		
 	}
 
-	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
+		;
 		
 	}
 
-	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		;
 		
 	}
     
