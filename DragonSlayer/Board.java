@@ -26,7 +26,7 @@ private final int UP = 5;
 private final int DOWN = 6;
 
 
-public Board(Maze m,Container gameContentPane){
+public Board(Maze m,Container gameContentPane) throws Exception{
 	maze = m;
 	PIXELS_PER_SPACE = maze.PIXELS_PER_SPACE;
 	this.gameContentPane = gameContentPane;
@@ -37,21 +37,22 @@ public Board(Maze m,Container gameContentPane){
     mazeJLabels = new JLabel[board.length];
     for(int i = 0; i < mazeJLabels.length; i++){
     		mazeJLabels[i] = new JLabel();
-    		if(board[i] == 1){
-    			mazeJLabels[i].setIcon(new ImageIcon("img/BlackSquare.jpg"));
+    		if(board[i] == 2){
+    			String image = "img/StoneBlock"+PIXELS_PER_SPACE+".jpg";
+        		mazeJLabels[i].setIcon(new ImageIcon(image));
     		} 
-    		else if(board[i] == 2) {
-    		String image = "img/StoneBlock"+PIXELS_PER_SPACE+".jpg";
-    		mazeJLabels[i].setIcon(new ImageIcon(image));
+    		else {
+    			mazeJLabels[i].setIcon(new ImageIcon("img/BlackSquare.jpg"));
     	}
     	mazeJLabels[i].setBounds(getXPosition(i),getYPosition(i),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
     	gameContentPane.add(mazeJLabels[i]);
     	mazeJLabels[i].setVisible(true);
     }
-    knight = new Knight();
-    dragon = new Dragon(1,1,getXPosition(findDragon()),getYPosition(findDragon()),maze.getDragonDirection());
-    knightJLabel = new JLabel();
-    for(int i = 0; i < dragon.TAILS+1; i++){
+    //knight = new Knight();
+    dragon = new Dragon(1,1,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
+    //knightJLabel = new JLabel();
+    dragonJLabel = new JLabel[dragon.TAILS+1];
+    for(int i = 0; i < dragonJLabel.length; i++){
     	dragonJLabel[i] = new JLabel();
     	String dragonImage = "";
     	if(i==0){
@@ -62,8 +63,9 @@ public Board(Maze m,Container gameContentPane){
     		dragonJLabel[i].setIcon(new ImageIcon(dragonImage));
     }
     
-    String knightImage = "img/Knight"+PIXELS_PER_SPACE+".jpg";
-    knightJLabel.setIcon(new ImageIcon(knightImage));
+    //String knightImage = "img/Knight"+PIXELS_PER_SPACE+".jpg";
+    //knightJLabel.setIcon(new ImageIcon(knightImage));
+    draw();
 }
 
 
@@ -73,8 +75,8 @@ private int getXPosition(int co){
 }
 
 private int getYPosition(int co){
-	int squaresPerHeight = DragonController.SCREEN_HEIGHT/PIXELS_PER_SPACE;
-	return (co/squaresPerHeight)*PIXELS_PER_SPACE;
+	int squaresPerWidth = DragonController.SCREEN_WIDTH/PIXELS_PER_SPACE;
+	return (co/squaresPerWidth)*PIXELS_PER_SPACE;
 }
 
 private int getCo(int x, int y){
@@ -138,9 +140,146 @@ private void move(Dragon d) throws Exception{
 		dragon.setIntersection(false);
 	}
 	dragon.move(PIXELS_PER_SPACE, directions(findDragon()));
-	
+	upDateDragonLocation();
 }
 
+private void upDateDragonLocation(){
+	for(int i = 0; i < dragon.tailsLeft()+1; i++){
+		board[getCo(dragonJLabel[i].getLocation().x,dragonJLabel[i].getLocation().y)]=CORRIDOR;
+	}
+	board[getCo(dragon.headX(),dragon.headY())]=DRAGON_HEAD;
+	if(dragon.isInIntersection()){
+		if(dragon.intX()>dragon.headX()){
+			for(int x = dragon.intX(); x>dragon.headX(); x-=PIXELS_PER_SPACE){
+				board[getCo(x,dragon.headY())]=DRAGON;
+			}
+		} else if(dragon.intX()<dragon.headX()){
+			for(int x = dragon.intX(); x<dragon.headX(); x+=PIXELS_PER_SPACE){
+				board[getCo(x,dragon.headY())]=DRAGON;
+			}
+		} else if(dragon.intY()>dragon.headY()){
+			for(int y = dragon.intY(); y>dragon.headY();y-=PIXELS_PER_SPACE){
+				board[getCo(dragon.headX(),y)]=DRAGON;
+			}
+		} else if(dragon.intY()<dragon.headY()){
+			for(int y = dragon.intY(); y<dragon.headY();y+=PIXELS_PER_SPACE){
+				board[getCo(dragon.headX(),y)]=DRAGON;
+			}
+		}
+		
+		if(dragon.intX()>dragon.tailX()){
+			for(int x = dragon.intX(); x>=dragon.tailX(); x-=PIXELS_PER_SPACE){
+				board[getCo(x,dragon.tailY())]=DRAGON;
+			}
+		} else if(dragon.intX()<dragon.tailX()){
+			for(int x = dragon.intX(); x<=dragon.tailX(); x+=PIXELS_PER_SPACE){
+				board[getCo(x,dragon.tailY())]=DRAGON;
+			}
+		} else if(dragon.intY()>dragon.tailY()){
+			for(int y = dragon.intY(); y>=dragon.tailY();y-=PIXELS_PER_SPACE){
+				board[getCo(dragon.tailX(),y)]=DRAGON;
+			}
+		} else if(dragon.intY()<dragon.tailY()){
+			for(int y = dragon.intY(); y<=dragon.tailY();y+=PIXELS_PER_SPACE){
+				board[getCo(dragon.tailX(),y)]=DRAGON;
+			}
+		}
+		
+	} else {
+		if(dragon.tailX()>dragon.headX()){
+			for(int x = dragon.tailX(); x>dragon.headX(); x-=PIXELS_PER_SPACE){
+				board[getCo(x,dragon.headY())]=DRAGON;
+			}
+		} else if(dragon.tailX()<dragon.headX()){
+			for(int x = dragon.tailX(); x<dragon.headX(); x+=PIXELS_PER_SPACE){
+				board[getCo(x,dragon.headY())]=DRAGON;
+			}
+		} else if(dragon.tailY()>dragon.headY()){
+			for(int y = dragon.tailY(); y>dragon.headY();y-=PIXELS_PER_SPACE){
+				board[getCo(dragon.headX(),y)]=DRAGON;
+			}
+		} else if(dragon.tailY()<dragon.headY()){
+			for(int y = dragon.tailY(); y<dragon.headY();y+=PIXELS_PER_SPACE){
+				board[getCo(dragon.headX(),y)]=DRAGON;
+			}
+		}
+	}
+}
+
+private void drawDragon(){
+	dragonJLabel[0].setBounds(dragon.headX(),dragon.headY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+	int i = 1;
+	if(dragon.isInIntersection()){
+		if(dragon.intX()>dragon.headX()){
+			for(int x = dragon.intX(); x>dragon.headX(); x-=PIXELS_PER_SPACE){
+				dragonJLabel[i].setBounds(x,dragon.headY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				i++;
+			}
+		} else if(dragon.intX()<dragon.headX()){
+			for(int x = dragon.intX(); x<dragon.headX(); x+=PIXELS_PER_SPACE){
+				dragonJLabel[i].setBounds(x,dragon.headY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				i++;
+			}
+		} else if(dragon.intY()>dragon.headY()){
+			for(int y = dragon.intY(); y>dragon.headY();y-=PIXELS_PER_SPACE){
+				dragonJLabel[i].setBounds(dragon.headX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				i++;
+			}
+		} else if(dragon.intY()<dragon.headY()){
+			for(int y = dragon.intY(); y<dragon.headY();y+=PIXELS_PER_SPACE){
+				dragonJLabel[i].setBounds(dragon.headX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				i++;
+			}
+		}
+		
+		if(dragon.intX()>dragon.tailX()){
+			for(int x = dragon.intX(); x>=dragon.tailX(); x-=PIXELS_PER_SPACE){
+				dragonJLabel[i].setBounds(x,dragon.tailY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				i++;
+			}
+		} else if(dragon.intX()<dragon.tailX()){
+			for(int x = dragon.intX(); x<=dragon.tailX(); x+=PIXELS_PER_SPACE){
+				dragonJLabel[i].setBounds(x,dragon.tailY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				i++;
+			}
+		} else if(dragon.intY()>dragon.tailY()){
+			for(int y = dragon.intY(); y>=dragon.tailY();y-=PIXELS_PER_SPACE){
+				dragonJLabel[i].setBounds(dragon.tailX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				i++;
+			}
+		} else if(dragon.intY()<dragon.tailY()){
+			for(int y = dragon.intY(); y<=dragon.tailY();y+=PIXELS_PER_SPACE){
+				dragonJLabel[i].setBounds(dragon.tailX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				i++;
+			}
+		}
+		
+	} else {
+		if(dragon.tailX()>dragon.headX()){
+			for(int x = dragon.tailX(); x>dragon.headX(); x-=PIXELS_PER_SPACE){
+				dragonJLabel[i].setBounds(x,dragon.tailY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				i++;
+			}
+		} else if(dragon.tailX()<dragon.headX()){
+			for(int x = dragon.tailX(); x<dragon.headX(); x+=PIXELS_PER_SPACE){
+				dragonJLabel[i].setBounds(x,dragon.tailY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				i++;
+			}
+		} else if(dragon.tailY()>dragon.headY()){
+			for(int y = dragon.tailY(); y>dragon.headY();y-=PIXELS_PER_SPACE){
+				dragonJLabel[i].setBounds(dragon.tailX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				i++;
+			}
+		} else if(dragon.tailY()<dragon.headY()){
+			for(int y = dragon.tailY(); y<dragon.headY();y+=PIXELS_PER_SPACE){
+				dragonJLabel[i].setBounds(dragon.tailX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				i++;
+			}
+		}
+	}
+}
+
+/*
 private void move(Knight k){
 	if(k != knight){
 		throw new IllegalArgumentException();
@@ -154,10 +293,11 @@ private void move(Knight k){
 	board[findKnight()]=CORRIDOR;
 	board[getCo(knight.getXLocation(),knight.getYLocation())]=KNIGHT;
 }
+*/
 
 public void moveAll() throws Exception{
 	move(dragon);
-	move(knight);
+	//move(knight);
 	draw();
 }
 
@@ -207,14 +347,31 @@ public boolean isAtIntersection(Knight k) throws Exception{
 	return false;
 }
 
-public boolean didDragonEatKnight(){}
+public boolean didDragonEatKnight() throws Exception{
+	if(board[findDragon()+1]==KNIGHT||board[findDragon()-1]==KNIGHT||board[oneUp(findDragon())]==KNIGHT||board[oneDown(findDragon())]==KNIGHT){
+		return true;
+	}
+		return false;
+}
 
-public boolean didKnightKillDragon(){}
+public boolean didKnightKillDragon(){
+	if(board[getCo(dragonJLabel[dragon.tailsLeft()].getLocation().x,dragonJLabel[dragon.tailsLeft()].getLocation().y)+1]==KNIGHT||board[getCo(dragonJLabel[dragon.tailsLeft()].getLocation().x,dragonJLabel[dragon.tailsLeft()].getLocation().y)-1]==KNIGHT||board[oneUp(getCo(dragonJLabel[dragon.tailsLeft()].getLocation().x,dragonJLabel[dragon.tailsLeft()].getLocation().y))]==KNIGHT||board[oneDown(getCo(dragonJLabel[dragon.tailsLeft()].getLocation().x,dragonJLabel[dragon.tailsLeft()].getLocation().y))]==KNIGHT){
+		return true;
+	}
+		return false;
+}
 
 private void draw(){
-	knightJLabel.setVisible(false);
-	knightJLabel.setBounds(knight.getXLocation(),knight.getYLocation(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
-	knightJLabel.setVisible(true);
+	//knightJLabel.setVisible(false);
+	//knightJLabel.setBounds(knight.getXLocation(),knight.getYLocation(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+	//knightJLabel.setVisible(true);
+	for(int i = 0; i < dragon.tailsLeft()+1; i++){
+		dragonJLabel[i].setVisible(false);
+	}
+	drawDragon();
+	for(int i = 0; i < dragon.tailsLeft()+1; i++){
+		dragonJLabel[i].setVisible(true);
+	}
 }
 
 

@@ -121,6 +121,8 @@ public class Dragon {
 		tailsExtended = 0;
 	}
 	
+	public int tailsLeft(){return tailsLeft;}
+	
 	private int opposite(int dir){
 		if(dir==UP){
 			return DOWN;
