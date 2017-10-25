@@ -1,15 +1,18 @@
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class Knight {
 
-	public int xLoc;
-	public int yLoc;
-	public int locInArray;
-	public int currentDirection = 0;
-	public int nextDirection = 0;
-	public int LIVES;
-	public int livesLeft = LIVES;
-	public boolean isAlive = false;
-	public int SPEED = 1;
+	private int xLoc;
+	private int yLoc;
+	private int locInArray;
+	private int currentDirection = 0;
+	private int nextDirection = 0;
+	private int LIVES;
+	private int livesLeft = LIVES;
+	private boolean isAlive = false;
+	private int SPEED = 1;
+	private boolean isAtIntersection;
 	
 	public final static int LEFT = 3;
     public final static int RIGHT = 4;
@@ -17,19 +20,68 @@ public class Knight {
     public final static int DOWN = 6;
 	
 	
-	public Knight(int passedLIVES, int passedSPEED, int arraySpot)
+	public Knight(int passedLIVES, int passedSPEED, int x, int y)
 	{
 		LIVES = passedLIVES;
 		SPEED = passedSPEED;
 		
 		setLifeStatus(true);
+		setLocation(x,y);
 		
 	}
 	
+	public void move(int [] dirOptions, KeyEvent e)
+	{
+		switch(e.getKeyCode()){
+		case KeyEvent.VK_KP_LEFT: setNextDirection(LEFT);;
+		break;
+		case KeyEvent.VK_KP_RIGHT: setNextDirection(RIGHT);
+		break;
+		case KeyEvent.VK_KP_UP: setNextDirection(UP);
+		break;
+		case KeyEvent.VK_KP_DOWN: setNextDirection(DOWN);
+		break;
+		}
+		
+		if(isAtIntersection)
+		{
+			if(currentDirection != nextDirection)
+			{
+				for(int i = 0; i<dirOptions.length;i++)
+				{
+					if(dirOptions[i] == nextDirection)
+					{
+						currentDirection = nextDirection;
+						break;
+					}
+				}
+			}
+		}
+		else
+			if(canIMoveToNextSpot(currentDirection))
+			{
+				switch(currentDirection){
+				case LEFT: xLoc -= SPEED;
+				break;
+				case RIGHT: xLoc += SPEED;
+				break;
+				case UP: yLoc += SPEED;
+				break;
+				case DOWN: yLoc -= SPEED;
+				break;
+			}
+	}
+	}
 	
+	private boolean canIMoveToNextSpot(int currentDirection2) 
+	{
+		return true;
+	}
+
 	public void setLocation(int x, int y)
 	{
-		locInArray = 0;
+		xLoc = x;
+		yLoc = y;
 	}
 	public int currentDirection()
 	{
@@ -57,14 +109,10 @@ public class Knight {
 	}
 	public void setLifeStatus(boolean life)
 	{
-		if(!life)
-		{
-			isAlive = false;
-		}
-		else if(life)
-		{
-			isAlive = true;
-		}
+		isAlive = life;
+	}
+	public void setIntersection(boolean intersec){
+		isAtIntersection = intersec;
 	}
 	public void upDateDirection()
 	{
