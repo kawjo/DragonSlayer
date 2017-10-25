@@ -28,6 +28,9 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     public static Board gameBoard;
     public static JFrame boardHolder;
     
+    private Knight gameKnight = new Knight(1,1,1,1);
+    private Dragon gameDragon = new Dragon(1,1,1,1,1);  
+    
     public DragonController(String passedInWindowTitle, int gameWindowX, int gameWindowY, int gameWindowWidth, int gameWindowHeight, Board B1){
     		boardHolder = new JFrame(passedInWindowTitle);
     		boardHolder.setSize(gameWindowWidth, gameWindowHeight);
@@ -42,20 +45,19 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         boardHolder.pack();
         boardHolder.setResizable(false);
         
-        boardHolder.setVisible(true);
+        boardHolder.setVisible(true);      
         
-        Knight gameKnight = new Knight(1,1,1);// JFrame, pushes required, % change direction
-       
-        //gameDragon = new Dragon();// JFrame, pushes required, % change direction           
         //resetGame();
         // start the timer
         gameTimer.schedule(this, 0, MOVE_TIMER);    
  
         // register this class as a mouse event listener for the JFrame
         boardHolder.addMouseListener(this);
+        boardHolder.addKeyListener(this);
     }   
     
-    private void resetGame(int dragonTails){
+    private void resetGame()
+    {
         
     }
     
@@ -111,7 +113,6 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 
 	public void keyPressed(KeyEvent e) {
 		;
-		
 	}
 
 	public void keyReleased(KeyEvent e) {
