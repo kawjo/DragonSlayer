@@ -34,7 +34,7 @@ public class Dragon {
 		resetDragon(x,y,d);
 	}
 	
-	public void move(int pix){
+	public void move(int pix,int[] dirs){
 		if(isAtIntersection){
 			Random r = new Random();
 			int dir = opposite(tailDirection);
