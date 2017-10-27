@@ -30,7 +30,7 @@ public class Knight {
 		
 	}
 	
-	public void move(int [] dirOptions, KeyEvent e)
+	public void move(int [] dirOptions)
 	{
 		switch(e.getKeyCode()){
 		case KeyEvent.VK_KP_LEFT: setNextDirection(LEFT);;
