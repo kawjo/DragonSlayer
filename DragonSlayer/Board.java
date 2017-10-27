@@ -48,9 +48,9 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     	gameContentPane.add(mazeJLabels[i]);
     	mazeJLabels[i].setVisible(true);
     }
-    //knight = new Knight();
+    knight = new Knight(1,1,getXPosition(findKnight()),getYPosition(findKnight()));
     dragon = new Dragon(1,1,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
-    //knightJLabel = new JLabel();
+    knightJLabel = new JLabel();
     dragonJLabel = new JLabel[dragon.TAILS+1];
     for(int i = 0; i < dragonJLabel.length; i++){
     	dragonJLabel[i] = new JLabel();
@@ -63,8 +63,8 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     		dragonJLabel[i].setIcon(new ImageIcon(dragonImage));
     }
     
-    //String knightImage = "img/Knight"+PIXELS_PER_SPACE+".jpg";
-    //knightJLabel.setIcon(new ImageIcon(knightImage));
+    String knightImage = "img/Knight"+PIXELS_PER_SPACE+".jpg";
+    knightJLabel.setIcon(new ImageIcon(knightImage));
     draw();
 }
 
@@ -279,8 +279,8 @@ private void drawDragon(){
 	}
 }
 
-/*
-private void move(Knight k){
+
+private void move(Knight k) throws Exception{
 	if(k != knight){
 		throw new IllegalArgumentException();
 	}
@@ -293,11 +293,11 @@ private void move(Knight k){
 	board[findKnight()]=CORRIDOR;
 	board[getCo(knight.getXLocation(),knight.getYLocation())]=KNIGHT;
 }
-*/
+
 
 public void moveAll() throws Exception{
 	move(dragon);
-	//move(knight);
+	move(knight);
 	draw();
 }
 
