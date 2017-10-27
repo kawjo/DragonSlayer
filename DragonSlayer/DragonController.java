@@ -28,10 +28,10 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     public static Board gameBoard;
     public static JFrame boardHolder;
     
-    private Knight gameKnight = new Knight(1,1,1,1);
-    private Dragon gameDragon = new Dragon(1,1,1,1,1);  
+    //private Knight gameKnight = new Knight(1,1,1,1);
+    //private Dragon gameDragon = new Dragon(1,1,1,1,1);  
     
-    public DragonController(String passedInWindowTitle, int gameWindowX, int gameWindowY, int gameWindowWidth, int gameWindowHeight, Board B1){
+    public DragonController(String passedInWindowTitle, int gameWindowX, int gameWindowY, int gameWindowWidth, int gameWindowHeight, Board B1) throws Exception{
     		boardHolder = new JFrame(passedInWindowTitle);
     		boardHolder.setSize(gameWindowWidth, gameWindowHeight);
     		boardHolder.setLocation(gameWindowX, gameWindowY);
@@ -40,6 +40,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         gameContentPane = boardHolder.getContentPane();
         
         gameBoard = new Board(new Maze(), gameContentPane);
+        
         gameBoard = B1;
   
         boardHolder.pack();
@@ -54,6 +55,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         // register this class as a mouse event listener for the JFrame
         boardHolder.addMouseListener(this);
         boardHolder.addKeyListener(this);
+        gameIsReady = true;
     }   
     
     private void resetGame()
@@ -81,7 +83,9 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     // this is "run" everytime the timer expires (yes, they could have picked a better name)
     public void run() {
         if (gameIsReady){
-            
+        	try{
+            gameBoard.moveAll();
+        	}catch(Exception e){e.printStackTrace();}
         }
     }
 
@@ -102,7 +106,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         ;
     }
 
-    public static void main( String args[]){
+    public static void main( String args[]) throws Exception{
         DragonController myController = new DragonController("", 50,50, 1600, 900, gameBoard);// window title, int gameWindowX, int gameWindowY, int gameWindowWidth, int gameWindowHeight){
     }
 
