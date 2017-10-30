@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 
 public class Dragon {
@@ -38,7 +39,7 @@ public class Dragon {
 		if(isAtIntersection){
 			Random r = new Random();
 			int dir = opposite(tailDirection);
-			while(dir == opposite(tailDirection)){
+			while(dir == opposite(tailDirection) || !Arrays.asList(dirs).contains(dir)){
 				dir = r.nextInt(4)+3;
 			}
 			headDirection = dir;

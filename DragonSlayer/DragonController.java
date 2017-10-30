@@ -9,7 +9,7 @@ import java.util.TimerTask; // use as a timer
 
 class DragonController extends TimerTask implements MouseListener, KeyListener  {
     
-    public static final int MOVE_TIMER = 70; // time in milliseconds on timer
+    public static final int MOVE_TIMER = 700; // time in milliseconds on timer
  
     private Container gameContentPane;
     private final int dragonTails = 1;
@@ -40,7 +40,6 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         gameContentPane = boardHolder.getContentPane();
         
         gameBoard = new Board(new Maze(), gameContentPane);
-        gameBoard = B1;
   
         boardHolder.pack();
         boardHolder.setResizable(false);
@@ -55,6 +54,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         // register this class as a mouse event listener for the JFrame
         boardHolder.addMouseListener(this);
         boardHolder.addKeyListener(this);
+        gameIsReady = true;
     }   
     
     private void resetGame()
@@ -84,10 +84,15 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         if (gameIsReady)
         {
             try {
+            	gameBoard.print();
+            	System.out.println(gameBoard.isAtIntersection(gameBoard.dragon()));
 				gameBoard.moveAll();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				System.out.println(e.getMessage());
+				System.out.println(e.getLocalizedMessage());
+				System.out.println(e.toString());
 			}
         	
         	
