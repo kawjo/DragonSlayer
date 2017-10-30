@@ -57,6 +57,8 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     	String dragonImage = "";
     	if(i==0){
     		dragonImage = "img/DragonHead"+PIXELS_PER_SPACE+".jpg";
+    	} else if (i == dragonJLabel.length - 1){
+    		dragonImage = "img/DragonTail"+PIXELS_PER_SPACE+".jpg";
     	} else {
     		dragonImage = "img/Dragon"+PIXELS_PER_SPACE+".jpg";
     	}
