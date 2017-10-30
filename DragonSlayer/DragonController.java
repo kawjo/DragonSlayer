@@ -47,7 +47,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         
         boardHolder.setVisible(true);      
         
-        //resetGame();
+        resetGame();
         // start the timer
         gameTimer.schedule(this, 0, MOVE_TIMER);    
  
@@ -58,7 +58,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     
     private void resetGame()
     {
-        
+        run();
     }
     
     private void dragonGotHit() {
@@ -80,8 +80,16 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     //this run() function overrides run() in java.util.TimerTask
     // this is "run" everytime the timer expires (yes, they could have picked a better name)
     public void run() {
-        if (gameIsReady){
-            
+        if (gameIsReady)
+        {
+            try {
+				gameBoard.moveAll();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	
+        	
         }
     }
 
