@@ -47,7 +47,8 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         
         boardHolder.setVisible(true);      
         
-        resetGame();
+        run();
+        //resetGame();
         // start the timer
         gameTimer.schedule(this, 0, MOVE_TIMER);    
  
@@ -58,7 +59,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     
     private void resetGame()
     {
-        run();
+ 
     }
     
     private void dragonGotHit() {
