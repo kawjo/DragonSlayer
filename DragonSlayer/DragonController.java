@@ -112,7 +112,17 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 	}
 
 	public void keyPressed(KeyEvent e) {
-		;
+		
+		switch(e.getKeyCode()){
+		case KeyEvent.VK_KP_LEFT: gameKnight.setNextDirection(LEFT);;
+		break;
+		case KeyEvent.VK_KP_RIGHT: gameKnight.setNextDirection(RIGHT);
+		break;
+		case KeyEvent.VK_KP_UP: gameKnight.setNextDirection(UP);
+		break;
+		case KeyEvent.VK_KP_DOWN: gameKnight.setNextDirection(DOWN);
+		break;
+		}
 	}
 
 	public void keyReleased(KeyEvent e) {

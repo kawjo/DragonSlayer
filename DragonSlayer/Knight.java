@@ -32,16 +32,6 @@ public class Knight {
 	
 	public void move(int [] dirOptions)
 	{
-		switch(e.getKeyCode()){
-		case KeyEvent.VK_KP_LEFT: setNextDirection(LEFT);;
-		break;
-		case KeyEvent.VK_KP_RIGHT: setNextDirection(RIGHT);
-		break;
-		case KeyEvent.VK_KP_UP: setNextDirection(UP);
-		break;
-		case KeyEvent.VK_KP_DOWN: setNextDirection(DOWN);
-		break;
-		}
 		
 		if(isAtIntersection)
 		{
