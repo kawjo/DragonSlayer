@@ -68,6 +68,11 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     String knightImage = "img/Knight"+PIXELS_PER_SPACE+".jpg";
     knightJLabel.setIcon(new ImageIcon(knightImage));
     draw();
+    gameContentPane.add(knightJLabel);
+    gameContentPane.setComponentZOrder(knightJLabel,0);
+    for(int i = 0; i < dragonJLabel.length; i++){
+    	gameContentPane.add(dragonJLabel[i],0);
+    }
 }
 
 

@@ -84,8 +84,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         if (gameIsReady)
         {
             try {
-            	gameBoard.print();
-            	System.out.println(gameBoard.isAtIntersection(gameBoard.dragon()));
+            	//gameBoard.print();
 				gameBoard.moveAll();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -128,7 +127,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 	public void keyPressed(KeyEvent e) {
 		
 		switch(e.getKeyCode()){
-		case KeyEvent.VK_KP_LEFT: gameKnight.setNextDirection(LEFT);;
+		case KeyEvent.VK_KP_LEFT: gameKnight.setNextDirection(LEFT);
 		break;
 		case KeyEvent.VK_KP_RIGHT: gameKnight.setNextDirection(RIGHT);
 		break;
