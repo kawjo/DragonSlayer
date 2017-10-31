@@ -310,8 +310,8 @@ private int[] directions(int index){
 	}
 	boolean right = board[index+1]!=WALL;
 	boolean left = board[index-1]!=WALL;
-	boolean up = board[oneUp(index)]!=WALL;
-	boolean down = board[oneDown(index)]!=WALL;
+	boolean up = oneUp(index)!=WALL;
+	boolean down = oneDown(index)!=WALL;
 	ArrayList<Integer> a = new ArrayList<Integer>();
 	if(right){a.add(RIGHT);}
 	if(left){a.add(LEFT);}
@@ -328,15 +328,10 @@ public boolean isAtIntersection(Dragon d) throws Exception{
 	if(d != dragon){
 		throw new IllegalArgumentException("not dragon");
 	}
-	System.out.print("{");
-	for(int i = 0; i < directions(findDragon()).length; i++){
-		System.out.print(directions(findDragon())[i]);
-	}
-	System.out.print("}");
-	if(board[oneUp(findDragon())]!=WALL && board[oneDown(findDragon())]==WALL){
+	if(oneUp(findDragon())!=WALL && oneDown(findDragon())==WALL){
 		return true;
 	}
-	if(board[oneUp(findDragon())]==WALL && board[oneDown(findDragon())]!=WALL){
+	if(oneUp(findDragon())==WALL && oneDown(findDragon())!=WALL){
 		return true;
 	}
 	if(board[findDragon()-1]==WALL && board[findDragon()+1]!=WALL){
@@ -345,7 +340,7 @@ public boolean isAtIntersection(Dragon d) throws Exception{
 	if(board[findDragon()+1]==WALL && board[findDragon()-1]!=WALL){
 		return true;
 	}
-	if(board[oneDown(findDragon())]!=WALL && board[oneUp(findDragon())]!=WALL && board[findDragon()-1]!=WALL && board[findDragon()+1]!=WALL){
+	if(oneDown(findDragon())!=WALL && oneUp(findDragon())!=WALL && board[findDragon()-1]!=WALL && board[findDragon()+1]!=WALL){
 		return true;
 	}
 	return false;
@@ -355,10 +350,10 @@ public boolean isAtIntersection(Knight k) throws Exception{
 	if(k != knight){
 		throw new IllegalArgumentException("not knight");
 	}
-	if(board[oneUp(findKnight())]!=WALL && board[oneDown(findKnight())]==WALL){
+	if(oneUp(findKnight())!=WALL && oneDown(findKnight())==WALL){
 		return true;
 	}
-	if(board[oneUp(findKnight())]==WALL && board[oneDown(findKnight())]!=WALL){
+	if(oneUp(findKnight())==WALL && oneDown(findKnight())!=WALL){
 		return true;
 	}
 	if(board[findKnight()-1]==WALL && board[findKnight()+1]!=WALL){
@@ -367,14 +362,14 @@ public boolean isAtIntersection(Knight k) throws Exception{
 	if(board[findKnight()+1]==WALL && board[findKnight()-1]!=WALL){
 		return true;
 	}
-	if(board[oneDown(findKnight())]!=WALL && board[oneUp(findKnight())]!=WALL && board[findKnight()-1]!=WALL && board[findKnight()+1]!=WALL){
+	if(oneDown(findKnight())!=WALL && oneUp(findKnight())!=WALL && board[findKnight()-1]!=WALL && board[findKnight()+1]!=WALL){
 		return true;
 	}
 	return false;
 }
 
 public boolean didDragonEatKnight() throws Exception{
-	if(board[findDragon()+1]==KNIGHT||board[findDragon()-1]==KNIGHT||board[oneUp(findDragon())]==KNIGHT||board[oneDown(findDragon())]==KNIGHT){
+	if(board[findDragon()+1]==KNIGHT||board[findDragon()-1]==KNIGHT||oneUp(findDragon())==KNIGHT||oneDown(findDragon())==KNIGHT){
 		return true;
 	}
 		return false;
