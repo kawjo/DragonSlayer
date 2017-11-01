@@ -28,9 +28,6 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     public static Board gameBoard;
     public static JFrame boardHolder;
     
-    private Knight gameKnight = new Knight(1,1,1,1);
-    private Dragon gameDragon = new Dragon(1,1,1,1,1);  
-    
     public DragonController(String passedInWindowTitle, int gameWindowX, int gameWindowY, int gameWindowWidth, int gameWindowHeight, Board B1) throws Exception{
     		boardHolder = new JFrame(passedInWindowTitle);
     		boardHolder.setSize(gameWindowWidth, gameWindowHeight);
@@ -47,12 +44,10 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         boardHolder.pack();
         boardHolder.setResizable(false);
         
-        boardHolder.setVisible(true);      
-        System.out.println("show me a board");
+        boardHolder.setVisible(true);
         
         gameIsReady = true;
         run();
-        System.out.println("run everything");
         //resetGame();
         // start the timer
         gameTimer.schedule(this, 0, MOVE_TIMER);    
@@ -92,11 +87,18 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     public void run() {
         if (gameIsReady)
         {
-        		System.out.println("try to make everything run");
             try {
             	//gameBoard.print();
 				gameBoard.moveAll();
 				boardHolder.repaint();
+				if(gameBoard.didDragonEatKnight()){
+					gameIsReady=false;
+					System.out.println("YOU LOST");
+					System.out.println("SUCKER");
+				} else if(gameBoard.didKnightKillDragon()){
+					gameIsReady=false;
+					System.out.println("YOU WON!");
+				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -137,13 +139,13 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 	public void keyPressed(KeyEvent e) {
 		
 		switch(e.getKeyCode()){
-		case KeyEvent.VK_KP_LEFT: gameKnight.setNextDirection(LEFT);
+		case KeyEvent.VK_KP_LEFT: gameBoard.knight().setNextDirection(LEFT);
 		break;
-		case KeyEvent.VK_KP_RIGHT: gameKnight.setNextDirection(RIGHT);
+		case KeyEvent.VK_KP_RIGHT: gameBoard.knight().setNextDirection(RIGHT);
 		break;
-		case KeyEvent.VK_KP_UP: gameKnight.setNextDirection(UP);
+		case KeyEvent.VK_KP_UP: gameBoard.knight().setNextDirection(UP);
 		break;
-		case KeyEvent.VK_KP_DOWN: gameKnight.setNextDirection(DOWN);
+		case KeyEvent.VK_KP_DOWN: gameBoard.knight().setNextDirection(DOWN);
 		break;
 		}
 	}

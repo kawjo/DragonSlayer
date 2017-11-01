@@ -292,12 +292,12 @@ private void drawDragon(){
 				i++;
 			}
 		} else if(dragon.tailY()>dragon.headY()){
-			for(int y = dragon.tailY(); y>dragon.headY();y-=PIXELS_PER_SPACE){
+			for(int y = dragon.tailY(); y>dragon.tailY();y-=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(dragon.tailX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 				i++;
 			}
 		} else if(dragon.tailY()<dragon.headY()){
-			for(int y = dragon.tailY(); y<dragon.headY();y+=PIXELS_PER_SPACE){
+			for(int y = dragon.tailY(); y<dragon.tailY();y+=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(dragon.tailX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 				i++;
 			}
@@ -401,9 +401,11 @@ public boolean didDragonEatKnight() throws Exception{
 }
 
 public boolean didKnightKillDragon(){
-	if(board[getCo(dragonJLabel[dragon.tailsLeft()].getLocation().x,dragonJLabel[dragon.tailsLeft()].getLocation().y)+1]==KNIGHT||board[getCo(dragonJLabel[dragon.tailsLeft()].getLocation().x,dragonJLabel[dragon.tailsLeft()].getLocation().y)-1]==KNIGHT||board[oneUp(getCo(dragonJLabel[dragon.tailsLeft()].getLocation().x,dragonJLabel[dragon.tailsLeft()].getLocation().y))]==KNIGHT||board[oneDown(getCo(dragonJLabel[dragon.tailsLeft()].getLocation().x,dragonJLabel[dragon.tailsLeft()].getLocation().y))]==KNIGHT){
-		return true;
-	}
+	//if(dragon.areTailsExtended()){
+		if(board[getCo(dragonJLabel[dragon.tailsLeft()].getLocation().x,dragonJLabel[dragon.tailsLeft()].getLocation().y)+1]==KNIGHT||board[getCo(dragonJLabel[dragon.tailsLeft()].getLocation().x,dragonJLabel[dragon.tailsLeft()].getLocation().y)-1]==KNIGHT||board[oneUp(getCo(dragonJLabel[dragon.tailsLeft()].getLocation().x,dragonJLabel[dragon.tailsLeft()].getLocation().y))]==KNIGHT||board[oneDown(getCo(dragonJLabel[dragon.tailsLeft()].getLocation().x,dragonJLabel[dragon.tailsLeft()].getLocation().y))]==KNIGHT){
+			return true;
+		}
+	//}
 		return false;
 }
 
