@@ -315,12 +315,13 @@ private void move(Knight k) throws Exception{
 	} else {
 		knight.setIntersection(false);
 	}
-	knight.move(directions(findKnight()));
+	knight.move(PIXELS_PER_SPACE,directions(findKnight()));
 	if(knight.getXLocation()%PIXELS_PER_SPACE==0&&knight.getYLocation()%PIXELS_PER_SPACE==0){
 		board[findKnight()]=CORRIDOR;
 		board[getCo(knight.getXLocation(),knight.getYLocation())]=KNIGHT;
 	}
 }
+
 
 
 public void moveAll() throws Exception{
