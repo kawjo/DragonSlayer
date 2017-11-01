@@ -48,10 +48,13 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     	gameContentPane.add(mazeJLabels[i]);
     	mazeJLabels[i].setVisible(true);
     }
+    
     knight = new Knight(1,1,getXPosition(findKnight()),getYPosition(findKnight()));
     dragon = new Dragon(1,1,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
+    
     knightJLabel = new JLabel();
     dragonJLabel = new JLabel[dragon.TAILS+1];
+    
     for(int i = 0; i < dragonJLabel.length; i++){
     	dragonJLabel[i] = new JLabel();
     	String dragonImage = "";
@@ -63,10 +66,19 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     		dragonImage = "img/Dragon"+PIXELS_PER_SPACE+".jpg";
     	}
     		dragonJLabel[i].setIcon(new ImageIcon(dragonImage));
+    		
+    		dragonJLabel[i].setBounds(getXPosition(i),getYPosition(i),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+    		gameContentPane.add(dragonJLabel[i]);
+        	dragonJLabel[i].setVisible(true);
     }
+    
     
     String knightImage = "img/Knight"+PIXELS_PER_SPACE+".jpg";
     knightJLabel.setIcon(new ImageIcon(knightImage));
+    knightJLabel.setBounds(knight.getXLocation(),knight.getYLocation(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+    gameContentPane.add(knightJLabel);
+    knightJLabel.setVisible(true);
+    
     draw();
 }
 
@@ -83,7 +95,7 @@ private int getYPosition(int co){
 
 private int getCo(int x, int y){
 	int squaresPerWidth = DragonController.SCREEN_WIDTH/PIXELS_PER_SPACE;
-	return (y/PIXELS_PER_SPACE)*squaresPerWidth + x%PIXELS_PER_SPACE;
+	return ((y/PIXELS_PER_SPACE)*squaresPerWidth + x/PIXELS_PER_SPACE);
 }
 
 public Container getBoard(){
@@ -112,6 +124,7 @@ private int oneUp(int index){
 
 private int findDragon() throws Exception{
 	for(int i = 0; i < board.length; i++){
+		//System.out.println(board[i]);
 		if(board[i]==DRAGON_HEAD){
 			return i;
 		}
@@ -364,9 +377,9 @@ public boolean didKnightKillDragon(){
 }
 
 private void draw(){
-	//knightJLabel.setVisible(false);
-	//knightJLabel.setBounds(knight.getXLocation(),knight.getYLocation(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
-	//knightJLabel.setVisible(true);
+	knightJLabel.setVisible(false);
+	knightJLabel.setBounds(knight.getXLocation(),knight.getYLocation(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+	knightJLabel.setVisible(true);
 	for(int i = 0; i < dragon.tailsLeft()+1; i++){
 		dragonJLabel[i].setVisible(false);
 	}
