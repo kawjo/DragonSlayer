@@ -37,6 +37,9 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     		boardHolder.setLocation(gameWindowX, gameWindowY);
     		boardHolder.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     		
+    		boardHolder.addMouseListener(this);
+        boardHolder.addKeyListener(this);
+            
         gameContentPane = boardHolder.getContentPane();
         
         gameBoard = new Board(new Maze(), gameContentPane);
@@ -45,16 +48,22 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         boardHolder.setResizable(false);
         
         boardHolder.setVisible(true);      
+        System.out.println("show me a board");
         
+        gameIsReady = true;
         run();
+        System.out.println("run everything");
         //resetGame();
         // start the timer
         gameTimer.schedule(this, 0, MOVE_TIMER);    
  
+        gameBoard.moveAll();
         // register this class as a mouse event listener for the JFrame
+
         boardHolder.addMouseListener(this);
         boardHolder.addKeyListener(this);
         gameIsReady = true;
+
     }   
     
     private void resetGame()
@@ -83,9 +92,11 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     public void run() {
         if (gameIsReady)
         {
+        		System.out.println("try to make everything run");
             try {
             	//gameBoard.print();
 				gameBoard.moveAll();
+				boardHolder.repaint();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -93,8 +104,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 				System.out.println(e.getLocalizedMessage());
 				System.out.println(e.toString());
 			}
-        	
-        	
+        
         }
     }
 
