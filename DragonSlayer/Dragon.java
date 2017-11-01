@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 
 public class Dragon {
@@ -35,12 +36,25 @@ public class Dragon {
 	}
 	
 	public void move(int pix,int[] dirs){
+		System.out.println("isAtIntersection = "+isAtIntersection);
 		if(isAtIntersection){
 			Random r = new Random();
 			int dir = opposite(tailDirection);
-			while(dir == opposite(tailDirection)){
+			boolean valid = false;
+			while(!valid){
 				dir = r.nextInt(4)+3;
+				System.out.println();
+				System.out.print("{");
+				for(int i = 0; i < dirs.length; i++){
+					System.out.print(dirs[i]);
+					if(dirs[i] == dir && dir != opposite(tailDirection)){
+						valid = true;
+					}
+				}
+				System.out.print("}");
 			}
+			System.out.println(dir);
+			System.out.println(valid);
 			headDirection = dir;
 			intersecXLoc = headXLoc;
 			intersecYLoc = headYLoc;
@@ -57,9 +71,9 @@ public class Dragon {
 			break;
 			case RIGHT: headXLoc += pix;
 			break;
-			case UP: headYLoc += pix;
+			case UP: headYLoc -= pix;
 			break;
-			case DOWN: headYLoc -= pix;
+			case DOWN: headYLoc += pix;
 			break;
 		}
 		if(isExtended){
@@ -68,21 +82,27 @@ public class Dragon {
 				break;
 				case RIGHT: tailXLoc += pix;
 				break;
-				case UP: tailYLoc += pix;
+				case UP: tailYLoc -= pix;
 				break;
-				case DOWN: tailYLoc -= pix;
+				case DOWN: tailYLoc += pix;
 				break;
 			}
 		} else {
 			tailsExtended++;
 		}
-		if(intersecXLoc == tailXLoc && intersecYLoc == tailXLoc){
+		if(intersecXLoc == tailXLoc && intersecYLoc == tailYLoc){
 			tailDirection = headDirection;
 			isInIntersection = false;
 		}
 		if(tailsExtended == tailsLeft){
 			isExtended = true;
 		}
+		System.out.println("isExtended = "+isExtended);
+		System.out.println("headX = "+headXLoc);
+		System.out.println("headY = "+headYLoc);
+		System.out.println("tailX = "+tailXLoc);
+		System.out.println("tailY = "+tailYLoc);
+		System.out.println("isInIntersection = "+isInIntersection);
 	}
 	
 	public void setIntersection(boolean intersec){

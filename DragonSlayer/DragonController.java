@@ -9,7 +9,7 @@ import java.util.TimerTask; // use as a timer
 
 class DragonController extends TimerTask implements MouseListener, KeyListener  {
     
-    public static final int MOVE_TIMER = 70; // time in milliseconds on timer
+    public static final int MOVE_TIMER = 700; // time in milliseconds on timer
  
     private Container gameContentPane;
     private final int dragonTails = 1;
@@ -59,7 +59,13 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
  
         gameBoard.moveAll();
         // register this class as a mouse event listener for the JFrame
+<<<<<<< HEAD
        
+=======
+        boardHolder.addMouseListener(this);
+        boardHolder.addKeyListener(this);
+        gameIsReady = true;
+>>>>>>> aabd23c9644c8e936174e8034a833f15427e61ec
     }   
     
     private void resetGame()
@@ -90,6 +96,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         {
         		System.out.println("try to make everything run");
             try {
+            	//gameBoard.print();
 				gameBoard.moveAll();
 				boardHolder.repaint();
 			} catch (Exception e) {
@@ -132,7 +139,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 	public void keyPressed(KeyEvent e) {
 		
 		switch(e.getKeyCode()){
-		case KeyEvent.VK_KP_LEFT: gameKnight.setNextDirection(LEFT);;
+		case KeyEvent.VK_KP_LEFT: gameKnight.setNextDirection(LEFT);
 		break;
 		case KeyEvent.VK_KP_RIGHT: gameKnight.setNextDirection(RIGHT);
 		break;

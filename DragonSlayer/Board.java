@@ -80,6 +80,11 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     knightJLabel.setVisible(true);
     
     draw();
+    gameContentPane.add(knightJLabel);
+    gameContentPane.setComponentZOrder(knightJLabel,0);
+    for(int i = 0; i < dragonJLabel.length; i++){
+    	gameContentPane.add(dragonJLabel[i],0);
+    }
 }
 
 
@@ -93,9 +98,14 @@ private int getYPosition(int co){
 	return (co/squaresPerWidth)*PIXELS_PER_SPACE;
 }
 
-private int getCo(int x, int y){
+public int getCo(int x, int y){
 	int squaresPerWidth = DragonController.SCREEN_WIDTH/PIXELS_PER_SPACE;
+<<<<<<< HEAD
 	return ((y/PIXELS_PER_SPACE)*squaresPerWidth + x/PIXELS_PER_SPACE);
+=======
+	int val = (y/PIXELS_PER_SPACE)*squaresPerWidth + x/PIXELS_PER_SPACE;
+	return val;
+>>>>>>> aabd23c9644c8e936174e8034a833f15427e61ec
 }
 
 public Container getBoard(){
@@ -104,7 +114,7 @@ public Container getBoard(){
 
 private int oneDown(int index){
 	if(index<0||index>=board.length){
-		throw new IndexOutOfBoundsException();
+		throw new IndexOutOfBoundsException("Wrong number");
 	}
 	if(board[index]==WALL){
 		throw new IllegalArgumentException("Illegal Coordinates");
@@ -114,7 +124,7 @@ private int oneDown(int index){
 
 private int oneUp(int index){
 	if(index<0||index>=board.length){
-		throw new IndexOutOfBoundsException();
+		throw new IndexOutOfBoundsException("Wrong number");
 	}
 	if(board[index]==WALL){
 		throw new IllegalArgumentException("Illegal Coordinates");
@@ -147,7 +157,7 @@ public Dragon dragon(){return dragon;}
 
 private void move(Dragon d) throws Exception{
 	if(d != dragon){
-		throw new IllegalArgumentException();
+		throw new IllegalArgumentException("Not dragon");
 	}
 	if(isAtIntersection(dragon)){
 		dragon.setIntersection(true);
@@ -297,7 +307,7 @@ private void drawDragon(){
 
 private void move(Knight k) throws Exception{
 	if(k != knight){
-		throw new IllegalArgumentException();
+		throw new IllegalArgumentException("not knight");
 	}
 	if(isAtIntersection(knight)){
 		knight.setIntersection(true);
@@ -320,10 +330,10 @@ private int[] directions(int index){
 	if(board[index]==WALL){
 		throw new IllegalArgumentException("Illegal Coordinates");
 	}
-	boolean right = board[index+1]==CORRIDOR;
-	boolean left = board[index-1]==CORRIDOR;
-	boolean up = board[oneUp(index)]==CORRIDOR;
-	boolean down = board[oneDown(index)]==CORRIDOR;
+	boolean right = board[index+1]!=WALL;
+	boolean left = board[index-1]!=WALL;
+	boolean up = oneUp(index)!=WALL;
+	boolean down = oneDown(index)!=WALL;
 	ArrayList<Integer> a = new ArrayList<Integer>();
 	if(right){a.add(RIGHT);}
 	if(left){a.add(LEFT);}
@@ -338,12 +348,21 @@ private int[] directions(int index){
 
 public boolean isAtIntersection(Dragon d) throws Exception{
 	if(d != dragon){
-		throw new IllegalArgumentException();
+		throw new IllegalArgumentException("not dragon");
 	}
-	if(board[oneUp(findDragon())]==CORRIDOR){
+	if(oneUp(findDragon())!=WALL && oneDown(findDragon())==WALL){
 		return true;
 	}
-	if(board[oneDown(findDragon())]==CORRIDOR){
+	if(oneUp(findDragon())==WALL && oneDown(findDragon())!=WALL){
+		return true;
+	}
+	if(board[findDragon()-1]==WALL && board[findDragon()+1]!=WALL){
+		return true;
+	}
+	if(board[findDragon()+1]==WALL && board[findDragon()-1]!=WALL){
+		return true;
+	}
+	if(oneDown(findDragon())!=WALL && oneUp(findDragon())!=WALL && board[findDragon()-1]!=WALL && board[findDragon()+1]!=WALL){
 		return true;
 	}
 	return false;
@@ -351,19 +370,28 @@ public boolean isAtIntersection(Dragon d) throws Exception{
 
 public boolean isAtIntersection(Knight k) throws Exception{
 	if(k != knight){
-		throw new IllegalArgumentException();
+		throw new IllegalArgumentException("not knight");
 	}
-	if(board[oneUp(findKnight())]==CORRIDOR){
+	if(oneUp(findKnight())!=WALL && oneDown(findKnight())==WALL){
 		return true;
 	}
-	if(board[oneDown(findKnight())]==CORRIDOR){
+	if(oneUp(findKnight())==WALL && oneDown(findKnight())!=WALL){
+		return true;
+	}
+	if(board[findKnight()-1]==WALL && board[findKnight()+1]!=WALL){
+		return true;
+	}
+	if(board[findKnight()+1]==WALL && board[findKnight()-1]!=WALL){
+		return true;
+	}
+	if(oneDown(findKnight())!=WALL && oneUp(findKnight())!=WALL && board[findKnight()-1]!=WALL && board[findKnight()+1]!=WALL){
 		return true;
 	}
 	return false;
 }
 
 public boolean didDragonEatKnight() throws Exception{
-	if(board[findDragon()+1]==KNIGHT||board[findDragon()-1]==KNIGHT||board[oneUp(findDragon())]==KNIGHT||board[oneDown(findDragon())]==KNIGHT){
+	if(board[findDragon()+1]==KNIGHT||board[findDragon()-1]==KNIGHT||oneUp(findDragon())==KNIGHT||oneDown(findDragon())==KNIGHT){
 		return true;
 	}
 		return false;
@@ -386,6 +414,19 @@ private void draw(){
 	drawDragon();
 	for(int i = 0; i < dragon.tailsLeft()+1; i++){
 		dragonJLabel[i].setVisible(true);
+	}
+}
+
+public void print(){
+	int count = 0;
+	System.out.println();
+	for(int i: board){
+		System.out.print(i+" ");
+		if(count==16){
+			count = 0;
+			System.out.println();
+		}
+		count++;
 	}
 }
 
