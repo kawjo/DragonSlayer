@@ -80,7 +80,7 @@ public class Dragon {
 				case DOWN: tailYLoc += (int) pix*SPEED;
 				break;
 			}
-		} else {
+		} else if(headXLoc%pix==0&&headYLoc%pix==0){
 			tailsExtended++;
 		}
 		if(intersecXLoc == tailXLoc && intersecYLoc == tailYLoc){
