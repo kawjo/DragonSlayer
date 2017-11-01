@@ -49,7 +49,7 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     	mazeJLabels[i].setVisible(true);
     }
     knight = new Knight(1,1,getXPosition(findKnight()),getYPosition(findKnight()));
-    dragon = new Dragon(1,1,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
+    dragon = new Dragon(2,.5,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
     knightJLabel = new JLabel();
     dragonJLabel = new JLabel[dragon.TAILS+1];
     for(int i = 0; i < dragonJLabel.length; i++){
@@ -148,7 +148,9 @@ private void move(Dragon d) throws Exception{
 		dragon.setIntersection(false);
 	}
 	dragon.move(PIXELS_PER_SPACE, directions(findDragon()));
-	upDateDragonLocation();
+	if(dragon.headX()%100==0&&dragon.headY()%100==0){
+		upDateDragonLocation();
+	}
 }
 
 private void upDateDragonLocation(){
@@ -241,22 +243,22 @@ private void drawDragon(){
 		}
 		
 		if(dragon.intX()>dragon.tailX()){
-			for(int x = dragon.intX(); x>=dragon.tailX(); x-=PIXELS_PER_SPACE){
+			for(int x = dragon.intX()-PIXELS_PER_SPACE; x>=dragon.tailX(); x-=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(x,dragon.tailY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 				i++;
 			}
 		} else if(dragon.intX()<dragon.tailX()){
-			for(int x = dragon.intX(); x<=dragon.tailX(); x+=PIXELS_PER_SPACE){
+			for(int x = dragon.intX()+PIXELS_PER_SPACE; x<=dragon.tailX(); x+=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(x,dragon.tailY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 				i++;
 			}
 		} else if(dragon.intY()>dragon.tailY()){
-			for(int y = dragon.intY(); y>=dragon.tailY();y-=PIXELS_PER_SPACE){
+			for(int y = dragon.intY()-PIXELS_PER_SPACE; y>=dragon.tailY();y-=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(dragon.tailX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 				i++;
 			}
 		} else if(dragon.intY()<dragon.tailY()){
-			for(int y = dragon.intY(); y<=dragon.tailY();y+=PIXELS_PER_SPACE){
+			for(int y = dragon.intY()+PIXELS_PER_SPACE; y<=dragon.tailY();y+=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(dragon.tailX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 				i++;
 			}
@@ -298,8 +300,10 @@ private void move(Knight k) throws Exception{
 		knight.setIntersection(false);
 	}
 	knight.move(directions(findKnight()));
-	board[findKnight()]=CORRIDOR;
-	board[getCo(knight.getXLocation(),knight.getYLocation())]=KNIGHT;
+	if(knight.getXLocation()%100==0&&knight.getYLocation()%100==0){
+		board[findKnight()]=CORRIDOR;
+		board[getCo(knight.getXLocation(),knight.getYLocation())]=KNIGHT;
+	}
 }
 
 
