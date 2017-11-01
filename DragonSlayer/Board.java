@@ -50,8 +50,12 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     }
     
     knight = new Knight(1,1,getXPosition(findKnight()),getYPosition(findKnight()));
+<<<<<<< HEAD
     dragon = new Dragon(0,1,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
     
+=======
+    dragon = new Dragon(2,.5,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
+>>>>>>> 113debad9fae6973afa0762ec952813cf1908574
     knightJLabel = new JLabel();
     dragonJLabel = new JLabel[dragon.TAILS+1];
     
@@ -159,13 +163,15 @@ private void move(Dragon d) throws Exception{
 	if(d != dragon){
 		throw new IllegalArgumentException("Not dragon");
 	}
-	if(isAtIntersection(dragon)){
+	if(isAtIntersection(dragon)&&dragon.headX()%PIXELS_PER_SPACE==0&&dragon.headY()%PIXELS_PER_SPACE==0){
 		dragon.setIntersection(true);
 	} else {
 		dragon.setIntersection(false);
 	}
 	dragon.move(PIXELS_PER_SPACE, directions(findDragon()));
-	upDateDragonLocation();
+	if(dragon.headX()%PIXELS_PER_SPACE==0&&dragon.headY()%PIXELS_PER_SPACE==0){
+		upDateDragonLocation();
+	}
 }
 
 private void upDateDragonLocation(){
@@ -258,22 +264,22 @@ private void drawDragon(){
 		}
 		
 		if(dragon.intX()>dragon.tailX()){
-			for(int x = dragon.intX(); x>=dragon.tailX(); x-=PIXELS_PER_SPACE){
+			for(int x = dragon.intX()-PIXELS_PER_SPACE; x>=dragon.tailX(); x-=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(x,dragon.tailY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 				i++;
 			}
 		} else if(dragon.intX()<dragon.tailX()){
-			for(int x = dragon.intX(); x<=dragon.tailX(); x+=PIXELS_PER_SPACE){
+			for(int x = dragon.intX()+PIXELS_PER_SPACE; x<=dragon.tailX(); x+=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(x,dragon.tailY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 				i++;
 			}
 		} else if(dragon.intY()>dragon.tailY()){
-			for(int y = dragon.intY(); y>=dragon.tailY();y-=PIXELS_PER_SPACE){
+			for(int y = dragon.intY()-PIXELS_PER_SPACE; y>=dragon.tailY();y-=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(dragon.tailX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 				i++;
 			}
 		} else if(dragon.intY()<dragon.tailY()){
-			for(int y = dragon.intY(); y<=dragon.tailY();y+=PIXELS_PER_SPACE){
+			for(int y = dragon.intY()+PIXELS_PER_SPACE; y<=dragon.tailY();y+=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(dragon.tailX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 				i++;
 			}
@@ -314,9 +320,17 @@ private void move(Knight k) throws Exception{
 	} else {
 		knight.setIntersection(false);
 	}
+<<<<<<< HEAD
 	knight.move(PIXELS_PER_SPACE, directions(findKnight()));
 	board[findKnight()]=CORRIDOR;
 	board[getCo(knight.getXLocation(),knight.getYLocation())]=KNIGHT;
+=======
+	knight.move(directions(findKnight()));
+	if(knight.getXLocation()%PIXELS_PER_SPACE==0&&knight.getYLocation()%PIXELS_PER_SPACE==0){
+		board[findKnight()]=CORRIDOR;
+		board[getCo(knight.getXLocation(),knight.getYLocation())]=KNIGHT;
+	}
+>>>>>>> 113debad9fae6973afa0762ec952813cf1908574
 }
 
 
