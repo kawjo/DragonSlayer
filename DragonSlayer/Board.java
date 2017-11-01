@@ -100,12 +100,12 @@ private int getYPosition(int co){
 
 public int getCo(int x, int y){
 	int squaresPerWidth = DragonController.SCREEN_WIDTH/PIXELS_PER_SPACE;
-<<<<<<< HEAD
-	return ((y/PIXELS_PER_SPACE)*squaresPerWidth + x/PIXELS_PER_SPACE);
-=======
+
+	//return ((y/PIXELS_PER_SPACE)*squaresPerWidth + x/PIXELS_PER_SPACE);
+
 	int val = (y/PIXELS_PER_SPACE)*squaresPerWidth + x/PIXELS_PER_SPACE;
 	return val;
->>>>>>> aabd23c9644c8e936174e8034a833f15427e61ec
+
 }
 
 public Container getBoard(){

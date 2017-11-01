@@ -59,13 +59,11 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
  
         gameBoard.moveAll();
         // register this class as a mouse event listener for the JFrame
-<<<<<<< HEAD
-       
-=======
+
         boardHolder.addMouseListener(this);
         boardHolder.addKeyListener(this);
         gameIsReady = true;
->>>>>>> aabd23c9644c8e936174e8034a833f15427e61ec
+
     }   
     
     private void resetGame()
