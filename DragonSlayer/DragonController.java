@@ -28,9 +28,6 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     public static Board gameBoard;
     public static JFrame boardHolder;
     
-    private Knight gameKnight = new Knight(1,1,1,1);
-    private Dragon gameDragon = new Dragon(1,1,1,1,1);  
-    
     public DragonController(String passedInWindowTitle, int gameWindowX, int gameWindowY, int gameWindowWidth, int gameWindowHeight, Board B1) throws Exception{
     		boardHolder = new JFrame(passedInWindowTitle);
     		boardHolder.setSize(gameWindowWidth, gameWindowHeight);
@@ -60,8 +57,12 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         gameBoard.moveAll();
         // register this class as a mouse event listener for the JFrame
 
+        gameContentPane.addMouseListener(this);
+        gameContentPane.addKeyListener(this);
+        
         boardHolder.addMouseListener(this);
         boardHolder.addKeyListener(this);
+        
         gameIsReady = true;
 
     }   
@@ -130,22 +131,40 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     }
 
 	public void keyTyped(KeyEvent e) {
+		
 		;
 		
 	}
 
 	public void keyPressed(KeyEvent e) {
 		
-		switch(e.getKeyCode()){
-		case KeyEvent.VK_KP_LEFT: gameKnight.setNextDirection(LEFT);
-		break;
-		case KeyEvent.VK_KP_RIGHT: gameKnight.setNextDirection(RIGHT);
-		break;
-		case KeyEvent.VK_KP_UP: gameKnight.setNextDirection(UP);
-		break;
-		case KeyEvent.VK_KP_DOWN: gameKnight.setNextDirection(DOWN);
-		break;
+		if (e.getKeyCode() == KeyEvent.VK_LEFT)
+		{
+			gameBoard.knight().setCurrentDirection(LEFT);
 		}
+	    else if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+	    {
+	    		gameBoard.knight().setCurrentDirection(LEFT);
+	    }
+	    else if (e.getKeyCode() == KeyEvent.VK_UP)
+	    {
+	    		gameBoard.knight().setCurrentDirection(UP);
+	    }
+	    else if (e.getKeyCode() == KeyEvent.VK_DOWN)
+	    {
+	    		gameBoard.knight().setCurrentDirection(DOWN);
+	    }
+		
+		/*switch(e.getKeyCode()){
+		case KeyEvent.VK_KP_LEFT: gameBoard.knight().setNextDirection(LEFT);
+		break;
+		case KeyEvent.VK_KP_RIGHT: gameBoard.knight().setNextDirection(LEFT);
+		break;
+		case KeyEvent.VK_KP_UP: gameBoard.knight().setNextDirection(UP);
+		break;
+		case KeyEvent.VK_KP_DOWN: gameBoard.knight().setNextDirection(DOWN);
+		break;
+		}*/
 	}
 
 	public void keyReleased(KeyEvent e) {

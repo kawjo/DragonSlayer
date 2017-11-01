@@ -50,7 +50,7 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     }
     
     knight = new Knight(1,1,getXPosition(findKnight()),getYPosition(findKnight()));
-    dragon = new Dragon(1,1,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
+    dragon = new Dragon(0,1,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
     
     knightJLabel = new JLabel();
     dragonJLabel = new JLabel[dragon.TAILS+1];
@@ -314,10 +314,11 @@ private void move(Knight k) throws Exception{
 	} else {
 		knight.setIntersection(false);
 	}
-	knight.move(directions(findKnight()));
+	knight.move(PIXELS_PER_SPACE, directions(findKnight()));
 	board[findKnight()]=CORRIDOR;
 	board[getCo(knight.getXLocation(),knight.getYLocation())]=KNIGHT;
 }
+
 
 
 public void moveAll() throws Exception{
