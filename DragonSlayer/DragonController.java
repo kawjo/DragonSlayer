@@ -109,10 +109,14 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 				boardHolder.repaint();
 				if(gameBoard.dragon().areTailsExtended()&&gameBoard.didDragonEatKnight()){
 					gameIsReady=false;
+					startString.setText("<html>YOU LOST!<br>SUCKER >P<br><br>press any key to play again</html>");
+					startPanel.setVisible(true);
 					System.out.println("YOU LOST");
 					System.out.println("SUCKER");
 				} else if(gameBoard.dragon().areTailsExtended()&&gameBoard.didKnightKillDragon()){
 					gameIsReady=false;
+					startString.setText("<html>YOU WON!<br>press any key to play again</html>");
+					startPanel.setVisible(true);
 					System.out.println("YOU WON!");
 				}
 			} catch (Exception e) {
