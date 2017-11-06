@@ -1,15 +1,17 @@
 
 import javax.swing.JFrame; // for JFrame
 import javax.swing.JOptionPane; // messages are displayed using JOptionPane
+import javax.swing.JPanel;
 import javax.swing.ImageIcon; // messages have an icon
 import java.awt.*; // for graphics & MouseListener 
 import java.awt.event.*; // need for events and MouseListener
 import java.util.TimerTask; // use as a timer 
+import javax.swing.JLabel; //use for display text
 
 
 class DragonController extends TimerTask implements MouseListener, KeyListener  {
     
-    public static final int MOVE_TIMER = 700; // time in milliseconds on timer
+    public static final int MOVE_TIMER = 70; // time in milliseconds on timer
  
     private Container gameContentPane;
     private final int dragonTails = 1;
@@ -27,6 +29,8 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     
     public static Board gameBoard;
     public static JFrame boardHolder;
+    private JLabel startString;
+    private JPanel startPanel;
     
     public DragonController(String passedInWindowTitle, int gameWindowX, int gameWindowY, int gameWindowWidth, int gameWindowHeight, Board B1) throws Exception{
     		boardHolder = new JFrame(passedInWindowTitle);
@@ -46,7 +50,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         
         boardHolder.setVisible(true);
         
-        gameIsReady = true;
+        //gameIsReady = true;
         run();
         //resetGame();
         // start the timer
@@ -61,7 +65,15 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         boardHolder.addMouseListener(this);
         boardHolder.addKeyListener(this);
         
-        gameIsReady = true;
+        //gameIsReady = true;
+        startPanel = new JPanel();
+        startString = new JLabel("PRESS ANY KEY TO START");
+        startString.setVisible(true);
+        startPanel.add(startString);
+        boardHolder.add(startPanel);
+        startPanel.setVisible(true);
+        boardHolder.setComponentZOrder(startPanel,0);
+        startString.setFont(new Font(null,Font.PLAIN,100));
 
     }   
     
@@ -142,6 +154,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 	}
 
 	public void keyPressed(KeyEvent e) {
+		if(!gameIsReady&&startPanel.isVisible()){startPanel.setVisible(false);gameIsReady=true;}
 		
 		switch(e.getKeyCode()){
 		case KeyEvent.VK_KP_LEFT: gameBoard.knight().setNextDirection(LEFT);
@@ -153,7 +166,6 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 		case KeyEvent.VK_KP_LEFT: gameBoard.knight().setNextDirection(LEFT);
 		break;
 		case KeyEvent.VK_KP_RIGHT: gameBoard.knight().setNextDirection(LEFT);
->>>>>>> 0dbcce2bbc145798613928c5e63374162d414765
 		break;
 		case KeyEvent.VK_KP_UP: gameBoard.knight().setNextDirection(UP);
 		break;
