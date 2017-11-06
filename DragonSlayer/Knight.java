@@ -11,7 +11,7 @@ public class Knight {
 	private int LIVES;
 	private int livesLeft = LIVES;
 	private boolean isAlive = false;
-	private int SPEED = 1;
+	private double SPEED = 1;
 	private boolean isAtIntersection;
 	private int[] knightDirs;
 	private boolean canMove;
@@ -52,23 +52,28 @@ public class Knight {
 					}
 				}
 			}
-			else
+		else
+		{
+			for(int i =0;i<dirOptions.length;i++)
 			{
-				for(int i =0;i<dirOptions.length;i++)
+				if(didDirectionChange() && dirOptions[i] == nextDirection)
 				{
-					if(dirOptions[i] == currentDirection)
-					{
-						setMovability(true);
-						break;
-					}
-					else
-					{
-						setMovability(false);
-						currentDirection = 0;
-					}
+					upDateDirection();
 				}
+				else if(dirOptions[i] == currentDirection)
+				{
+					setMovability(true);
+					break;
+				}
+				else
+				{
+					setMovability(false);
+					currentDirection = 0;
+				}
+			
 			}
 		}
+	}
 		if(canIMoveToNextSpot())
 			{
 				switch(currentDirection){
@@ -76,14 +81,23 @@ public class Knight {
 				break;
 				case RIGHT: xLoc += pixToMove;
 				break;
-				case UP: yLoc += pixToMove;
+				case UP: yLoc -= pixToMove;
 				break;
-				case DOWN: yLoc -= pixToMove;
+				case DOWN: yLoc += pixToMove;
 				break;
 			}
 	}
 	}
 	
+	private boolean didDirectionChange()
+	{
+		if(currentDirection != nextDirection)
+		{
+			return true;
+		}
+		else
+			return false;
+	}
 	private boolean canIMoveToNextSpot() 
 	{
 		return canMove;
