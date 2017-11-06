@@ -38,6 +38,14 @@ public class Knight {
 	{
 		knightDirs = dirOptions;
 		
+		System.out.println("Pre-move current Dir: " + currentDirection);
+		System.out.println("Pre-move next Dir: " + nextDirection);
+		System.out.println("Directions availible: ");
+		for(int i =0; i<dirOptions.length; i++)
+		{
+			System.out.println(dirOptions[i]);
+		}
+		
 		if(isAtIntersection)
 		{
 			if(currentDirection != nextDirection)
@@ -46,19 +54,21 @@ public class Knight {
 				{
 					if(dirOptions[i] == nextDirection)
 					{
-						currentDirection = nextDirection;
+						upDateDirection();
 						setMovability(true);
 						break;
 					}
+					
 				}
 			}
 		else
 		{
-			for(int i =0;i<dirOptions.length;i++)
+			for(int i =0; i<dirOptions.length; i++)
 			{
 				if(didDirectionChange() && dirOptions[i] == nextDirection)
 				{
 					upDateDirection();
+					break;
 				}
 				else if(dirOptions[i] == currentDirection)
 				{
@@ -69,6 +79,7 @@ public class Knight {
 				{
 					setMovability(false);
 					currentDirection = 0;
+					break;
 				}
 			
 			}
@@ -87,6 +98,8 @@ public class Knight {
 				break;
 			}
 	}
+		System.out.println("Post-move current Dir: " + currentDirection);
+		System.out.println("Post-move next Dir: " + nextDirection);
 	}
 	
 	private boolean didDirectionChange()
