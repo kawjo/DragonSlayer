@@ -49,8 +49,8 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     	mazeJLabels[i].setVisible(true);
     }
     
-    knight = new Knight(1,1,getXPosition(findKnight()),getYPosition(findKnight()));
-    dragon = new Dragon(5,.25,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
+    knight = new Knight(1,.5,getXPosition(findKnight()),getYPosition(findKnight()));
+    dragon = new Dragon(2,.25,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
     knightJLabel = new JLabel();
     dragonJLabel = new JLabel[dragon.TAILS+1];
     
@@ -446,15 +446,20 @@ public void print(){
 	}
 }
 
-public void reset() throws Exception{
+public void reset(boolean didKnightKillDragon) throws Exception{
 	for(int i = 0; i < dragon.tailsLeft()+1; i++){
 		gameContentPane.remove(dragonJLabel[i]);
 	}
 	gameContentPane.remove(knightJLabel);
 	
+	this.print();
 	board = maze.fillMazeArray();
-	knight = new Knight(1,1,getXPosition(findKnight()),getYPosition(findKnight()));
-    dragon = new Dragon(5,.25,getXPosition(findDragon()),getYPosition(findDragon()),UP);
+	this.print();
+	knight.setLocation(getXPosition(findKnight()),getYPosition(findKnight()));
+	
+	if(didKnightKillDragon){
+		dragon.tailGotChoppedOff(getXPosition(findDragon()),getYPosition(findDragon()),UP);
+	}
 	
 	knightJLabel = new JLabel();
     dragonJLabel = new JLabel[dragon.tailsLeft()+1];
@@ -470,11 +475,16 @@ public void reset() throws Exception{
     		dragonImage = "img/Dragon"+PIXELS_PER_SPACE+".jpg";
     	}
     		dragonJLabel[i].setIcon(new ImageIcon(dragonImage));
-    		
     		dragonJLabel[i].setBounds(getXPosition(i),getYPosition(i),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
     		gameContentPane.add(dragonJLabel[i]);
+    		gameContentPane.setComponentZOrder(dragonJLabel[i],0);
         	dragonJLabel[i].setVisible(false);
     }
+    knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+".jpg"));
+    knightJLabel.setBounds(knight.getXLocation(),knight.getYLocation(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+    gameContentPane.add(knightJLabel);
+    gameContentPane.setComponentZOrder(knightJLabel, 0);
+    knightJLabel.setVisible(true);
 }
 
 

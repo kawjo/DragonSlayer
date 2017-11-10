@@ -130,6 +130,8 @@ public class Dragon {
 		if(d == UP || d == DOWN || d == LEFT || d == RIGHT){
 			headDirection = d;
 			tailDirection = d;
+		} else {
+			throw new IllegalArgumentException("No direction given");
 		}
 		isExtended = false;
 		tailsExtended = 0;

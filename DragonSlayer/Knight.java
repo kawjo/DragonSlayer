@@ -23,7 +23,7 @@ public class Knight {
 	
     
 	
-	public Knight(int passedLIVES, int passedSPEED, int x, int y)
+	public Knight(int passedLIVES, double passedSPEED, int x, int y)
 	{
 		LIVES = passedLIVES;
 		SPEED = passedSPEED;
@@ -34,7 +34,24 @@ public class Knight {
 		
 	}
 	
-	public void move(int pixToMove, int [] dirOptions)
+	public void move(int pixToMove,int [] dirOptions){
+		if(xLoc%pixToMove!=0||yLoc%pixToMove!=0){
+			switch(currentDirection){
+			case LEFT: xLoc -= pixToMove*SPEED;
+			break;
+			case RIGHT: xLoc += pixToMove*SPEED;
+			break;
+			case UP: yLoc -= pixToMove*SPEED;
+			break;
+			case DOWN: yLoc += pixToMove*SPEED;
+			break;
+			}
+		} else {
+			yesMove(pixToMove,dirOptions);
+		}
+	}
+	
+	private void yesMove(int pixToMove, int [] dirOptions)
 	{
 		knightDirs = dirOptions;
 		
@@ -88,13 +105,13 @@ public class Knight {
 		if(canIMoveToNextSpot())
 			{
 				switch(currentDirection){
-				case LEFT: xLoc -= pixToMove;
+				case LEFT: xLoc -= pixToMove*SPEED;
 				break;
-				case RIGHT: xLoc += pixToMove;
+				case RIGHT: xLoc += pixToMove*SPEED;
 				break;
-				case UP: yLoc -= pixToMove;
+				case UP: yLoc -= pixToMove*SPEED;
 				break;
-				case DOWN: yLoc += pixToMove;
+				case DOWN: yLoc += pixToMove*SPEED;
 				break;
 			}
 	}
