@@ -3,6 +3,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.*;
+import java.awt.geom.Area;
 import java.util.ArrayList;
 public class Board {
 
@@ -50,7 +51,7 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     }
     
     knight = new Knight(1,1,getXPosition(findKnight()),getYPosition(findKnight()));
-    dragon = new Dragon(5,.25,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
+    dragon = new Dragon(2,.25,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
     knightJLabel = new JLabel();
     dragonJLabel = new JLabel[dragon.TAILS+1];
     
@@ -408,20 +409,25 @@ public boolean isAtIntersection(Knight k) throws Exception{
 }
 
 public boolean didDragonEatKnight() throws Exception{
-	if(board[findDragon()+1]==KNIGHT||board[findDragon()-1]==KNIGHT||oneUp(findDragon())==KNIGHT||oneDown(findDragon())==KNIGHT){
+	/*if(board[findDragon()+1]==KNIGHT||board[findDragon()-1]==KNIGHT||oneUp(findDragon())==KNIGHT||oneDown(findDragon())==KNIGHT){
 		return true;
 	}
-		return false;
+		return false;*/
+	Area areaA = new Area(knightJLabel.getBounds());
+    Area areaB = new Area(dragonJLabel[0].getBounds());
+
+    return areaA.intersects(areaB.getBounds2D());
+	
 }
 
 public boolean didKnightKillDragon(){
-	//if(dragon.areTailsExtended()){
-		if(board[getCo(dragonJLabel[dragon.tailsLeft()].getLocation().x,dragonJLabel[dragon.tailsLeft()].getLocation().y)+1]==KNIGHT||board[getCo(dragonJLabel[dragon.tailsLeft()].getLocation().x,dragonJLabel[dragon.tailsLeft()].getLocation().y)-1]==KNIGHT||board[oneUp(getCo(dragonJLabel[dragon.tailsLeft()].getLocation().x,dragonJLabel[dragon.tailsLeft()].getLocation().y))]==KNIGHT||board[oneDown(getCo(dragonJLabel[dragon.tailsLeft()].getLocation().x,dragonJLabel[dragon.tailsLeft()].getLocation().y))]==KNIGHT){
-			return true;
-		}
-	//}
-		return false;
+	
+	Area areaA = new Area(knightJLabel.getBounds());
+    Area areaB = new Area(dragonJLabel[dragonJLabel.length - 1].getBounds());
+
+    return areaA.intersects(areaB.getBounds2D());
 }
+
 
 private void draw(){
 	knightJLabel.setVisible(false);

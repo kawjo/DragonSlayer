@@ -14,8 +14,6 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     public static final int MOVE_TIMER = 70; // time in milliseconds on timer
  
     private Container gameContentPane;
-    private final int dragonTails = 1;
-    private final int knightLives = 1;
     private boolean gameIsReady = false;
     
     private java.util.Timer gameTimer = new java.util.Timer();
@@ -177,16 +175,6 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 	    		gameBoard.knight().setNextDirection(DOWN);
 	    }
 		
-		/*switch(e.getKeyCode()){
-		case KeyEvent.VK_KP_LEFT: gameBoard.knight().setNextDirection(LEFT);
-		break;
-		case KeyEvent.VK_KP_RIGHT: gameBoard.knight().setNextDirection(LEFT);
-		break;
-		case KeyEvent.VK_KP_UP: gameBoard.knight().setNextDirection(UP);
-		break;
-		case KeyEvent.VK_KP_DOWN: gameBoard.knight().setNextDirection(DOWN);
-		break;
-		}*/
 	}
 
 	public void keyReleased(KeyEvent e) {
