@@ -50,7 +50,7 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     }
     
     knight = new Knight(1,1,getXPosition(findKnight()),getYPosition(findKnight()));
-    dragon = new Dragon(2,.25,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
+    dragon = new Dragon(5,.25,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
     knightJLabel = new JLabel();
     dragonJLabel = new JLabel[dragon.TAILS+1];
     
@@ -68,7 +68,7 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     		
     		dragonJLabel[i].setBounds(getXPosition(i),getYPosition(i),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
     		gameContentPane.add(dragonJLabel[i]);
-        	dragonJLabel[i].setVisible(true);
+        	dragonJLabel[i].setVisible(false);
     }
     
     
@@ -234,26 +234,31 @@ private void upDateDragonLocation(){
 
 private void drawDragon(){
 	dragonJLabel[0].setBounds(dragon.headX(),dragon.headY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+	dragonJLabel[0].setVisible(true);
 	int i = 1;
 	if(dragon.isInIntersection()){
 		if(dragon.intX()>dragon.headX()){
 			for(int x = dragon.intX(); x>dragon.headX(); x-=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(x,dragon.headY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
 				i++;
 			}
 		} else if(dragon.intX()<dragon.headX()){
 			for(int x = dragon.intX(); x<dragon.headX(); x+=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(x,dragon.headY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
 				i++;
 			}
 		} else if(dragon.intY()>dragon.headY()){
 			for(int y = dragon.intY(); y>dragon.headY();y-=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(dragon.headX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
 				i++;
 			}
 		} else if(dragon.intY()<dragon.headY()){
 			for(int y = dragon.intY(); y<dragon.headY();y+=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(dragon.headX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
 				i++;
 			}
 		}
@@ -261,21 +266,25 @@ private void drawDragon(){
 		if(dragon.intX()>dragon.tailX()){
 			for(int x = dragon.intX()-PIXELS_PER_SPACE; x>=dragon.tailX(); x-=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(x,dragon.tailY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
 				i++;
 			}
 		} else if(dragon.intX()<dragon.tailX()){
 			for(int x = dragon.intX()+PIXELS_PER_SPACE; x<=dragon.tailX(); x+=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(x,dragon.tailY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
 				i++;
 			}
 		} else if(dragon.intY()>dragon.tailY()){
 			for(int y = dragon.intY()-PIXELS_PER_SPACE; y>=dragon.tailY();y-=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(dragon.tailX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
 				i++;
 			}
 		} else if(dragon.intY()<dragon.tailY()){
 			for(int y = dragon.intY()+PIXELS_PER_SPACE; y<=dragon.tailY();y+=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(dragon.tailX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
 				i++;
 			}
 		}
@@ -284,21 +293,25 @@ private void drawDragon(){
 		if(dragon.tailX()>dragon.headX()){
 			for(int x = dragon.headX()+PIXELS_PER_SPACE; x<=dragon.tailX(); x+=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(x,dragon.tailY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
 				i++;
 			}
 		} else if(dragon.tailX()<dragon.headX()){
 			for(int x = dragon.headX()-PIXELS_PER_SPACE; x>=dragon.tailX(); x-=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(x,dragon.tailY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
 				i++;
 			}
 		} else if(dragon.tailY()>dragon.headY()){
 			for(int y = dragon.headY()+PIXELS_PER_SPACE; y<=dragon.tailY();y+=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(dragon.tailX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
 				i++;
 			}
 		} else if(dragon.tailY()<dragon.headY()){
 			for(int y = dragon.headY()-PIXELS_PER_SPACE; y>=dragon.tailY();y-=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(dragon.tailX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
 				i++;
 			}
 		}
@@ -418,9 +431,6 @@ private void draw(){
 		dragonJLabel[i].setVisible(false);
 	}
 	drawDragon();
-	for(int i = 0; i < dragon.tailsLeft()+1; i++){
-		dragonJLabel[i].setVisible(true);
-	}
 }
 
 public void print(){
@@ -434,6 +444,37 @@ public void print(){
 		}
 		count++;
 	}
+}
+
+public void reset() throws Exception{
+	for(int i = 0; i < dragon.tailsLeft()+1; i++){
+		gameContentPane.remove(dragonJLabel[i]);
+	}
+	gameContentPane.remove(knightJLabel);
+	
+	board = maze.fillMazeArray();
+	knight = new Knight(1,1,getXPosition(findKnight()),getYPosition(findKnight()));
+    dragon = new Dragon(5,.25,getXPosition(findDragon()),getYPosition(findDragon()),UP);
+	
+	knightJLabel = new JLabel();
+    dragonJLabel = new JLabel[dragon.tailsLeft()+1];
+    
+    for(int i = 0; i < dragonJLabel.length; i++){
+    	dragonJLabel[i] = new JLabel();
+    	String dragonImage = "";
+    	if(i==0){
+    		dragonImage = "img/DragonHead"+PIXELS_PER_SPACE+".jpg";
+    	} else if (i == dragonJLabel.length - 1){
+    		dragonImage = "img/DragonTail"+PIXELS_PER_SPACE+".jpg";
+    	} else {
+    		dragonImage = "img/Dragon"+PIXELS_PER_SPACE+".jpg";
+    	}
+    		dragonJLabel[i].setIcon(new ImageIcon(dragonImage));
+    		
+    		dragonJLabel[i].setBounds(getXPosition(i),getYPosition(i),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+    		gameContentPane.add(dragonJLabel[i]);
+        	dragonJLabel[i].setVisible(false);
+    }
 }
 
 
