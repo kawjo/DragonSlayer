@@ -465,6 +465,8 @@ public void reset(boolean didKnightKillDragon) throws Exception{
 	
 	if(didKnightKillDragon){
 		dragon.tailGotChoppedOff(getXPosition(findDragon()),getYPosition(findDragon()),UP);
+	} else {
+		dragon.restore(getXPosition(findDragon()),getYPosition(findDragon()),UP);
 	}
 	
 	knightJLabel = new JLabel();

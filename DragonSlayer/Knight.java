@@ -67,6 +67,8 @@ public class Knight {
 		{
 			if(currentDirection != nextDirection)
 			{
+				setMovability(false);
+				currentDirection = 0;
 				for(int i = 0; i<dirOptions.length;i++)
 				{
 					if(dirOptions[i] == nextDirection)

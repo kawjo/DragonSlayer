@@ -23,7 +23,7 @@ public class Dragon {
 	private boolean isAtIntersection = false;
 	private boolean isExtended = false;
 	private int tailsExtended = 0;
-	private final double PROB_CHANGE_DIRECTION = 0.0;
+	private final double PROB_CHANGE_DIRECTION = 0.05;
 	
 	public Dragon(int tails, double speed, int x, int y, int d){
 		TAILS = tails;
@@ -36,11 +36,14 @@ public class Dragon {
 	}
 	
 	public void move(int pix,int[] dirs){
+		if(tailsLeft==0){
+			isExtended = true;
+		}
 		if(isAtIntersection){
 			Random r = new Random();
 			int dir = opposite(tailDirection);
 			boolean valid = false;
-			while(!valid){
+			while(!valid&&tailsLeft>0){
 				dir = r.nextInt(4)+3;
 				for(int i = 0; i < dirs.length; i++){
 					if(dirs[i] == dir && dir != opposite(tailDirection)){
@@ -48,7 +51,18 @@ public class Dragon {
 					}
 				}
 			}
+			while(!valid&&tailsLeft==0){
+				dir = r.nextInt(4)+3;
+				for(int i = 0; i < dirs.length; i++){
+					if(dirs[i]==dir){
+						valid = true;
+					}
+				}
+			}
 			headDirection = dir;
+			if(tailsLeft==0){
+				tailDirection = dir;
+			}
 			intersecXLoc = headXLoc;
 			intersecYLoc = headYLoc;
 			isInIntersection = true;
@@ -86,6 +100,10 @@ public class Dragon {
 		if(intersecXLoc == tailXLoc && intersecYLoc == tailYLoc){
 			tailDirection = headDirection;
 			isInIntersection = false;
+		} else if(tailsLeft==0){
+			intersecXLoc = tailXLoc;
+			intersecYLoc = tailYLoc;
+			isInIntersection = false;
 		}
 		if(tailsExtended == tailsLeft){
 			isExtended = true;
@@ -118,6 +136,11 @@ public class Dragon {
 			tailsLeft--;
 			resetDragon(x,y,d);
 		}
+	}
+	
+	public void restore(int x, int y, int d){
+		tailsLeft = TAILS;
+		resetDragon(x,y,d);
 	}
 	
 	private void resetDragon(int x, int y, int d){
