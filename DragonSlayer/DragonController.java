@@ -11,7 +11,7 @@ import javax.swing.JLabel; //use for display text
 
 class DragonController extends TimerTask implements MouseListener, KeyListener  {
     
-    public static final int MOVE_TIMER = 70; // time in milliseconds on timer
+    public static final int MOVE_TIMER = 50; // time in milliseconds on timer
  
     private Container gameContentPane;
     private boolean gameIsReady = false;
@@ -114,9 +114,15 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 					System.out.println("SUCKER");
 				} else if(gameBoard.dragon().areTailsExtended()&&gameBoard.didKnightKillDragon()){
 					gameIsReady=false;
-					startString.setText("<html>YOU WON!<br>press any key to play again</html>");
-					startPanel.setVisible(true);
-					gameBoard.reset(true);
+					if(gameBoard.dragon().tailsLeft()==0){
+						startString.setText("<html>YOU WON!<br>press any key to play again</html>");
+						startPanel.setVisible(true);
+						gameBoard.reset(false);
+					} else {
+						startString.setText("<html>YOU CHOPPED SOME TAIL OFF!<br>press any key to resume</html>");
+						startPanel.setVisible(true);
+						gameBoard.reset(true);
+					}
 					System.out.println("YOU WON!");
 				}
 			} catch (Exception e) {
