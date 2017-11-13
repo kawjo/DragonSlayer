@@ -36,6 +36,24 @@ public class Dragon {
 	}
 	
 	public void move(int pix,int[] dirs){
+		System.out.println("\n"+isExtended);
+		System.out.println("headX: "+headXLoc);
+		System.out.println("headY: "+headYLoc);
+		System.out.println("tailX: "+tailXLoc);
+		System.out.println("tailY: "+tailYLoc);
+		System.out.println("intX: "+intersecXLoc);
+		System.out.println("intY: "+intersecYLoc);
+		System.out.println("isAtIntersection: "+isAtIntersection);
+		System.out.println("isInIntersection: "+isInIntersection);
+		System.out.print("dirs: {");
+		for(int i = 0; i < dirs.length; i++){
+			if(i < dirs.length-1){
+				System.out.print(dirs[i]+",");
+			} else {
+				System.out.print(dirs[i]+"}");
+			}
+		}
+		
 		if(tailsLeft==0){
 			isExtended = true;
 		}
@@ -108,13 +126,6 @@ public class Dragon {
 		if(tailsExtended == tailsLeft){
 			isExtended = true;
 		}
-		System.out.println("\n"+isExtended);
-		System.out.println("headX: "+headXLoc);
-		System.out.println("headY: "+headYLoc);
-		System.out.println("tailX: "+tailXLoc);
-		System.out.println("tailY: "+tailYLoc);
-		System.out.println("intX: "+intersecXLoc);
-		System.out.println("intY: "+intersecYLoc);
 	}
 	
 	public void setIntersection(boolean intersec){

@@ -51,7 +51,7 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     }
     
     knight = new Knight(1,.5,getXPosition(findKnight()),getYPosition(findKnight()));
-    dragon = new Dragon(2,.2,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
+    dragon = new Dragon(4,.2,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
     knightJLabel = new JLabel();
     dragonJLabel = new JLabel[dragon.TAILS+1];
     
@@ -67,7 +67,7 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     	}
     		dragonJLabel[i].setIcon(new ImageIcon(dragonImage));
     		
-    		dragonJLabel[i].setBounds(getXPosition(i),getYPosition(i),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+    		dragonJLabel[i].setBounds(getXPosition(findDragon()),getYPosition(findDragon()),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
     		gameContentPane.add(dragonJLabel[i]);
         	dragonJLabel[i].setVisible(false);
     }
@@ -464,7 +464,7 @@ public void print(){
 	System.out.println();
 	for(int i: board){
 		System.out.print(i+" ");
-		if(count==16){
+		if(count==DragonController.SCREEN_WIDTH/PIXELS_PER_SPACE){
 			count = 0;
 			System.out.println();
 		}
@@ -503,7 +503,7 @@ public void reset(boolean didKnightKillDragon) throws Exception{
     		dragonImage = "img/Dragon"+PIXELS_PER_SPACE+".jpg";
     	}
     		dragonJLabel[i].setIcon(new ImageIcon(dragonImage));
-    		dragonJLabel[i].setBounds(getXPosition(i),getYPosition(i),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+    		dragonJLabel[i].setBounds(getXPosition(findDragon()),getYPosition(findDragon()),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
     		gameContentPane.add(dragonJLabel[i]);
     		gameContentPane.setComponentZOrder(dragonJLabel[i],0);
         	dragonJLabel[i].setVisible(false);

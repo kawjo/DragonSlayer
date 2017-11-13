@@ -36,7 +36,10 @@ public class Knight {
 	
 	public void move(int pixToMove,int [] dirOptions){
 		if(xLoc%pixToMove!=0||yLoc%pixToMove!=0){
+<<<<<<< HEAD
 			
+=======
+>>>>>>> 3aee6059aef7460a2b21b011ffc2d24ad126580a
 			switch(currentDirection){
 			case LEFT: xLoc -= pixToMove*SPEED;
 			break;
