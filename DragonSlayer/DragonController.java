@@ -11,7 +11,7 @@ import javax.swing.JLabel; //use for display text
 
 class DragonController extends TimerTask implements MouseListener, KeyListener  {
     
-    public static final int MOVE_TIMER = 50; // time in milliseconds on timer
+    public static final int MOVE_TIMER = 30; // time in milliseconds on timer
  
     private Container gameContentPane;
     private boolean gameIsReady = false;
@@ -72,7 +72,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         startPanel.setVisible(true);
         boardHolder.setComponentZOrder(startPanel,0);
         startString.setFont(new Font(null,Font.PLAIN,100));
-
+        gameBoard.print();
     }   
     
     private void resetGame()
@@ -164,6 +164,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 	}
 
 	public void keyPressed(KeyEvent e) {
+		gameBoard.print();
 		if(!gameIsReady&&startPanel.isVisible()){startPanel.setVisible(false);gameIsReady=true;}
 		
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)

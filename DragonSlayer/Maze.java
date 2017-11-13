@@ -16,7 +16,7 @@ public class Maze
 	{
 		
 		String fileName = "Maze4.txt";
-		fileName = "Maze5.txt";
+		fileName = "Maze6.txt";
 		File myFile = new File(fileName);
 		try
 		{
