@@ -91,6 +91,7 @@ public class Knight {
 				}
 				else if(dirOptions[i] == currentDirection)
 				{
+					upDateDirection();
 					setMovability(true);
 					break;
 				}
