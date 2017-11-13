@@ -164,6 +164,8 @@ public class Dragon {
 	
 	public boolean areTailsExtended(){return isExtended;}
 	
+	public int getHeadDirection() {return headDirection;}
+	
 	private int opposite(int dir){
 		if(dir==UP){
 			return DOWN;

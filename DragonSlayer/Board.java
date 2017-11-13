@@ -409,10 +409,7 @@ public boolean isAtIntersection(Knight k) throws Exception{
 }
 
 public boolean didDragonEatKnight() throws Exception{
-	/*if(board[findDragon()+1]==KNIGHT||board[findDragon()-1]==KNIGHT||oneUp(findDragon())==KNIGHT||oneDown(findDragon())==KNIGHT){
-		return true;
-	}
-		return false;*/
+	
 	Area areaA = new Area(knightJLabel.getBounds());
     Area areaB = new Area(dragonJLabel[0].getBounds());
 
@@ -423,9 +420,32 @@ public boolean didDragonEatKnight() throws Exception{
 public boolean didKnightKillDragon(){
 	
 	Area areaA = new Area(knightJLabel.getBounds());
-    Area areaB = new Area(dragonJLabel[dragonJLabel.length - 1].getBounds());
-
-    return areaA.intersects(areaB.getBounds2D());
+	Area areaB = new Area(dragonJLabel[dragonJLabel.length - 1].getBounds());
+	
+	if(dragon.tailsLeft() == 0 && areaA.intersects(areaB.getBounds2D()) )
+	{
+		if(knight.currentDirection()-dragon.getHeadDirection() != 1 
+			||knight.currentDirection()-dragon.getHeadDirection() != -1)
+		{
+			return areaA.intersects(areaB.getBounds2D());
+		}
+		else
+			return false;
+	}
+	else
+	{
+		for(int i=0;i<dragonJLabel.length;i++)
+		{
+			Area areaC = new Area(knightJLabel.getBounds());
+			Area areaD = new Area(dragonJLabel[i].getBounds());
+			if(areaC.intersects(areaD.getBounds2D()))
+			{
+				return areaC.intersects(areaD.getBounds2D());
+			}
+		}
+	}
+		return areaA.intersects(areaB.getBounds2D());
+	
 }
 
 
