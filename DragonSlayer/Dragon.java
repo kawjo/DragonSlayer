@@ -23,7 +23,7 @@ public class Dragon {
 	private boolean isAtIntersection = false;
 	private boolean isExtended = false;
 	private int tailsExtended = 0;
-	private final double PROB_CHANGE_DIRECTION = 0.05;
+	private final double PROB_CHANGE_DIRECTION = 0.00;
 	
 	public Dragon(int tails, double speed, int x, int y, int d){
 		TAILS = tails;
@@ -43,6 +43,8 @@ public class Dragon {
 		System.out.println("tailY: "+tailYLoc);
 		System.out.println("intX: "+intersecXLoc);
 		System.out.println("intY: "+intersecYLoc);
+		System.out.println("headDirection: "+headDirection);
+		System.out.println("tailDirection: "+tailDirection);
 		System.out.println("isAtIntersection: "+isAtIntersection);
 		System.out.println("isInIntersection: "+isInIntersection);
 		System.out.print("dirs: {");

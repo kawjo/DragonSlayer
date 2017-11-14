@@ -51,7 +51,7 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     }
     
     knight = new Knight(1,.5,getXPosition(findKnight()),getYPosition(findKnight()));
-    dragon = new Dragon(4,.2,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
+    dragon = new Dragon(0,.2,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
     knightJLabel = new JLabel();
     dragonJLabel = new JLabel[dragon.TAILS+1];
     
@@ -159,11 +159,7 @@ private void move(Dragon d) throws Exception{
 	if(d != dragon){
 		throw new IllegalArgumentException("Not dragon");
 	}
-	if(isAtIntersection(dragon)&&dragon.headX()%PIXELS_PER_SPACE==0&&dragon.headY()%PIXELS_PER_SPACE==0){
-		dragon.setIntersection(true);
-	} else {
-		dragon.setIntersection(false);
-	}
+	
 	dragon.move(PIXELS_PER_SPACE, directions(findDragon()));
 	if(dragon.headX()%PIXELS_PER_SPACE==0&&dragon.headY()%PIXELS_PER_SPACE==0){
 		upDateDragonLocation();
