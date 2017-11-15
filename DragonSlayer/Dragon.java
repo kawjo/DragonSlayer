@@ -43,6 +43,8 @@ public class Dragon {
 		System.out.println("tailY: "+tailYLoc);
 		System.out.println("intX: "+intersecXLoc);
 		System.out.println("intY: "+intersecYLoc);
+		System.out.println("headDirection: "+headDirection);
+		System.out.println("tailDirection: "+tailDirection);
 		System.out.println("isAtIntersection: "+isAtIntersection);
 		System.out.println("isInIntersection: "+isInIntersection);
 		System.out.print("dirs: {");
