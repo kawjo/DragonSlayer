@@ -51,7 +51,7 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     }
     
     knight = new Knight(1,.5,getXPosition(findKnight()),getYPosition(findKnight()));
-    dragon = new Dragon(0,.2,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
+    dragon = new Dragon(4,.2,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
     knightJLabel = new JLabel();
     dragonJLabel = new JLabel[dragon.TAILS+1];
     
@@ -422,7 +422,7 @@ public boolean isAtIntersection(Knight k) throws Exception{
 public boolean didDragonEatKnight() throws Exception{
 	
 	Area areaA = new Area(knightJLabel.getBounds());
-	Area areaB = new Area(dragonJLabel[dragonJLabel.length -1].getBounds());
+	Area areaB = new Area(dragonJLabel[0].getBounds());
 	
 	if(dragon.tailsLeft() == 0)
 	{
@@ -437,17 +437,9 @@ public boolean didDragonEatKnight() throws Exception{
 	}
 	else
 	{
-		for(int i=0;i<dragonJLabel.length;i++)
-		{
-			Area areaC = new Area(knightJLabel.getBounds());
-			Area areaD = new Area(dragonJLabel[i].getBounds());
-			if(areaC.intersects(areaD.getBounds2D()))
-			{
-				return areaC.intersects(areaD.getBounds2D());
-			}
-		}
-	}
 		return areaA.intersects(areaB.getBounds2D());
+	}
+		//return areaA.intersects(areaB.getBounds2D());
 	
 }
 
