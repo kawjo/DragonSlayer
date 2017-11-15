@@ -72,7 +72,6 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         startPanel.setVisible(true);
         boardHolder.setComponentZOrder(startPanel,0);
         startString.setFont(new Font(null,Font.PLAIN,100));
-        gameBoard.print();
     }   
     
     private void resetGame()
@@ -101,11 +100,6 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     public void run() {
         if (gameIsReady)
         {
-    		System.out.println("Board:");
-    		System.out.println();
-    		gameBoard.print();
-    		System.out.println();
-    		System.out.println();
     		
             try {
             	//gameBoard.print();
