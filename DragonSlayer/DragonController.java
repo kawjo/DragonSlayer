@@ -101,6 +101,12 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     public void run() {
         if (gameIsReady)
         {
+    		System.out.println("Board:");
+    		System.out.println();
+    		gameBoard.print();
+    		System.out.println();
+    		System.out.println();
+    		
             try {
             	//gameBoard.print();
 				gameBoard.moveAll();

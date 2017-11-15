@@ -172,6 +172,11 @@ private void move(Dragon d) throws Exception{
 }
 
 private void upDateDragonLocation(){
+	for(int i = 0; i < board.length; i++){
+		if(board[i]==DRAGON || board[i] == DRAGON_HEAD){
+			board[i] = CORRIDOR;
+		}
+	}
 	for(int i = 0; i < dragon.tailsLeft()+1; i++){
 		board[getCo(dragonJLabel[i].getLocation().x,dragonJLabel[i].getLocation().y)]=CORRIDOR;
 	}
@@ -345,7 +350,7 @@ public void moveAll() throws Exception{
 	draw();
 }
 
-private int[] directions(int index){
+private int[] directions(int index) throws Exception{
 	if(board[index]==WALL){
 		throw new IllegalArgumentException("Illegal Coordinates");
 	}
@@ -361,6 +366,11 @@ private int[] directions(int index){
 	int[] ret = new int[a.size()];
 	for(int i = 0; i < a.size(); i++){
 		ret[i] = (int) a.get(i);
+		if(index==findDragon()){
+			System.out.println("{");
+			System.out.println(ret[i]);
+			System.out.println("}");
+		}
 	}
 	return ret;
 }
