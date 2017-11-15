@@ -51,7 +51,7 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     }
     
     knight = new Knight(1,.5,getXPosition(findKnight()),getYPosition(findKnight()));
-    dragon = new Dragon(2,.2,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
+    dragon = new Dragon(0,.2,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
     knightJLabel = new JLabel();
     dragonJLabel = new JLabel[dragon.TAILS+1];
     
@@ -412,25 +412,14 @@ public boolean isAtIntersection(Knight k) throws Exception{
 public boolean didDragonEatKnight() throws Exception{
 	
 	Area areaA = new Area(knightJLabel.getBounds());
-    Area areaB = new Area(dragonJLabel[0].getBounds());
-
-    return areaA.intersects(areaB.getBounds2D());
-	
-}
-
-public boolean didKnightKillDragon(){
-	
-	Area areaA = new Area(knightJLabel.getBounds());
 	Area areaB = new Area(dragonJLabel[dragonJLabel.length -1].getBounds());
 	
 	if(dragon.tailsLeft() == 0)
 	{
 		Area area1 = new Area(knightJLabel.getBounds());
 		Area area2 = new Area(dragonJLabel[0].getBounds());
-		if(knight.currentDirection() == dragon.getHeadDirection())
+		if(knight.currentDirection() != dragon.getHeadDirection())
 		{
-			/*knight.currentDirection()-dragon.getHeadDirection() != 1 
-			||knight.currentDirection()-dragon.getHeadDirection() != -1*/
 			return area1.intersects(area2.getBounds2D());
 		}
 		else
@@ -444,6 +433,47 @@ public boolean didKnightKillDragon(){
 			Area areaD = new Area(dragonJLabel[i].getBounds());
 			if(areaC.intersects(areaD.getBounds2D()))
 			{
+				return areaC.intersects(areaD.getBounds2D());
+			}
+		}
+	}
+		return areaA.intersects(areaB.getBounds2D());
+	
+}
+
+public boolean didKnightKillDragon(){
+	
+	Area areaA = new Area(knightJLabel.getBounds());
+	Area areaB = new Area(dragonJLabel[dragonJLabel.length -1].getBounds());
+	
+	if(dragon.tailsLeft() == 0)
+	{
+		//System.out.println("only the head left");
+		//System.out.println("knight dir" + knight.currentDirection());
+		//System.out.println("dragon dir" + dragon.getHeadDirection());
+		
+		Area area1 = new Area(knightJLabel.getBounds());
+		Area area2 = new Area(dragonJLabel[0].getBounds());
+		if(knight.currentDirection() == dragon.getHeadDirection())
+		{
+			/*knight.currentDirection()-dragon.getHeadDirection() != 1 
+			||knight.currentDirection()-dragon.getHeadDirection() != -1*/
+			System.out.println("Same Direction!!!! you should have won");
+			return area1.intersects(area2.getBounds2D());
+		}
+		else
+			System.out.println("You died");
+			return false;
+	}
+	else
+	{
+		for(int i=0;i<dragonJLabel.length;i++)
+		{
+			Area areaC = new Area(knightJLabel.getBounds());
+			Area areaD = new Area(dragonJLabel[i].getBounds());
+			if(areaC.intersects(areaD.getBounds2D()))
+			{
+				System.out.println("TAIL CHOPPED");
 				return areaC.intersects(areaD.getBounds2D());
 			}
 		}
