@@ -118,6 +118,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 					gameBoard.reset(false);
 					System.out.println("YOU LOST");
 					System.out.println("SUCKER");
+					Thread.sleep(250);
 				} else if(gameBoard.dragon().areTailsExtended()&&gameBoard.didKnightKillDragon()){
 					gameIsReady=false;
 					System.out.println("Tails extended:"+gameBoard.dragon().areTailsExtended());
@@ -132,6 +133,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 						gameBoard.reset(true);
 					}
 					System.out.println("YOU WON!");
+					Thread.sleep(250);
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
