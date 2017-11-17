@@ -37,6 +37,8 @@ public class Dragon {
 	
 	public void move(int pix,int[] dirs){
 		System.out.println("\n"+isExtended);
+		System.out.println("headDirection: "+headDirection);
+		System.out.println("tailDirection: "+tailDirection);
 		System.out.println("headX: "+headXLoc);
 		System.out.println("headY: "+headYLoc);
 		System.out.println("tailX: "+tailXLoc);
@@ -177,7 +179,9 @@ public class Dragon {
 	
 	public boolean areTailsExtended(){return isExtended;}
 	
-	public int getHeadDirection() {return headDirection;}
+	public int getHeadDirection(){return headDirection;}
+	
+	public int getTailDirection(){return tailDirection;}
 	
 	private int opposite(int dir){
 		if(dir==UP){
