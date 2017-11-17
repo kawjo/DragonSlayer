@@ -14,6 +14,7 @@ public class Knight {
 	private double SPEED = 1;
 	private boolean isAtIntersection;
 	private int[] knightDirs;
+	private int recentDir;
 	private boolean canMove;
 	
 	public final static int LEFT = 3;
@@ -54,10 +55,6 @@ public class Knight {
 	private void yesMove(int pixToMove, int [] dirOptions)
 	{
 		knightDirs = dirOptions;
-		
-		System.out.println("Pre-move current Dir: " + currentDirection);
-		System.out.println("Pre-move next Dir: " + nextDirection);
-		System.out.println("Directions availible: ");
 		for(int i =0; i<dirOptions.length; i++)
 		{
 			System.out.println(dirOptions[i]);
@@ -68,6 +65,7 @@ public class Knight {
 			if(currentDirection != nextDirection)
 			{
 				setMovability(false);
+				recentDir = currentDirection;
 				currentDirection = 0;
 				for(int i = 0; i<dirOptions.length;i++)
 				{
@@ -98,6 +96,7 @@ public class Knight {
 				else
 				{
 					setMovability(false);
+					recentDir = currentDirection;
 					currentDirection = 0;
 					break;
 				}
@@ -116,10 +115,8 @@ public class Knight {
 				break;
 				case DOWN: yLoc += pixToMove*SPEED;
 				break;
+				}
 			}
-	}
-		System.out.println("Post-move current Dir: " + currentDirection);
-		System.out.println("Post-move next Dir: " + nextDirection);
 	}
 	
 	private boolean didDirectionChange()
@@ -179,8 +176,13 @@ public class Knight {
 	public void setIntersection(boolean intersec){
 		isAtIntersection = intersec;
 	}
-	public void upDateDirection()
+	public int getLastDir()
 	{
+		return recentDir;
+	}
+	public void upDateDirection()
+	{	
+		//if(==0) {recentDir = currentDirection;}
 		currentDirection = nextDirection;
 	}
 }

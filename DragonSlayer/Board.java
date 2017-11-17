@@ -5,6 +5,7 @@ import javax.swing.ImageIcon;
 import java.awt.*;
 import java.awt.geom.Area;
 import java.util.ArrayList;
+import java.util.Random;
 public class Board {
 
 private Container gameContentPane;
@@ -487,14 +488,25 @@ public boolean didKnightKillDragon(){
 
 private void draw(){
 	knightJLabel.setVisible(false);
-	knightJLabel.setBounds(knight.getXLocation(),knight.getYLocation(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
-	knightJLabel.setVisible(true);
+	
 	for(int i = 0; i < dragon.tailsLeft()+1; i++){
 		dragonJLabel[i].setVisible(false);
 	}
+	drawKnight();
 	drawDragon();
 }
 
+private void drawKnight() 
+{
+	knightJLabel.setBounds(knight.getXLocation(),knight.getYLocation(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+	if(knight.currentDirection()==0)
+	{
+		knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_3.jpg"));
+	}
+	else
+		knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_"+knight.currentDirection()+".jpg"));
+		knightJLabel.setVisible(true);
+}
 public void print(){
 	int count = 0;
 	System.out.println();
@@ -544,7 +556,7 @@ public void reset(boolean didKnightKillDragon) throws Exception{
     		gameContentPane.setComponentZOrder(dragonJLabel[i],0);
         	dragonJLabel[i].setVisible(false);
     }
-    knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+".jpg"));
+    knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_"+knight.currentDirection()+".jpg"));
     knightJLabel.setBounds(knight.getXLocation(),knight.getYLocation(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
     gameContentPane.add(knightJLabel);
     gameContentPane.setComponentZOrder(knightJLabel, 0);
