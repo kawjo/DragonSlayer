@@ -295,7 +295,7 @@ private void drawDragon(){
 				i++;
 			}
 		}
-		
+		dragonJLabel[dragon.tailsLeft()].setIcon(new ImageIcon("img/DragonTail"+PIXELS_PER_SPACE+dragon.getTailDirection()+".jpg"));
 		dragonJLabel[dragon.tailsLeft()].setBounds(dragon.tailX(),dragon.tailY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 		dragonJLabel[dragon.tailsLeft()].setVisible(true);
 		
@@ -303,31 +303,31 @@ private void drawDragon(){
 		if(dragon.tailX()>dragon.headX()){
 			for(int x = dragon.headX()+PIXELS_PER_SPACE; x<=dragon.tailX(); x+=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(x,dragon.tailY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
-				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
+				dragonJLabel[i].setVisible(true);
 				i++;
 			}
 		} else if(dragon.tailX()<dragon.headX()){
 			for(int x = dragon.headX()-PIXELS_PER_SPACE; x>=dragon.tailX(); x-=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(x,dragon.tailY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
-				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
+				dragonJLabel[i].setVisible(true);
 				i++;
 			}
 		} else if(dragon.tailY()>dragon.headY()){
 			for(int y = dragon.headY()+PIXELS_PER_SPACE; y<=dragon.tailY();y+=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(dragon.tailX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
-				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
+				dragonJLabel[i].setVisible(true);
 				i++;
 			}
 		} else if(dragon.tailY()<dragon.headY()){
 			for(int y = dragon.headY()-PIXELS_PER_SPACE; y>=dragon.tailY();y-=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(dragon.tailX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
-				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
+				dragonJLabel[i].setVisible(true);
+			
 				i++;
 			}
 		}
 	}
 }
-
 
 private void move(Knight k) throws Exception{
 	if(k != knight){
