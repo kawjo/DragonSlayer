@@ -245,25 +245,25 @@ private void drawDragon(){
 	int i = 1;
 	if(dragon.isInIntersection()){
 		if(dragon.intX()>dragon.headX()){
-			for(int x = dragon.intX(); x>dragon.headX(); x-=PIXELS_PER_SPACE){
+			for(int x = dragon.headX()+PIXELS_PER_SPACE; x<=dragon.intX(); x+=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(x,dragon.headY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
 				i++;
 			}
 		} else if(dragon.intX()<dragon.headX()){
-			for(int x = dragon.intX(); x<dragon.headX(); x+=PIXELS_PER_SPACE){
+			for(int x = dragon.headX()-PIXELS_PER_SPACE; x>=dragon.intX(); x-=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(x,dragon.headY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
 				i++;
 			}
 		} else if(dragon.intY()>dragon.headY()){
-			for(int y = dragon.intY(); y>dragon.headY();y-=PIXELS_PER_SPACE){
+			for(int y = dragon.headY()+PIXELS_PER_SPACE; y<=dragon.intY();y+=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(dragon.headX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
 				i++;
 			}
 		} else if(dragon.intY()<dragon.headY()){
-			for(int y = dragon.intY(); y<dragon.headY();y+=PIXELS_PER_SPACE){
+			for(int y = dragon.headY()-PIXELS_PER_SPACE; y>=dragon.intY();y-=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(dragon.headX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
 				i++;
@@ -271,30 +271,33 @@ private void drawDragon(){
 		}
 		
 		if(dragon.intX()>dragon.tailX()){
-			for(int x = dragon.intX()-PIXELS_PER_SPACE; x>=dragon.tailX(); x-=PIXELS_PER_SPACE){
+			for(int x = dragon.tailX()+PIXELS_PER_SPACE; x<dragon.intX(); x+=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(x,dragon.tailY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
 				i++;
 			}
 		} else if(dragon.intX()<dragon.tailX()){
-			for(int x = dragon.intX()+PIXELS_PER_SPACE; x<=dragon.tailX(); x+=PIXELS_PER_SPACE){
+			for(int x = dragon.tailX()-PIXELS_PER_SPACE; x>dragon.intX(); x-=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(x,dragon.tailY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
 				i++;
 			}
 		} else if(dragon.intY()>dragon.tailY()){
-			for(int y = dragon.intY()-PIXELS_PER_SPACE; y>=dragon.tailY();y-=PIXELS_PER_SPACE){
+			for(int y = dragon.tailY()+PIXELS_PER_SPACE; y<dragon.intY();y+=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(dragon.tailX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
 				i++;
 			}
 		} else if(dragon.intY()<dragon.tailY()){
-			for(int y = dragon.intY()+PIXELS_PER_SPACE; y<=dragon.tailY();y+=PIXELS_PER_SPACE){
+			for(int y = dragon.tailY()-PIXELS_PER_SPACE; y>dragon.intY();y-=PIXELS_PER_SPACE){
 				dragonJLabel[i].setBounds(dragon.tailX(),y,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 				if(!dragonJLabel[i].isVisible()){dragonJLabel[i].setVisible(true);}
 				i++;
 			}
 		}
+		
+		dragonJLabel[dragon.tailsLeft()].setBounds(dragon.tailX(),dragon.tailY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+		dragonJLabel[dragon.tailsLeft()].setVisible(true);
 		
 	} else {
 		if(dragon.tailX()>dragon.headX()){
