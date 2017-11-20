@@ -339,7 +339,7 @@ private void drawDragon(){
 		dragonJLabel[dragon.tailsLeft()].setIcon(tailImage);
 		dragonJLabel[dragon.tailsLeft()].setBounds(dragon.tailX(),dragon.tailY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 		dragonJLabel[dragon.tailsLeft()].setVisible(true);
-		if(dragon.tailY()!=dragon.intY() || dragon.tailX()!=dragon.intX()){
+		if(dragon.tailsLeft()>1 && (dragon.tailY()!=dragon.intY() || dragon.tailX()!=dragon.intX())){
 			if(dragon.tailY()>dragon.intY() && dragon.headX()>dragon.intX()){
 				dragonIntLabel.setIcon(new ImageIcon("img/DragonInt"+RIGHT+DOWN+".jpg"));
 				dragonIntLabel.setVisible(true);
