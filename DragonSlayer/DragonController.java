@@ -25,6 +25,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     public final static int UP = 5;
     public final static int DOWN = 6;
     
+    
     public static Board gameBoard;
     public static JFrame boardHolder;
     private JLabel startString;

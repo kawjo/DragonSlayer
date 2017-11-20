@@ -26,7 +26,7 @@ private final int LEFT = 3;
 private final int RIGHT = 4;
 private final int UP = 5;
 private final int DOWN = 6;
-
+private int timerCount = 0;
 
 public Board(Maze m,Container gameContentPane) throws Exception{
 	maze = m;
@@ -352,6 +352,7 @@ public void moveAll() throws Exception{
 	move(dragon);
 	move(knight);
 	draw();
+	timerCount++;
 }
 
 private int[] directions(int index) throws Exception{
@@ -502,13 +503,28 @@ private void draw(){
 private void drawKnight() 
 {
 	knightJLabel.setBounds(knight.getXLocation(),knight.getYLocation(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
-	if(knight.currentDirection()==0)
+	if(timerCount%10==0)
 	{
-		knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_3.jpg"));
+		if(knight.currentDirection()==0)
+		{
+			knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_3.jpg"));
+		}
+		else
+			knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_"+knight.currentDirection()+".jpg"));
+			knightJLabel.setVisible(true);
 	}
 	else
-		knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_"+knight.currentDirection()+".jpg"));
-		knightJLabel.setVisible(true);
+	{
+		if(knight.currentDirection()==0)
+		{
+			knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_3Swing.jpg"));
+		}
+		else
+			knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_"+knight.currentDirection()+"Swing.jpg"));
+			knightJLabel.setVisible(true);
+	}
+		
+	
 }
 public void print(){
 	int count = 0;
