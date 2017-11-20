@@ -11,6 +11,7 @@ import java.awt.image.ImageProducer;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 public class Board {
 
 private Container gameContentPane;
@@ -34,7 +35,7 @@ private final int LEFT = 3;
 private final int RIGHT = 4;
 private final int UP = 5;
 private final int DOWN = 6;
-
+private int timerCount = 0;
 
 public Board(Maze m,Container gameContentPane) throws Exception{
 	maze = m;
@@ -374,6 +375,7 @@ public void moveAll() throws Exception{
 	move(dragon);
 	move(knight);
 	draw();
+	timerCount++;
 }
 
 private int[] directions(int index) throws Exception{
@@ -513,14 +515,40 @@ public boolean didKnightKillDragon(){
 
 private void draw(){
 	knightJLabel.setVisible(false);
-	knightJLabel.setBounds(knight.getXLocation(),knight.getYLocation(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
-	knightJLabel.setVisible(true);
+	
 	for(int i = 0; i < dragon.tailsLeft()+1; i++){
 		dragonJLabel[i].setVisible(false);
 	}
+	drawKnight();
 	drawDragon();
 }
 
+private void drawKnight() 
+{
+	knightJLabel.setBounds(knight.getXLocation(),knight.getYLocation(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
+	if(timerCount%10==0)
+	{
+		if(knight.currentDirection()==0)
+		{
+			knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_3.jpg"));
+		}
+		else
+			knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_"+knight.currentDirection()+".jpg"));
+			knightJLabel.setVisible(true);
+	}
+	else
+	{
+		if(knight.currentDirection()==0)
+		{
+			knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_3Swing.jpg"));
+		}
+		else
+			knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_"+knight.currentDirection()+"Swing.jpg"));
+			knightJLabel.setVisible(true);
+	}
+		
+	
+}
 public void print(){
 	int count = 0;
 	System.out.println();
@@ -569,7 +597,7 @@ public void reset(boolean didKnightKillDragon) throws Exception{
     		gameContentPane.setComponentZOrder(dragonJLabel[i],0);
         	dragonJLabel[i].setVisible(false);
     }
-    knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+".jpg"));
+    knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_"+knight.currentDirection()+".jpg"));
     knightJLabel.setBounds(knight.getXLocation(),knight.getYLocation(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
     gameContentPane.add(knightJLabel);
     gameContentPane.setComponentZOrder(knightJLabel, 0);
