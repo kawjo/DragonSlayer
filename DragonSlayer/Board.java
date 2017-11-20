@@ -339,6 +339,7 @@ private void drawDragon(){
 		dragonJLabel[dragon.tailsLeft()].setIcon(tailImage);
 		dragonJLabel[dragon.tailsLeft()].setBounds(dragon.tailX(),dragon.tailY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 		dragonJLabel[dragon.tailsLeft()].setVisible(true);
+		
 		if(dragon.tailsLeft()>1 && (dragon.tailY()!=dragon.intY() || dragon.tailX()!=dragon.intX())){
 			if(dragon.tailY()>dragon.intY() && dragon.headX()>dragon.intX()){
 				dragonIntLabel.setIcon(new ImageIcon("img/DragonInt"+RIGHT+DOWN+".jpg"));
@@ -668,7 +669,7 @@ public void reset(boolean didKnightKillDragon) throws Exception{
     		dragonJLabel[i].setIcon(new ImageIcon(dragonImage));
     		dragonJLabel[i].setBounds(getXPosition(findDragon()),getYPosition(findDragon()),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
     		gameContentPane.add(dragonJLabel[i]);
-    		gameContentPane.setComponentZOrder(dragonJLabel[i],0);
+    		gameContentPane.setComponentZOrder(dragonJLabel[i],1);
         	dragonJLabel[i].setVisible(false);
     }
     knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_"+knight.currentDirection()+".jpg"));
