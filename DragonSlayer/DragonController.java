@@ -15,6 +15,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
  
     private Container gameContentPane;
     private boolean gameIsReady = false;
+    private boolean gamePause = false;
     
     private java.util.Timer gameTimer = new java.util.Timer();
     
@@ -113,6 +114,11 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 					gameBoard.reset(false);
 					System.out.println("YOU LOST");
 					System.out.println("SUCKER");
+					
+					gamePause = true;
+					Thread.sleep(250);
+					gamePause = false;
+					
 				} else if(gameBoard.dragon().areTailsExtended()&&gameBoard.didKnightKillDragon()){
 					gameIsReady=false;
 					System.out.println("Tails extended:"+gameBoard.dragon().areTailsExtended());
@@ -127,6 +133,10 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 						gameBoard.reset(true);
 					}
 					System.out.println("YOU WON!");
+					
+					gamePause = true;
+					Thread.sleep(250);
+					gamePause = false;
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -167,7 +177,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 	}
 
 	public void keyPressed(KeyEvent e) {
-		if(!gameIsReady&&startPanel.isVisible()){startPanel.setVisible(false);gameIsReady=true;}
+		if(!gameIsReady&&!gamePause&&startPanel.isVisible()){startPanel.setVisible(false);gameIsReady=true;}
 		
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
 		{
