@@ -1,9 +1,15 @@
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.*;
 import java.awt.geom.Area;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 public class Board {
 
@@ -13,6 +19,9 @@ private Maze maze;
 private int[] board;
 private Dragon dragon;
 private JLabel[] dragonJLabel;
+private ImageIcon tailImage;
+private ImageIcon headImage;
+private ImageIcon dragonImage;
 private JLabel knightJLabel;
 private Knight knight;
 private final int DRAGON = 9;
@@ -59,14 +68,16 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     	dragonJLabel[i] = new JLabel();
     	String dragonImage = "";
     	if(i==0){
-    		dragonImage = "img/DragonHead"+PIXELS_PER_SPACE+".jpg";
+    		dragonImage = "img/DragonHead"+PIXELS_PER_SPACE+dragon.getHeadDirection()+".jpg";
+    		headImage = new ImageIcon(dragonImage);
     	} else if (i == dragonJLabel.length - 1){
-    		dragonImage = "img/DragonTail"+PIXELS_PER_SPACE+".jpg";
+    		dragonImage = "img/DragonTail"+PIXELS_PER_SPACE+dragon.getTailDirection()+".jpg";
+    		tailImage = new ImageIcon(dragonImage);
     	} else {
     		dragonImage = "img/Dragon"+PIXELS_PER_SPACE+".jpg";
+    		this.dragonImage = new ImageIcon(dragonImage);
     	}
     		dragonJLabel[i].setIcon(new ImageIcon(dragonImage));
-    		
     		dragonJLabel[i].setBounds(getXPosition(findDragon()),getYPosition(findDragon()),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
     		gameContentPane.add(dragonJLabel[i]);
         	dragonJLabel[i].setVisible(false);
@@ -240,8 +251,18 @@ private void upDateDragonLocation(){
 }
 
 private void drawDragon(){
+	//String path = "img/DragonHead"+PIXELS_PER_SPACE+dragon.getHeadDirection()+".JPG";
+	//dragonJLabel[0].setIcon(null);
+	//try{
+		//BufferedImage img = ImageIO.read(new File(path));
+		//dragonJLabel[0].setIcon(new ImageIcon(img));
+	//} catch(NullPointerException | IOException e){e.printStackTrace();}
+	headImage = new ImageIcon("img/DragonHead"+PIXELS_PER_SPACE+dragon.getHeadDirection()+".JPG");
+	System.out.println(headImage.toString());
+	dragonJLabel[0].setIcon(headImage);
 	dragonJLabel[0].setBounds(dragon.headX(),dragon.headY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 	dragonJLabel[0].setVisible(true);
+	dragonJLabel[0].repaint();
 	int i = 1;
 	if(dragon.isInIntersection()){
 		if(dragon.intX()>dragon.headX()){
@@ -295,7 +316,9 @@ private void drawDragon(){
 				i++;
 			}
 		}
-		dragonJLabel[dragon.tailsLeft()].setIcon(new ImageIcon("img/DragonTail"+PIXELS_PER_SPACE+dragon.getTailDirection()+".jpg"));
+		tailImage = new ImageIcon("img/DragonTail"+PIXELS_PER_SPACE+dragon.getTailDirection()+".JPG");
+		//tailImage.getImage().flush();
+		dragonJLabel[dragon.tailsLeft()].setIcon(tailImage);
 		dragonJLabel[dragon.tailsLeft()].setBounds(dragon.tailX(),dragon.tailY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 		dragonJLabel[dragon.tailsLeft()].setVisible(true);
 		
@@ -370,9 +393,9 @@ private int[] directions(int index) throws Exception{
 	for(int i = 0; i < a.size(); i++){
 		ret[i] = (int) a.get(i);
 		if(index==findDragon()){
-			System.out.println("{");
-			System.out.println(ret[i]);
-			System.out.println("}");
+			//System.out.println("{");
+			//System.out.println(ret[i]);
+			//System.out.println("}");
 		}
 	}
 	return ret;
@@ -467,7 +490,7 @@ public boolean didKnightKillDragon(){
 			return area1.intersects(area2.getBounds2D());
 		}
 		else
-			System.out.println("You died");
+			//System.out.println("You died");
 			return false;
 	}
 	else
@@ -517,9 +540,8 @@ public void reset(boolean didKnightKillDragon) throws Exception{
 	}
 	gameContentPane.remove(knightJLabel);
 	
-	this.print();
 	board = maze.fillMazeArray();
-	this.print();
+	
 	knight.setLocation(getXPosition(findKnight()),getYPosition(findKnight()));
 	
 	if(didKnightKillDragon){

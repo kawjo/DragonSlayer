@@ -36,7 +36,7 @@ public class Dragon {
 	}
 	
 	public void move(int pix,int[] dirs){
-		System.out.println("\n"+isExtended);
+		/*System.out.println("\n"+isExtended);
 		System.out.println("headDirection: "+headDirection);
 		System.out.println("tailDirection: "+tailDirection);
 		System.out.println("headX: "+headXLoc);
@@ -56,7 +56,7 @@ public class Dragon {
 			} else {
 				System.out.print(dirs[i]+"}");
 			}
-		}
+		}*/
 		
 		if(tailsLeft==0){
 			isExtended = true;
