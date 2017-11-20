@@ -578,13 +578,23 @@ public boolean didKnightKillDragon(){
 
 
 private void draw(){
-	knightJLabel.setVisible(false);
+	//knightJLabel.setVisible(false);
 	dragonIntLabel.setVisible(false);
-	for(int i = 0; i < dragon.tailsLeft()+1; i++){
-		dragonJLabel[i].setVisible(false);
-	}
+	//for(int i = 0; i < dragon.tailsLeft()+1; i++){
+		//dragonJLabel[i].setVisible(false);
+	//}
 	drawKnight();
 	drawDragon();
+}
+
+public void setVisible(boolean visible){
+	for(int i = 0; i < mazeJLabels.length; i++){
+		mazeJLabels[i].setVisible(visible);		
+	}
+	for(int i = 0; i < dragonJLabel.length; i++){
+		dragonJLabel[i].setVisible(visible);
+	}
+	knightJLabel.setVisible(visible);
 }
 
 private void drawKnight() 
