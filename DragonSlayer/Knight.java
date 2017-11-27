@@ -181,6 +181,9 @@ public class Knight {
 	{
 		isAlive = life;
 	}
+	public void setSpeed(double speed){
+		SPEED = speed;
+	}
 	public void setIntersection(boolean intersec){
 		isAtIntersection = intersec;
 	}

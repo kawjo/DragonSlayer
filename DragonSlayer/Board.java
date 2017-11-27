@@ -62,8 +62,8 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     	mazeJLabels[i].setVisible(true);
     }
     
-    knight = new Knight(1,.5,getXPosition(findKnight()),getYPosition(findKnight()));
-    dragon = new Dragon(4,.2,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
+    knight = new Knight(1,.2,getXPosition(findKnight()),getYPosition(findKnight()));
+    dragon = new Dragon(4,.1,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
     knightJLabel = new JLabel();
     dragonJLabel = new JLabel[dragon.TAILS+1];
     dragonIntLabel = new JLabel();
@@ -691,23 +691,6 @@ public void reset(boolean didKnightKillDragon, int level) throws Exception{
     knightJLabel.setVisible(true);
     
     this.level = level;
-    double knightSpeed, dragonSpeed;
-    switch(this.level){
-    case 1: dragonSpeed = 0.04; knightSpeed = 0.1;
-    	break;
-    case 2: dragonSpeed = 0.1; knightSpeed = 0.2;
-    	break;
-    case 3: dragonSpeed = 0.2; knightSpeed = 0.5;
-    	break;
-    case 4: dragonSpeed = 0.2; knightSpeed = 0.5;
-    	break;
-    case 5: dragonSpeed = 0.5; knightSpeed = 1.0;
-    	break;
-    case 6: dragonSpeed = 1.0; knightSpeed = 1.0;
-    	break;
-    }
-    knight.setSpeed(knightSpeed);
-    dragon.setSpeed(dragonSpeed);
 }
 
 
