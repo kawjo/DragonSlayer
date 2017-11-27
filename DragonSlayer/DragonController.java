@@ -33,12 +33,11 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     private JPanel startPanel;
     
     public DragonController(String passedInWindowTitle, int gameWindowX, int gameWindowY, int gameWindowWidth, int gameWindowHeight, Board B1) throws Exception{
-    		boardHolder = new JFrame(passedInWindowTitle);
-    		boardHolder.setSize(gameWindowWidth, gameWindowHeight);
-    		boardHolder.setLocation(gameWindowX, gameWindowY);
-    		boardHolder.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    		
-    		boardHolder.addMouseListener(this);
+    	boardHolder = new JFrame(passedInWindowTitle);
+    	boardHolder.setSize(gameWindowWidth, gameWindowHeight);
+    	boardHolder.setLocation(gameWindowX, gameWindowY);
+    	boardHolder.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	boardHolder.addMouseListener(this);
         boardHolder.addKeyListener(this);
             
         gameContentPane = boardHolder.getContentPane();
@@ -138,7 +137,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 					System.out.println("YOU WON!");
 					
 					gamePause = true;
-					Thread.sleep(250);
+					Thread.sleep(1000);
 					gamePause = false;
 				}
 			} catch (Exception e) {

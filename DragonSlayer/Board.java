@@ -258,14 +258,8 @@ private void upDateDragonLocation(){
 }
 
 private void drawDragon(){
-	//String path = "img/DragonHead"+PIXELS_PER_SPACE+dragon.getHeadDirection()+".JPG";
-	//dragonJLabel[0].setIcon(null);
-	//try{
-		//BufferedImage img = ImageIO.read(new File(path));
-		//dragonJLabel[0].setIcon(new ImageIcon(img));
-	//} catch(NullPointerException | IOException e){e.printStackTrace();}
 	headImage = new ImageIcon("img/DragonHead"+PIXELS_PER_SPACE+dragon.getHeadDirection()+".JPG");
-	System.out.println(headImage.toString());
+	//System.out.println(headImage.toString());
 	dragonJLabel[0].setIcon(headImage);
 	dragonJLabel[0].setBounds(dragon.headX(),dragon.headY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
 	dragonJLabel[0].setVisible(true);
