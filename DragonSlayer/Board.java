@@ -434,7 +434,6 @@ public void moveAll() throws Exception{
 	move(dragon);
 	move(knight);
 	draw();
-	timerCount++;
 }
 
 private int[] directions(int index) throws Exception{
@@ -537,21 +536,13 @@ public boolean didKnightKillDragon(){
 	
 	if(dragon.tailsLeft() == 0)
 	{
-		//System.out.println("only the head left");
-		//System.out.println("knight dir" + knight.currentDirection());
-		//System.out.println("dragon dir" + dragon.getHeadDirection());
-		
 		Area area1 = new Area(knightJLabel.getBounds());
 		Area area2 = new Area(dragonJLabel[0].getBounds());
 		if(knight.currentDirection() == dragon.getHeadDirection())
 		{
-			/*knight.currentDirection()-dragon.getHeadDirection() != 1 
-			||knight.currentDirection()-dragon.getHeadDirection() != -1*/
-			System.out.println("Same Direction!!!! you should have won");
 			return area1.intersects(area2.getBounds2D());
 		}
 		else
-			//System.out.println("You died");
 			return false;
 	}
 	else
@@ -595,28 +586,51 @@ public void setVisible(boolean visible){
 private void drawKnight() 
 {
 	knightJLabel.setBounds(knight.getXLocation(),knight.getYLocation(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
-	if(timerCount%10==0)
+	ImageIcon up;
+	ImageIcon down;
+	
+	if(knight.currentDirection() != 0)
 	{
-		if(knight.currentDirection()==0)
-		{
-			knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_3.jpg"));
-		}
-		else
-			knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_"+knight.currentDirection()+".jpg"));
-			knightJLabel.setVisible(true);
+		up = new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_"+knight.currentDirection()+".jpg");
+		down = new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_"+knight.currentDirection()+"Swing.jpg");
 	}
 	else
 	{
-		if(knight.currentDirection()==0)
-		{
-			knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_3Swing.jpg"));
-		}
-		else
-			knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_"+knight.currentDirection()+"Swing.jpg"));
-			knightJLabel.setVisible(true);
+		up = new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_"+knight.getLastDir()+".jpg");
+		down = new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_"+knight.getLastDir()+"Swing.jpg");
 	}
-		
 	
+	
+	if(timerCount==12)
+	{
+		if(knight.getSwing() == 1)
+		{
+			knightJLabel.setIcon(down);
+			knight.setSwing(2);
+			knightJLabel.setVisible(true);
+		}
+		else if(knight.getSwing() == 2)
+		{
+			knightJLabel.setIcon(up);
+			knight.setSwing(1);
+			knightJLabel.setVisible(true);
+		}
+		timerCount = 0;
+	}
+	else
+	{
+		if(knight.getSwing() == 1)
+		{
+			knightJLabel.setIcon(up);
+			knightJLabel.setVisible(true);
+		}
+		else if(knight.getSwing() == 2)
+		{
+			knightJLabel.setIcon(down);
+			knightJLabel.setVisible(true);
+		}
+		timerCount++;
+	}
 }
 public void print(){
 	int count = 0;

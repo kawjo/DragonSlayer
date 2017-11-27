@@ -5,7 +5,6 @@ public class Knight {
 
 	private int xLoc;
 	private int yLoc;
-	private int locInArray;
 	private int currentDirection = 4;
 	private int nextDirection = 4;
 	private int LIVES;
@@ -17,10 +16,12 @@ public class Knight {
 	private int recentDir;
 	private boolean canMove;
 	
+	
 	public final static int LEFT = 3;
     public final static int RIGHT = 4;
     public final static int UP = 5;
     public final static int DOWN = 6;
+    public static int swingStatus = 1;
 	
     
 	
@@ -69,7 +70,7 @@ public class Knight {
 			if(currentDirection != nextDirection)
 			{
 				setMovability(false);
-				recentDir = currentDirection;
+				if(currentDirection != 0) {recentDir = currentDirection;}
 				currentDirection = 0;
 				for(int i = 0; i<dirOptions.length;i++)
 				{
@@ -100,7 +101,7 @@ public class Knight {
 				else
 				{
 					setMovability(false);
-					recentDir = currentDirection;
+					if(currentDirection != 0) {recentDir = currentDirection;}
 					currentDirection = 0;
 					break;
 				}
@@ -186,6 +187,14 @@ public class Knight {
 	public int getLastDir()
 	{
 		return recentDir;
+	}
+	public void setSwing(int swing)
+	{
+		swingStatus = swing;
+	}
+	public int getSwing()
+	{
+		return swingStatus;
 	}
 	public void upDateDirection()
 	{	
