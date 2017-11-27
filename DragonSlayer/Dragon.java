@@ -15,7 +15,7 @@ public class Dragon {
 	private final int UP = 5;
 	private final int DOWN = 6;
 	public final int TAILS;
-	public final double SPEED;
+	private double speed;
 	private int tailDirection;
 	private int headDirection;
 	private int tailsLeft;
@@ -32,7 +32,7 @@ public class Dragon {
 		if(speed<0 || tails < 0){
 			throw new IllegalArgumentException("Negative value");
 		}
-		SPEED = speed;
+		this.speed = speed;
 		resetDragon(x,y,d);
 	}
 	
@@ -79,24 +79,105 @@ public class Dragon {
 			}
 		}
 		switch(headDirection){
-			case LEFT: headXLoc -= (int) pix*SPEED;
+			case LEFT: headXLoc -= (int) pix*speed;
 			break;
-			case RIGHT: headXLoc += (int) pix*SPEED;
+			case RIGHT: headXLoc += (int) pix*speed;
 			break;
-			case UP: headYLoc -= (int) pix*SPEED;
+			case UP: headYLoc -= (int) pix*speed;
 			break;
-			case DOWN: headYLoc += (int) pix*SPEED;
+			case DOWN: headYLoc += (int) pix*speed;
 			break;
 		}
 		if(isExtended){
 			switch(tailDirection){
-				case LEFT: tailXLoc -= (int) pix*SPEED;
+				case LEFT: tailXLoc -= (int) pix*speed;
 				break;
-				case RIGHT: tailXLoc += (int) pix*SPEED;
+				case RIGHT: tailXLoc += (int) pix*speed;
 				break;
-				case UP: tailYLoc -= (int) pix*SPEED;
+				case UP: tailYLoc -= (int) pix*speed;
 				break;
-				case DOWN: tailYLoc += (int) pix*SPEED;
+				case DOWN: tailYLoc += (int) pix*speed;
+				break;
+			}
+		} else if(headXLoc%pix==0&&headYLoc%pix==0){
+			tailsExtended++;
+		}
+		if(intersecXLoc == tailXLoc && intersecYLoc == tailYLoc){
+			tailDirection = headDirection;
+			isInIntersection = false;
+		} else if(tailsLeft==0){
+			intersecXLoc = tailXLoc;
+			intersecYLoc = tailYLoc;
+			isInIntersection = false;
+		}
+		if(tailsExtended == tailsLeft){
+			isExtended = true;
+		}
+	}
+	
+	public void move(int pix,int[] dirs,int kx, int ky){
+		System.out.println("\n"+isExtended);
+		System.out.println("headDirection: "+headDirection);
+		System.out.println("tailDirection: "+tailDirection);
+		System.out.println("headX: "+headXLoc);
+		System.out.println("headY: "+headYLoc);
+		System.out.println("tailX: "+tailXLoc);
+		System.out.println("tailY: "+tailYLoc);
+		System.out.println("intX: "+intersecXLoc);
+		System.out.println("intY: "+intersecYLoc);
+		System.out.println("headDirection: "+headDirection);
+		System.out.println("tailDirection: "+tailDirection);
+		System.out.println("isAtIntersection: "+isAtIntersection);
+		System.out.println("isInIntersection: "+isInIntersection);
+		System.out.print("dirs: {");
+		for(int i = 0; i < dirs.length; i++){
+			if(i < dirs.length-1){
+				System.out.print(dirs[i]+",");
+			} else {
+				System.out.print(dirs[i]+"}");
+			}
+		}
+		System.out.println("kx: "+kx);
+		System.out.println("ky: "+ky);
+		if(tailsLeft==0){
+			isExtended = true;
+		}
+		if(isAtIntersection){
+			int dir = smellChoice(dirs,kx,ky);
+			headDirection = dir;
+			System.out.println("Post-decision direction: "+headDirection);
+			if(tailsLeft==0){
+				tailDirection = dir;
+			}
+			intersecXLoc = headXLoc;
+			intersecYLoc = headYLoc;
+			isInIntersection = true;
+			isAtIntersection = false;
+		} else if(tailsLeft == 0){
+			if(Math.random()<PROB_CHANGE_DIRECTION){
+				headDirection = opposite(headDirection);
+				tailDirection = opposite(tailDirection);
+			}
+		}
+		switch(headDirection){
+			case LEFT: headXLoc -= (int) pix*speed;
+			break;
+			case RIGHT: headXLoc += (int) pix*speed;
+			break;
+			case UP: headYLoc -= (int) pix*speed;
+			break;
+			case DOWN: headYLoc += (int) pix*speed;
+			break;
+		}
+		if(isExtended){
+			switch(tailDirection){
+				case LEFT: tailXLoc -= (int) pix*speed;
+				break;
+				case RIGHT: tailXLoc += (int) pix*speed;
+				break;
+				case UP: tailYLoc -= (int) pix*speed;
+				break;
+				case DOWN: tailYLoc += (int) pix*speed;
 				break;
 			}
 		} else if(headXLoc%pix==0&&headYLoc%pix==0){
@@ -161,16 +242,50 @@ public class Dragon {
 	
 	private int smellChoice(int[] dirs,int kx,int ky){
 		int dir = opposite(headDirection);
-		if(Math.abs(kx-headXLoc) < Math.abs(ky-headYLoc)){
+		if(Math.abs(kx-headXLoc) > Math.abs(ky-headYLoc)){
 			if(kx-headXLoc>0){
 				if(IntStream.of(dirs).anyMatch(x -> x == RIGHT) && dir != RIGHT){
 					dir = RIGHT;
+				} else if(ky-headYLoc<=0 && IntStream.of(dirs).anyMatch(x -> x == UP) && dir != UP){
+					dir = UP;
+				} else if(ky-headYLoc>0 && IntStream.of(dirs).anyMatch(x -> x == DOWN) && dir != DOWN){
+					dir = DOWN;
+				} else {
+					dir = LEFT;
 				}
 			} else {
-				
+				if(IntStream.of(dirs).anyMatch(x -> x == LEFT) && dir != LEFT){
+					dir = LEFT;
+				} else if(ky-headYLoc<=0 && IntStream.of(dirs).anyMatch(x -> x == UP) && dir != UP){
+					dir = UP;
+				} else if(ky-headYLoc>0 && IntStream.of(dirs).anyMatch(x -> x == DOWN) && dir != DOWN){
+					dir = DOWN;
+				} else {
+					dir = RIGHT;
+				}
 			}
 		} else {
-			
+			if(ky-headYLoc>0){
+				if(IntStream.of(dirs).anyMatch(x -> x == DOWN) && dir != DOWN){
+					dir = DOWN;
+				} else if(kx-headXLoc<=0 && IntStream.of(dirs).anyMatch(x -> x == LEFT) && dir != LEFT){
+					dir = LEFT;
+				} else if(kx-headXLoc>0 && IntStream.of(dirs).anyMatch(x -> x == RIGHT) && dir != RIGHT){
+					dir = RIGHT;
+				} else {
+					dir = UP;
+				}
+			} else {
+				if(IntStream.of(dirs).anyMatch(x -> x == UP) && dir != UP){
+					dir = UP;
+				} else if(kx-headXLoc<=0 && IntStream.of(dirs).anyMatch(x -> x == LEFT) && dir != LEFT){
+					dir = LEFT;
+				} else if(kx-headXLoc>0 && IntStream.of(dirs).anyMatch(x -> x == RIGHT) && dir != RIGHT){
+					dir = RIGHT;
+				} else {
+					dir = DOWN;
+				}
+			}
 		}
 		return dir;
 	}
@@ -196,6 +311,8 @@ public class Dragon {
 		isExtended = false;
 		tailsExtended = 0;
 	}
+	
+	public void setSpeed(double speed){this.speed = speed;}
 	
 	public int tailsLeft(){return tailsLeft;}
 	

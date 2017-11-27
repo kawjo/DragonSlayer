@@ -32,6 +32,8 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     private JLabel startString;
     private JPanel startPanel;
     
+    private int level;
+    
     public DragonController(String passedInWindowTitle, int gameWindowX, int gameWindowY, int gameWindowWidth, int gameWindowHeight, Board B1) throws Exception{
     	boardHolder = new JFrame(passedInWindowTitle);
     	boardHolder.setSize(gameWindowWidth, gameWindowHeight);
