@@ -32,7 +32,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     private JLabel startString;
     private JPanel startPanel;
     
-    private int level;
+    private int level = 1;
     
     public DragonController(String passedInWindowTitle, int gameWindowX, int gameWindowY, int gameWindowWidth, int gameWindowHeight, Board B1) throws Exception{
     	boardHolder = new JFrame(passedInWindowTitle);
@@ -109,11 +109,12 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 				gameBoard.moveAll();
 				//boardHolder.repaint();
 				if(gameBoard.dragon().areTailsExtended()&&gameBoard.didDragonEatKnight()){
+					level = 1;
 					gameIsReady=false;
 					startString.setText("<html>YOU LOST!<br>SUCKER >P<br><br>press any key to play again</html>");
 					gameBoard.setVisible(false);
 					startPanel.setVisible(true);
-					gameBoard.reset(false);
+					gameBoard.reset(false,level);
 					System.out.println("YOU LOST");
 					System.out.println("SUCKER");
 					
@@ -126,20 +127,30 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 					System.out.println("Tails extended:"+gameBoard.dragon().areTailsExtended());
 					System.out.println("Tails left:"+gameBoard.dragon().tailsLeft());
 					if(gameBoard.dragon().tailsLeft()==0){
-						startString.setText("<html>YOU WON!<br>press any key to play again</html>");
-						gameBoard.setVisible(false);
-						startPanel.setVisible(true);
-						gameBoard.reset(false);
+						if(level<6){
+							startString.setText("<html>YOU BEAT LEVEL "+level+"!<br>press any key to play again</html>");
+							gameBoard.setVisible(false);
+							startPanel.setVisible(true);
+							level++;
+						} else {
+							startString.setText("<html>YOU BEAT THE ENTIRE GAME!<br>press any key to play again</html>");
+							gameBoard.setVisible(false);
+							startPanel.setVisible(true);
+							level = 1;
+						}
+						gameBoard.reset(false,level);
+						gamePause = true;
+						Thread.sleep(1000);
+						gamePause = false;
 					} else {
 						startString.setText("<html>YOU CHOPPED SOME TAIL OFF!<br>press any key to resume</html>");
 						gameBoard.setVisible(false);
 						startPanel.setVisible(true);
-						gameBoard.reset(true);
+						gameBoard.reset(true,level);
 					}
 					System.out.println("YOU WON!");
-					
 					gamePause = true;
-					Thread.sleep(1000);
+					Thread.sleep(250);
 					gamePause = false;
 				}
 			} catch (Exception e) {

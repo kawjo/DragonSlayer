@@ -676,8 +676,9 @@ public void reset(boolean didKnightKillDragon, int level) throws Exception{
     gameContentPane.setComponentZOrder(knightJLabel, 0);
     knightJLabel.setVisible(true);
     
+    this.level = level;
     double knightSpeed, dragonSpeed;
-    switch(level){
+    switch(this.level){
     case 1: dragonSpeed = 0.04; knightSpeed = 0.1;
     	break;
     case 2: dragonSpeed = 0.1; knightSpeed = 0.2;
