@@ -37,6 +37,7 @@ private final int RIGHT = 4;
 private final int UP = 5;
 private final int DOWN = 6;
 private int timerCount = 0;
+private int level = 1;
 
 public Board(Maze m,Container gameContentPane) throws Exception{
 	maze = m;
@@ -182,8 +183,11 @@ private void move(Dragon d) throws Exception{
 		 	} else {
 		 		dragon.setIntersection(false);
 		 	}
-	
-	dragon.move(PIXELS_PER_SPACE, directions(findDragon()));
+	if(level>=4){
+		dragon.move(PIXELS_PER_SPACE, directions(findDragon()),knight.getXLocation(),knight.getYLocation());
+	} else {
+		dragon.move(PIXELS_PER_SPACE, directions(findDragon()));
+	}
 	if(dragon.headX()%PIXELS_PER_SPACE==0&&dragon.headY()%PIXELS_PER_SPACE==0){
 		upDateDragonLocation();
 	}
@@ -645,7 +649,7 @@ public void print(){
 	}
 }
 
-public void reset(boolean didKnightKillDragon) throws Exception{
+public void reset(boolean didKnightKillDragon, int level) throws Exception{
 	for(int i = 0; i < dragon.tailsLeft()+1; i++){
 		gameContentPane.remove(dragonJLabel[i]);
 	}
@@ -685,6 +689,25 @@ public void reset(boolean didKnightKillDragon) throws Exception{
     gameContentPane.add(knightJLabel);
     gameContentPane.setComponentZOrder(knightJLabel, 0);
     knightJLabel.setVisible(true);
+    
+    this.level = level;
+    double knightSpeed, dragonSpeed;
+    switch(this.level){
+    case 1: dragonSpeed = 0.04; knightSpeed = 0.1;
+    	break;
+    case 2: dragonSpeed = 0.1; knightSpeed = 0.2;
+    	break;
+    case 3: dragonSpeed = 0.2; knightSpeed = 0.5;
+    	break;
+    case 4: dragonSpeed = 0.2; knightSpeed = 0.5;
+    	break;
+    case 5: dragonSpeed = 0.5; knightSpeed = 1.0;
+    	break;
+    case 6: dragonSpeed = 1.0; knightSpeed = 1.0;
+    	break;
+    }
+    knight.setSpeed(knightSpeed);
+    dragon.setSpeed(dragonSpeed);
 }
 
 
