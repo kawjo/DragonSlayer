@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 public class Dragon {
 	
@@ -36,7 +37,7 @@ public class Dragon {
 	}
 	
 	public void move(int pix,int[] dirs){
-		System.out.println("\n"+isExtended);
+		/*System.out.println("\n"+isExtended);
 		System.out.println("headDirection: "+headDirection);
 		System.out.println("tailDirection: "+tailDirection);
 		System.out.println("headX: "+headXLoc);
@@ -56,31 +57,13 @@ public class Dragon {
 			} else {
 				System.out.print(dirs[i]+"}");
 			}
-		}
+		}*/
 		
 		if(tailsLeft==0){
 			isExtended = true;
 		}
 		if(isAtIntersection){
-			Random r = new Random();
-			int dir = opposite(tailDirection);
-			boolean valid = false;
-			while(!valid&&tailsLeft>0){
-				dir = r.nextInt(4)+3;
-				for(int i = 0; i < dirs.length; i++){
-					if(dirs[i] == dir && dir != opposite(tailDirection)){
-						valid = true;
-					}
-				}
-			}
-			while(!valid&&tailsLeft==0){
-				dir = r.nextInt(4)+3;
-				for(int i = 0; i < dirs.length; i++){
-					if(dirs[i]==dir){
-						valid = true;
-					}
-				}
-			}
+			int dir = randChoice(dirs);
 			headDirection = dir;
 			if(tailsLeft==0){
 				tailDirection = dir;
@@ -151,6 +134,45 @@ public class Dragon {
 			tailsLeft--;
 			resetDragon(x,y,d);
 		}
+	}
+	
+	private int randChoice(int[] dirs){
+		Random r = new Random();
+		int dir = opposite(tailDirection);
+		boolean valid = false;
+		while(!valid&&tailsLeft>0){
+			dir = r.nextInt(4)+3;
+			for(int i = 0; i < dirs.length; i++){
+				if(dirs[i] == dir && dir != opposite(tailDirection)){
+					valid = true;
+				}
+			}
+		}
+		while(!valid&&tailsLeft==0){
+			dir = r.nextInt(4)+3;
+			for(int i = 0; i < dirs.length; i++){
+				if(dirs[i]==dir){
+					valid = true;
+				}
+			}
+		}
+		return dir;
+	}
+	
+	private int smellChoice(int[] dirs,int kx,int ky){
+		int dir = opposite(headDirection);
+		if(Math.abs(kx-headXLoc) < Math.abs(ky-headYLoc)){
+			if(kx-headXLoc>0){
+				if(IntStream.of(dirs).anyMatch(x -> x == RIGHT) && dir != RIGHT){
+					dir = RIGHT;
+				}
+			} else {
+				
+			}
+		} else {
+			
+		}
+		return dir;
 	}
 	
 	public void restore(int x, int y, int d){

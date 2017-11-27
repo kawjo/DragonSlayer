@@ -55,10 +55,14 @@ public class Knight {
 	private void yesMove(int pixToMove, int [] dirOptions)
 	{
 		knightDirs = dirOptions;
+		
+		/*System.out.println("Pre-move current Dir: " + currentDirection);
+		System.out.println("Pre-move next Dir: " + nextDirection);
+		System.out.println("Directions availible: ");
 		for(int i =0; i<dirOptions.length; i++)
 		{
 			System.out.println(dirOptions[i]);
-		}
+		}*/
 		
 		if(isAtIntersection)
 		{
@@ -118,6 +122,9 @@ public class Knight {
 				}
 			}
 	}
+		//System.out.println("Post-move current Dir: " + currentDirection);
+		//System.out.println("Post-move next Dir: " + nextDirection);
+
 	
 	private boolean didDirectionChange()
 	{
