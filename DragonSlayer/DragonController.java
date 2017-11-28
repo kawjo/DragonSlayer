@@ -11,13 +11,15 @@ import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon; // messages have an icon
 import java.awt.*; // for graphics & MouseListener 
 import java.awt.event.*; // need for events and MouseListener
+import java.util.Timer;
 import java.util.TimerTask; // use as a timer 
 import javax.swing.JLabel; //use for display text
 
 
 class DragonController extends TimerTask implements MouseListener, KeyListener  {
     
-    public static final int MOVE_TIMER = 30; // time in milliseconds on timer
+    private static final int INITIAL_MOVE_TIMER = 10; // time in milliseconds on timer
+    private int timerForCurrentLevel = 10;
  
     private Container gameContentPane;
     private boolean gameIsReady = false;
@@ -61,7 +63,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         run();
         //resetGame();
         // start the timer
-        gameTimer.schedule(this, 0, MOVE_TIMER);    
+        gameTimer.schedule(this, 0, INITIAL_MOVE_TIMER);    
  
         gameBoard.moveAll();
         // register this class as a mouse event listener for the JFrame
@@ -117,14 +119,16 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 				//boardHolder.repaint();
 				if(gameBoard.dragon().areTailsExtended()&&gameBoard.didDragonEatKnight()){
 					level = 1;
+					timerForCurrentLevel = INITIAL_MOVE_TIMER;
 					gameIsReady=false;
 					startString.setText("<html>YOU LOST!<br>SUCKER >P<br><br>press any key to play again</html>");
-					gameBoard.setVisible(false);
 					startPanel.setVisible(true);
 					gameBoard.reset(false,level);
 					System.out.println("YOU LOST");
 					System.out.println("SUCKER");
-					
+					timerForCurrentLevel = INITIAL_MOVE_TIMER;
+					System.out.println("Timer is getting scheduled: "+this.cancel());
+					gameTimer.schedule(this,0,timerForCurrentLevel);
 					gamePause = true;
 					Thread.sleep(250);
 					gamePause = false;
@@ -134,16 +138,21 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 					System.out.println("Tails extended:"+gameBoard.dragon().areTailsExtended());
 					System.out.println("Tails left:"+gameBoard.dragon().tailsLeft());
 					if(gameBoard.dragon().tailsLeft()==0){
-						if(level<6){
+						if(level<10){
 							startString.setText("<html>YOU BEAT LEVEL "+level+"!<br>press any key to play again</html>");
-							gameBoard.setVisible(false);
 							startPanel.setVisible(true);
 							level++;
+							timerForCurrentLevel-=1;
+							this.cancel();
+							gameTimer.schedule(this,0,timerForCurrentLevel);
 						} else {
 							startString.setText("<html>YOU BEAT THE ENTIRE GAME!<br>press any key to play again</html>");
 							gameBoard.setVisible(false);
 							startPanel.setVisible(true);
 							level = 1;
+							timerForCurrentLevel = INITIAL_MOVE_TIMER;
+							this.cancel();
+							gameTimer.schedule(this,0,timerForCurrentLevel);
 						}
 						gameBoard.reset(false,level);
 						gamePause = true;
@@ -151,7 +160,6 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 						gamePause = false;
 					} else {
 						startString.setText("<html>YOU CHOPPED SOME TAIL OFF!<br>press any key to resume</html>");
-						gameBoard.setVisible(false);
 						startPanel.setVisible(true);
 						gameBoard.reset(true,level);
 					}
