@@ -79,6 +79,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         startPanel.add(startString);
         boardHolder.add(startPanel);
         startPanel.setVisible(true);
+        playSound("Battle.wav");
         boardHolder.setComponentZOrder(startPanel,0);
         startString.setFont(new Font(null,Font.PLAIN,100));
     }   
@@ -223,7 +224,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 		;
 		
 	}
-	public static synchronized void playSound(final String url) {
+	public static synchronized void playSound(String url) {
 		  new Thread(new Runnable() {
 		  // The wrapper thread is unnecessary, unless it blocks on the
 		  // Clip finishing; see comments.
@@ -231,7 +232,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 		      try {
 		        Clip clip = AudioSystem.getClip();
 		        AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-		          Main.class.getResourceAsStream("/path/to/sounds/" + url));
+		          Main.class.getResourceAsStream("sounds/" + url));
 		        clip.open(inputStream);
 		        clip.start(); 
 		      } catch (Exception e) {
