@@ -2,6 +2,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import java.awt.*;
 import java.awt.geom.Area;
@@ -37,6 +44,7 @@ private final int RIGHT = 4;
 private final int UP = 5;
 private final int DOWN = 6;
 private int timerCount = 0;
+private int level = 1;
 
 public Board(Maze m,Container gameContentPane) throws Exception{
 	maze = m;
@@ -182,16 +190,13 @@ private void move(Dragon d) throws Exception{
 		 	} else {
 		 		dragon.setIntersection(false);
 		 	}
-<<<<<<< HEAD
-	
-	dragon.move(PIXELS_PER_SPACE, directions(findDragon()));
-=======
+
+
 	if(level>=1){
 		dragon.move(PIXELS_PER_SPACE, directions(findDragon()),knight.getXLocation(),knight.getYLocation(),true); //boolean isLookNotSmell
 	} else {
 		dragon.move(PIXELS_PER_SPACE, directions(findDragon()));
 	}
->>>>>>> 80e7f8b20d698770d6042456e224760d7217ad34
 	if(dragon.headX()%PIXELS_PER_SPACE==0&&dragon.headY()%PIXELS_PER_SPACE==0){
 		upDateDragonLocation();
 	}
@@ -580,6 +585,10 @@ private void draw(){
 	//}
 	drawKnight();
 	drawDragon();
+	boolean val = new Random().nextInt(150)==0;
+	Random rand = new Random();
+	int  n = rand.nextInt(5) + 1;
+	if(val){roar(n);}
 }
 
 public void setVisible(boolean visible){
@@ -695,6 +704,27 @@ public void reset(boolean didKnightKillDragon, int level) throws Exception{
     gameContentPane.setComponentZOrder(knightJLabel, 0);
     knightJLabel.setVisible(true);
 
+}
+public void playSound(String fileName) {
+    try {
+        File soundFile = new File("sounds/"+fileName+".au"); 
+        AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);              
+        AudioFormat format = audioIn.getFormat();
+        DataLine.Info info = new DataLine.Info(Clip.class, format);
+        Clip audioClip = (Clip) AudioSystem.getLine(info);
+       audioClip.open(audioIn);
+       audioClip.start();
+    } catch (UnsupportedAudioFileException e) {
+       e.printStackTrace();
+    } catch (IOException e) {
+       e.printStackTrace();
+    } catch (LineUnavailableException e) {
+       e.printStackTrace();
+    }
+ }
+public void roar(int num)
+{
+	playSound("Snarl_0"+num);
 }
 
 

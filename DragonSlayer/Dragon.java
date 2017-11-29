@@ -24,7 +24,7 @@ public class Dragon {
 	private boolean isAtIntersection = false;
 	private boolean isExtended = false;
 	private int tailsExtended = 0;
-	private final double PROB_CHANGE_DIRECTION = 0.01;
+	private final double PROB_CHANGE_DIRECTION = 0.02;
 	
 	public Dragon(int tails, double speed, int x, int y, int d){
 		TAILS = tails;
