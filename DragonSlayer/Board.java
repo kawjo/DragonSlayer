@@ -61,8 +61,8 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     	mazeJLabels[i].setVisible(true);
     }
     
-    knight = new Knight(1,.2,getXPosition(findKnight()),getYPosition(findKnight()));
-    dragon = new Dragon(4,.1,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
+    knight = new Knight(1,.5,getXPosition(findKnight()),getYPosition(findKnight()));
+    dragon = new Dragon(4,.2,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
     knightJLabel = new JLabel();
     dragonJLabel = new JLabel[dragon.TAILS+1];
     dragonIntLabel = new JLabel();
@@ -182,8 +182,16 @@ private void move(Dragon d) throws Exception{
 		 	} else {
 		 		dragon.setIntersection(false);
 		 	}
+<<<<<<< HEAD
 	
 	dragon.move(PIXELS_PER_SPACE, directions(findDragon()));
+=======
+	if(level>=1){
+		dragon.move(PIXELS_PER_SPACE, directions(findDragon()),knight.getXLocation(),knight.getYLocation(),true); //boolean isLookNotSmell
+	} else {
+		dragon.move(PIXELS_PER_SPACE, directions(findDragon()));
+	}
+>>>>>>> 80e7f8b20d698770d6042456e224760d7217ad34
 	if(dragon.headX()%PIXELS_PER_SPACE==0&&dragon.headY()%PIXELS_PER_SPACE==0){
 		upDateDragonLocation();
 	}
