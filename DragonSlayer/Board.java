@@ -183,8 +183,8 @@ private void move(Dragon d) throws Exception{
 		 	} else {
 		 		dragon.setIntersection(false);
 		 	}
-	if(level>=4){
-		dragon.move(PIXELS_PER_SPACE, directions(findDragon()),knight.getXLocation(),knight.getYLocation());
+	if(level>=1){
+		dragon.move(PIXELS_PER_SPACE, directions(findDragon()),knight.getXLocation(),knight.getYLocation(),true); //boolean isLookNotSmell
 	} else {
 		dragon.move(PIXELS_PER_SPACE, directions(findDragon()));
 	}

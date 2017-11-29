@@ -18,7 +18,7 @@ import javax.swing.JLabel; //use for display text
 
 class DragonController extends TimerTask implements MouseListener, KeyListener  {
     
-    private static final int INITIAL_MOVE_TIMER = 10; // time in milliseconds on timer
+    private static final int INITIAL_MOVE_TIMER = 20; // time in milliseconds on timer
  
     private Container gameContentPane;
     private boolean gameIsReady = false;
