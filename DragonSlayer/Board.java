@@ -646,7 +646,7 @@ public void print(){
 	}
 }
 
-public void reset(boolean didKnightKillDragon) throws Exception{
+public void reset(boolean didKnightKillDragon, int level) throws Exception{
 	for(int i = 0; i < dragon.tailsLeft()+1; i++){
 		gameContentPane.remove(dragonJLabel[i]);
 	}
@@ -686,11 +686,7 @@ public void reset(boolean didKnightKillDragon) throws Exception{
     gameContentPane.add(knightJLabel);
     gameContentPane.setComponentZOrder(knightJLabel, 0);
     knightJLabel.setVisible(true);
-<<<<<<< HEAD
-=======
-    
-    this.level = level;
->>>>>>> 02e5ed721de3231c42226f9b5a18a1094f5c246f
+
 }
 
 

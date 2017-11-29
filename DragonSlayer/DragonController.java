@@ -3,14 +3,23 @@ import javax.swing.JFrame; // for JFrame
 import javax.swing.JOptionPane; // messages are displayed using JOptionPane
 import javax.swing.JPanel;
 
+import com.sun.media.jfxmedia.Media;
+import com.sun.media.jfxmedia.MediaPlayer;
+
 import sun.applet.Main;
 
+import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon; // messages have an icon
 import java.awt.*; // for graphics & MouseListener 
 import java.awt.event.*; // need for events and MouseListener
+import java.io.File;
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask; // use as a timer 
 import javax.swing.JLabel; //use for display text
@@ -81,31 +90,10 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         startPanel.add(startString);
         boardHolder.add(startPanel);
         startPanel.setVisible(true);
-        playSound("Battle.wav");
+        playSound("Battle_02");
         boardHolder.setComponentZOrder(startPanel,0);
         startString.setFont(new Font(null,Font.PLAIN,100));
     }   
-    
-    private void resetGame()
-    {
- 
-    }
-    
-    private void dragonGotHit() {
-    	
-    }
-    	
-    private void knightGotHit() {
-    	
-    }
-    
-    private void didSomeoneDie() {
-    	
-    }
-    	
-    private boolean didIWin(){
-         return false;
-    }
     
     //this run() function overrides run() in java.util.TimerTask
     // this is "run" everytime the timer expires (yes, they could have picked a better name)
@@ -160,6 +148,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 						gamePause = false;
 					} else {
 						startString.setText("<html>YOU CHOPPED SOME TAIL OFF!<br>press any key to resume</html>");
+						playSound("tailChopped");
 						startPanel.setVisible(true);
 						gameBoard.reset(true,level);
 					}
@@ -232,22 +221,23 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 		;
 		
 	}
-	public static synchronized void playSound(String url) {
-		  new Thread(new Runnable() {
-		  // The wrapper thread is unnecessary, unless it blocks on the
-		  // Clip finishing; see comments.
-		    public void run() {
-		      try {
-		        Clip clip = AudioSystem.getClip();
-		        AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-		          Main.class.getResourceAsStream("sounds/" + url));
-		        clip.open(inputStream);
-		        clip.start(); 
-		      } catch (Exception e) {
-		        System.err.println(e.getMessage());
-		      }
-		    }
-		  }).start();
-		}
+	
+	public void playSound(String fileName) {
+	      try {
+	          File soundFile = new File("sounds/"+fileName+".au"); 
+	          AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);              
+	          AudioFormat format = audioIn.getFormat();
+	          DataLine.Info info = new DataLine.Info(Clip.class, format);
+	          Clip audioClip = (Clip) AudioSystem.getLine(info);
+	         audioClip.open(audioIn);
+	         audioClip.start();
+	      } catch (UnsupportedAudioFileException e) {
+	         e.printStackTrace();
+	      } catch (IOException e) {
+	         e.printStackTrace();
+	      } catch (LineUnavailableException e) {
+	         e.printStackTrace();
+	      }
+	   }
     
 }
