@@ -38,6 +38,8 @@ private final int UP = 5;
 private final int DOWN = 6;
 private int timerCount = 0;
 private int level = 1;
+private boolean isPauseScreenShowing = false;
+private JLabel pause;
 
 public Board(Maze m,Container gameContentPane) throws Exception{
 	maze = m;
@@ -99,11 +101,16 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     
     draw();
     gameContentPane.add(knightJLabel);
-    gameContentPane.setComponentZOrder(knightJLabel,0);
+    gameContentPane.setComponentZOrder(knightJLabel,1);
     for(int i = 0; i < dragonJLabel.length; i++){
-    	gameContentPane.add(dragonJLabel[i],1);
+    	gameContentPane.add(dragonJLabel[i],2);
     }
-    gameContentPane.setComponentZOrder(dragonIntLabel,0);
+    gameContentPane.setComponentZOrder(dragonIntLabel,1);
+    
+    pause = new JLabel();
+    pause.setBounds(0,0,1600,900);
+    gameContentPane.add(pause);
+    gameContentPane.setComponentZOrder(pause, 0);
 }
 
 
@@ -692,6 +699,23 @@ public void reset(boolean didKnightKillDragon, int level) throws Exception{
     
     this.level = level;
 }
+
+public void show(String path){
+	pause.setIcon(new ImageIcon(path));
+	pause.setBounds(0,0,1600,900);
+	pause.setVisible(true);
+	isPauseScreenShowing = true;
+}
+
+public void stopShow(){
+	pause.setVisible(false);
+	isPauseScreenShowing = false;
+}
+
+public boolean isShowing(){
+	return isPauseScreenShowing;
+}
+
 
 
 }

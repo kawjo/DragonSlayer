@@ -117,8 +117,9 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 				if(gameBoard.dragon().areTailsExtended()&&gameBoard.didDragonEatKnight()){
 					level = 1;
 					gameIsReady=false;
-					startString.setText("<html>YOU LOST!<br>SUCKER >P<br><br>press any key to play again</html>");
-					startPanel.setVisible(true);
+					//startString.setText("<html>YOU LOST!<br>SUCKER >P<br><br>press any key to play again</html>");
+					//startPanel.setVisible(true);
+					gameBoard.show("img/DragonEaten.jpg");
 					gameBoard.reset(false,level);
 					System.out.println("YOU LOST");
 					System.out.println("SUCKER");
@@ -194,7 +195,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 	}
 
 	public void keyPressed(KeyEvent e) {
-		if(!gameIsReady&&!gamePause&&startPanel.isVisible()){gameBoard.setVisible(true);startPanel.setVisible(false);gameIsReady=true;}
+		if(!gameIsReady&&!gamePause&&(startPanel.isVisible() || gameBoard.isShowing())){startPanel.setVisible(false);gameBoard.stopShow();gameIsReady=true;}
 		
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
 		{
