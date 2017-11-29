@@ -116,7 +116,7 @@ public class Dragon {
 	}
 	
 	public void move(int pix,int[] dirs,int kx, int ky, boolean isLookNotSmell){
-		System.out.println("\n"+isExtended);
+		/*System.out.println("\n"+isExtended);
 		System.out.println("headDirection: "+headDirection);
 		System.out.println("tailDirection: "+tailDirection);
 		System.out.println("headX: "+headXLoc);
@@ -138,7 +138,7 @@ public class Dragon {
 			}
 		}
 		System.out.println("kx: "+kx);
-		System.out.println("ky: "+ky);
+		System.out.println("ky: "+ky);*/
 		if(tailsLeft==0){
 			isExtended = true;
 		}
@@ -150,7 +150,7 @@ public class Dragon {
 				dir = smellChoice(dirs,kx,ky);
 			}
 			headDirection = dir;
-			System.out.println("Post-decision direction: "+headDirection);
+			//System.out.println("Post-decision direction: "+headDirection);
 			if(tailsLeft==0){
 				tailDirection = dir;
 			}
