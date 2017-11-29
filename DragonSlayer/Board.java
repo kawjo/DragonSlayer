@@ -62,8 +62,8 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     	mazeJLabels[i].setVisible(true);
     }
     
-    knight = new Knight(1,.2,getXPosition(findKnight()),getYPosition(findKnight()));
-    dragon = new Dragon(4,.1,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
+    knight = new Knight(1,.5,getXPosition(findKnight()),getYPosition(findKnight()));
+    dragon = new Dragon(4,.2,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
     knightJLabel = new JLabel();
     dragonJLabel = new JLabel[dragon.TAILS+1];
     dragonIntLabel = new JLabel();

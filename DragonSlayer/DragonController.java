@@ -19,7 +19,6 @@ import javax.swing.JLabel; //use for display text
 class DragonController extends TimerTask implements MouseListener, KeyListener  {
     
     private static final int INITIAL_MOVE_TIMER = 10; // time in milliseconds on timer
-    private int timerForCurrentLevel = 10;
  
     private Container gameContentPane;
     private boolean gameIsReady = false;
@@ -107,27 +106,22 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
     }
     
     //this run() function overrides run() in java.util.TimerTask
-    // this is "run" everytime the timer expires (yes, they could have picked a better name)
+    // this is "run" every time the timer expires (yes, they could have picked a better name)
     public void run() {
         if (gameIsReady)
         {
-    		
             try {
             	//gameBoard.print();
 				gameBoard.moveAll();
 				//boardHolder.repaint();
 				if(gameBoard.dragon().areTailsExtended()&&gameBoard.didDragonEatKnight()){
 					level = 1;
-					timerForCurrentLevel = INITIAL_MOVE_TIMER;
 					gameIsReady=false;
 					startString.setText("<html>YOU LOST!<br>SUCKER >P<br><br>press any key to play again</html>");
 					startPanel.setVisible(true);
 					gameBoard.reset(false,level);
 					System.out.println("YOU LOST");
 					System.out.println("SUCKER");
-					timerForCurrentLevel = INITIAL_MOVE_TIMER;
-					System.out.println("Timer is getting scheduled: "+this.cancel());
-					gameTimer.schedule(this,0,timerForCurrentLevel);
 					gamePause = true;
 					Thread.sleep(250);
 					gamePause = false;
@@ -141,17 +135,11 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 							startString.setText("<html>YOU BEAT LEVEL "+level+"!<br>press any key to play again</html>");
 							startPanel.setVisible(true);
 							level++;
-							timerForCurrentLevel-=1;
-							this.cancel();
-							gameTimer.schedule(this,0,timerForCurrentLevel);
 						} else {
 							startString.setText("<html>YOU BEAT THE ENTIRE GAME!<br>press any key to play again</html>");
 							gameBoard.setVisible(false);
 							startPanel.setVisible(true);
 							level = 1;
-							timerForCurrentLevel = INITIAL_MOVE_TIMER;
-							this.cancel();
-							gameTimer.schedule(this,0,timerForCurrentLevel);
 						}
 						gameBoard.reset(false,level);
 						gamePause = true;
