@@ -27,7 +27,7 @@ import javax.swing.JLabel; //use for display text
 
 class DragonController extends TimerTask implements MouseListener, KeyListener  {
     
-    private static final int INITIAL_MOVE_TIMER = 20; // time in milliseconds on timer
+    private static final int INITIAL_MOVE_TIMER = 30; // time in milliseconds on timer
  
     private Container gameContentPane;
     private boolean gameIsReady = false;
@@ -114,7 +114,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 					System.out.println("YOU LOST");
 					System.out.println("SUCKER");
 					gamePause = true;
-					Thread.sleep(250);
+					Thread.sleep(500);
 					gamePause = false;
 					
 				} else if(gameBoard.dragon().areTailsExtended()&&gameBoard.didKnightKillDragon()){
@@ -136,7 +136,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 						}
 						gameBoard.reset(false,level);
 						gamePause = true;
-						Thread.sleep(1000);
+						Thread.sleep(2000);
 						gamePause = false;
 					} else {
 						//startString.setText("<html>YOU CHOPPED SOME TAIL OFF!<br>press any key to resume</html>");
@@ -147,7 +147,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 					}
 					System.out.println("YOU WON!");
 					gamePause = true;
-					Thread.sleep(250);
+					Thread.sleep(500);
 					gamePause = false;
 				}
 			} catch (Exception e) {
@@ -189,7 +189,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 	}
 
 	public void keyPressed(KeyEvent e) {
-		if(!gameIsReady&&!gamePause&&(gameBoard.isShowing())){gameBoard.stopShow();gameIsReady=true;}
+		if(!gameIsReady&&!gamePause&&gameBoard.isShowing()){gameBoard.stopShow();gameIsReady=true;}
 		
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
 		{
