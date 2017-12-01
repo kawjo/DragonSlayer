@@ -702,14 +702,15 @@ public void reset(boolean didKnightKillDragon, int level) throws Exception{
     		dragonJLabel[i].setIcon(new ImageIcon(dragonImage));
     		dragonJLabel[i].setBounds(getXPosition(findDragon()),getYPosition(findDragon()),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
     		gameContentPane.add(dragonJLabel[i]);
-    		gameContentPane.setComponentZOrder(dragonJLabel[i],1);
+    		gameContentPane.setComponentZOrder(dragonJLabel[i],2);
         	dragonJLabel[i].setVisible(false);
     }
     knightJLabel.setIcon(new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_"+knight.currentDirection()+".jpg"));
     knightJLabel.setBounds(knight.getXLocation(),knight.getYLocation(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
     gameContentPane.add(knightJLabel);
-    gameContentPane.setComponentZOrder(knightJLabel, 0);
+    gameContentPane.setComponentZOrder(knightJLabel, 1);
     knightJLabel.setVisible(true);
+    gameContentPane.setComponentZOrder(dragonIntLabel, 1);
 
 }
 public void playSound(String fileName) {
