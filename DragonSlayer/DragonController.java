@@ -88,10 +88,11 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         startString.setVisible(true);
         startPanel.add(startString);
         boardHolder.add(startPanel);
-        startPanel.setVisible(true);
+        //startPanel.setVisible(true);
         playSound("Battle_02");
         boardHolder.setComponentZOrder(startPanel,0);
         startString.setFont(new Font(null,Font.PLAIN,100));
+        gameBoard.show("img/DragonSlayer.JPG");
     }   
     
     //this run() function overrides run() in java.util.TimerTask
