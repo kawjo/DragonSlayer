@@ -71,7 +71,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         run();
         //resetGame();
         // start the timer
-        gameTimer.schedule(this, 0, INITIAL_MOVE_TIMER);    
+        gameTimer.schedule(this, 0, INITIAL_MOVE_TIMER);
  
         gameBoard.moveAll();
         // register this class as a mouse event listener for the JFrame
@@ -136,9 +136,10 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 						Thread.sleep(1000);
 						gamePause = false;
 					} else {
-						startString.setText("<html>YOU CHOPPED SOME TAIL OFF!<br>press any key to resume</html>");
+						//startString.setText("<html>YOU CHOPPED SOME TAIL OFF!<br>press any key to resume</html>");
 						playSound("tailChopped");
-						startPanel.setVisible(true);
+						//startPanel.setVisible(true);
+						gameBoard.show("img/DragonTailChopped.JPG");
 						gameBoard.reset(true,level);
 					}
 					System.out.println("YOU WON!");
