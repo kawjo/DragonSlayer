@@ -83,15 +83,15 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         boardHolder.addKeyListener(this);
         
         //gameIsReady = true;
-        startPanel = new JPanel();
-        startString = new JLabel("PRESS ANY KEY TO START");
-        startString.setVisible(true);
-        startPanel.add(startString);
-        boardHolder.add(startPanel);
+        //startPanel = new JPanel();
+        //startString = new JLabel("PRESS ANY KEY TO START");
+        //startString.setVisible(true);
+        //startPanel.add(startString);
+        //boardHolder.add(startPanel);
         //startPanel.setVisible(true);
         playSound("Battle_02");
-        boardHolder.setComponentZOrder(startPanel,0);
-        startString.setFont(new Font(null,Font.PLAIN,100));
+        //boardHolder.setComponentZOrder(startPanel,0);
+        //startString.setFont(new Font(null,Font.PLAIN,100));
         gameBoard.show("img/DragonSlayer.JPG");
     }   
     
@@ -123,13 +123,15 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 					System.out.println("Tails left:"+gameBoard.dragon().tailsLeft());
 					if(gameBoard.dragon().tailsLeft()==0){
 						if(level<10){
-							startString.setText("<html>YOU BEAT LEVEL "+level+"!<br>press any key to play again</html>");
-							startPanel.setVisible(true);
+							//startString.setText("<html>YOU BEAT LEVEL "+level+"!<br>press any key to play again</html>");
+							//startPanel.setVisible(true);
+							gameBoard.show("img/DragonLevel2.JPG");
 							level++;
 						} else {
-							startString.setText("<html>YOU BEAT THE ENTIRE GAME!<br>press any key to play again</html>");
-							gameBoard.setVisible(false);
-							startPanel.setVisible(true);
+							//startString.setText("<html>YOU BEAT THE ENTIRE GAME!<br>press any key to play again</html>");
+							//gameBoard.setVisible(false);
+							//startPanel.setVisible(true);
+							gameBoard.show("img/DragonLevel2.JPG");
 							level = 1;
 						}
 						gameBoard.reset(false,level);
@@ -187,7 +189,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 	}
 
 	public void keyPressed(KeyEvent e) {
-		if(!gameIsReady&&!gamePause&&(startPanel.isVisible() || gameBoard.isShowing())){startPanel.setVisible(false);gameBoard.stopShow();gameIsReady=true;}
+		if(!gameIsReady&&!gamePause&&(gameBoard.isShowing())){gameBoard.stopShow();gameIsReady=true;}
 		
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
 		{
