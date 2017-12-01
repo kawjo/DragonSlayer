@@ -3,6 +3,7 @@ import javax.swing.JFrame; // for JFrame
 import javax.swing.JOptionPane; // messages are displayed using JOptionPane
 import javax.swing.JPanel;
 
+import com.sun.media.jfxmedia.AudioClip;
 import com.sun.media.jfxmedia.Media;
 import com.sun.media.jfxmedia.MediaPlayer;
 
@@ -109,6 +110,10 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 					gameIsReady=false;
 					//startString.setText("<html>YOU LOST!<br>SUCKER >P<br><br>press any key to play again</html>");
 					//startPanel.setVisible(true);
+					
+					AudioClip.stopAllClips();
+					playSound("DragonKill_single");
+					
 					gameBoard.show("img/DragonEaten.jpg");
 					gameBoard.reset(false,level);
 					System.out.println("YOU LOST");
