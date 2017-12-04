@@ -246,6 +246,9 @@ public class Dragon {
 	}
 	
 	private int lookChoice(int[] dirs,int kx,int ky){
+		if(tailsLeft==0){
+			return smellChoice(dirs,kx,ky);
+		}
 		int dir = opposite(headDirection);
 		if(kx-headXLoc==0){
 			if(ky-headYLoc>0 && IntStream.of(dirs).anyMatch(x -> x == DOWN) && dir != DOWN){
