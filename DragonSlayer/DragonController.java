@@ -147,11 +147,12 @@ class DragonController implements MouseListener, KeyListener  {
 					System.out.println("Tails extended:"+gameBoard.dragon().areTailsExtended());
 					System.out.println("Tails left:"+gameBoard.dragon().tailsLeft());
 					if(gameBoard.dragon().tailsLeft()==0){
-						if(level<10){
+						if(level<5){
 							//startString.setText("<html>YOU BEAT LEVEL "+level+"!<br>press any key to play again</html>");
 							//startPanel.setVisible(true);
 							level++;
 							gameBoard.show("img/DragonLevel"+level+".JPG");
+							gameBoard.playSound("finalwin",false,4);
 							TimerTask timerTask = new TimerTask() {
 		                        @Override
 		                        public void run() {
@@ -160,7 +161,7 @@ class DragonController implements MouseListener, KeyListener  {
 		                    };
 		                    gameTimer.cancel();
 		                    gameTimer = new java.util.Timer();
-		                    gameTimer.schedule(timerTask, 0,INITIAL_MOVE_TIMER - (level-1)*5);
+		                    gameTimer.schedule(timerTask, 0,INITIAL_MOVE_TIMER - (level-1)*6);
 		                    gameBoard.reset(false,level);
 						    gamePause = true;
 							Thread.sleep(2000);
@@ -170,6 +171,7 @@ class DragonController implements MouseListener, KeyListener  {
 							//gameBoard.setVisible(false);
 							//startPanel.setVisible(true);
 							gameBoard.show("img/DragonWin.JPG");
+							gameBoard.playSound("finalwin",false,4);
 							level = 1;
 							gameBoard.reset(false,level);
 							gamePause = true;
@@ -187,7 +189,6 @@ class DragonController implements MouseListener, KeyListener  {
 						gameBoard.reset(true,level);
 					}
 					System.out.println("YOU WON!");
-					gameBoard.playSound("finalwin",false,4);
 					gamePause = true;
 					Thread.sleep(500);
 					gamePause = false;
