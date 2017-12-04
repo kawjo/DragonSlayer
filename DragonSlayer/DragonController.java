@@ -95,7 +95,7 @@ class DragonController implements MouseListener, KeyListener  {
         //boardHolder.add(startPanel);
         //startPanel.setVisible(true);
 
-        gameBoard.playSound("Battle_02",false,0);
+        gameBoard.playSound("Battle_02",true,0);
 
         //boardHolder.setComponentZOrder(startPanel,0);
         //startString.setFont(new Font(null,Font.PLAIN,100));
@@ -130,10 +130,6 @@ class DragonController implements MouseListener, KeyListener  {
 
 					gameBoard.playSound("DragonKill_single",false,6);
 
-					AudioClip.stopAllClips();
-					gameBoard.playSound("DragonKill_single",false,0);
-
-					
 					gameBoard.show("img/DragonEaten.jpg");
 					gameBoard.reset(false,level);
 					System.out.println("YOU LOST");
