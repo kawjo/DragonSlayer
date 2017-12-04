@@ -4,8 +4,7 @@ import javax.swing.JOptionPane; // messages are displayed using JOptionPane
 import javax.swing.JPanel;
 
 import com.sun.media.jfxmedia.AudioClip;
-import com.sun.media.jfxmedia.Media;
-import com.sun.media.jfxmedia.MediaPlayer;
+import com.sun.media.sound.AudioFloatInputStream;
 
 import sun.applet.Main;
 
@@ -14,7 +13,9 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon; // messages have an icon
 import java.awt.*; // for graphics & MouseListener 
@@ -90,7 +91,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
         //startPanel.add(startString);
         //boardHolder.add(startPanel);
         //startPanel.setVisible(true);
-        playSound("Battle_02");
+        playSound("Battle_02",true,0);
         //boardHolder.setComponentZOrder(startPanel,0);
         //startString.setFont(new Font(null,Font.PLAIN,100));
         gameBoard.show("img/DragonSlayer.JPG");
@@ -111,8 +112,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 					//startString.setText("<html>YOU LOST!<br>SUCKER >P<br><br>press any key to play again</html>");
 					//startPanel.setVisible(true);
 					
-					AudioClip.stopAllClips();
-					playSound("DragonKill_single");
+					playSound("DragonKill_single",false,6);
 					
 					gameBoard.show("img/DragonEaten.jpg");
 					gameBoard.reset(false,level);
@@ -145,12 +145,13 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 						gamePause = false;
 					} else {
 						//startString.setText("<html>YOU CHOPPED SOME TAIL OFF!<br>press any key to resume</html>");
-						playSound("tailChopped");
+						playSound("tailChopped",false,0);
 						//startPanel.setVisible(true);
 						gameBoard.show("img/DragonTailChopped.JPG");
 						gameBoard.reset(true,level);
 					}
 					System.out.println("YOU WON!");
+					playSound("finalwin",false,4);
 					gamePause = true;
 					Thread.sleep(500);
 					gamePause = false;
@@ -220,7 +221,7 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 		
 	}
 	
-	public void playSound(String fileName) {
+	public void playSound(String fileName, boolean loop, int dbBoost) {
 	      try {
 	          File soundFile = new File("sounds/"+fileName+".au"); 
 	          AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);              
@@ -228,7 +229,16 @@ class DragonController extends TimerTask implements MouseListener, KeyListener  
 	          DataLine.Info info = new DataLine.Info(Clip.class, format);
 	          Clip audioClip = (Clip) AudioSystem.getLine(info);
 	         audioClip.open(audioIn);
+	         
+	         if(dbBoost!=0)
+	         {
+	        	 	FloatControl gainControl = 
+	        		    (FloatControl) audioClip.getControl(FloatControl.Type.MASTER_GAIN);
+	        		gainControl.setValue(+dbBoost);
+	         }
+	        
 	         audioClip.start();
+	         if(loop) {audioClip.loop(Clip.LOOP_CONTINUOUSLY);}
 	      } catch (UnsupportedAudioFileException e) {
 	         e.printStackTrace();
 	      } catch (IOException e) {
