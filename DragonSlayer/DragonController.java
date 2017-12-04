@@ -94,11 +94,9 @@ class DragonController implements MouseListener, KeyListener  {
         //startPanel.add(startString);
         //boardHolder.add(startPanel);
         //startPanel.setVisible(true);
-<<<<<<< HEAD
-        playSound("Battle_02",true,0);
-=======
-        gameBoard.playSound("Battle_02");
->>>>>>> 270335605f40b80e7a2da2ce22229ee7454e0d90
+
+        gameBoard.playSound("Battle_02",false,0);
+
         //boardHolder.setComponentZOrder(startPanel,0);
         //startString.setFont(new Font(null,Font.PLAIN,100));
         gameBoard.show("img/DragonSlayer.JPG");
@@ -129,12 +127,12 @@ class DragonController implements MouseListener, KeyListener  {
 					//startString.setText("<html>YOU LOST!<br>SUCKER >P<br><br>press any key to play again</html>");
 					//startPanel.setVisible(true);
 					
-<<<<<<< HEAD
-					playSound("DragonKill_single",false,6);
-=======
+
+					gameBoard.playSound("DragonKill_single",false,6);
+
 					AudioClip.stopAllClips();
-					gameBoard.playSound("DragonKill_single");
->>>>>>> 270335605f40b80e7a2da2ce22229ee7454e0d90
+					gameBoard.playSound("DragonKill_single",false,0);
+
 					
 					gameBoard.show("img/DragonEaten.jpg");
 					gameBoard.reset(false,level);
@@ -181,17 +179,15 @@ class DragonController implements MouseListener, KeyListener  {
 						
 					} else {
 						//startString.setText("<html>YOU CHOPPED SOME TAIL OFF!<br>press any key to resume</html>");
-<<<<<<< HEAD
-						playSound("tailChopped",false,0);
-=======
-						gameBoard.playSound("tailChopped");
->>>>>>> 270335605f40b80e7a2da2ce22229ee7454e0d90
+
+						gameBoard.playSound("tailChopped",false,0);
+
 						//startPanel.setVisible(true);
 						gameBoard.show("img/DragonTailChopped.JPG");
 						gameBoard.reset(true,level);
 					}
 					System.out.println("YOU WON!");
-					playSound("finalwin",false,4);
+					gameBoard.playSound("finalwin",false,4);
 					gamePause = true;
 					Thread.sleep(500);
 					gamePause = false;
@@ -261,34 +257,6 @@ class DragonController implements MouseListener, KeyListener  {
 		
 	}
 	
-<<<<<<< HEAD
-	public void playSound(String fileName, boolean loop, int dbBoost) {
-	      try {
-	          File soundFile = new File("sounds/"+fileName+".au"); 
-	          AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);              
-	          AudioFormat format = audioIn.getFormat();
-	          DataLine.Info info = new DataLine.Info(Clip.class, format);
-	          Clip audioClip = (Clip) AudioSystem.getLine(info);
-	         audioClip.open(audioIn);
-	         
-	         if(dbBoost!=0)
-	         {
-	        	 	FloatControl gainControl = 
-	        		    (FloatControl) audioClip.getControl(FloatControl.Type.MASTER_GAIN);
-	        		gainControl.setValue(+dbBoost);
-	         }
-	        
-	         audioClip.start();
-	         if(loop) {audioClip.loop(Clip.LOOP_CONTINUOUSLY);}
-	      } catch (UnsupportedAudioFileException e) {
-	         e.printStackTrace();
-	      } catch (IOException e) {
-	         e.printStackTrace();
-	      } catch (LineUnavailableException e) {
-	         e.printStackTrace();
-	      }
-	   }
-=======
->>>>>>> 270335605f40b80e7a2da2ce22229ee7454e0d90
+
     
 }

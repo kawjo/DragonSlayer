@@ -7,6 +7,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
@@ -713,7 +714,7 @@ public void reset(boolean didKnightKillDragon, int level) throws Exception{
     gameContentPane.setComponentZOrder(dragonIntLabel, 1);
 
 }
-public void playSound(String fileName) {
+public void playSound(String fileName, boolean loop, int dbBoost) {
     try {
         File soundFile = new File("sounds/"+fileName+".au"); 
         AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);              
@@ -721,7 +722,16 @@ public void playSound(String fileName) {
         DataLine.Info info = new DataLine.Info(Clip.class, format);
         Clip audioClip = (Clip) AudioSystem.getLine(info);
        audioClip.open(audioIn);
+       
+       if(dbBoost!=0)
+       {
+      	 	FloatControl gainControl = 
+      		    (FloatControl) audioClip.getControl(FloatControl.Type.MASTER_GAIN);
+      		gainControl.setValue(+dbBoost);
+       }
+      
        audioClip.start();
+       if(loop) {audioClip.loop(Clip.LOOP_CONTINUOUSLY);}
     } catch (UnsupportedAudioFileException e) {
        e.printStackTrace();
     } catch (IOException e) {
@@ -732,7 +742,7 @@ public void playSound(String fileName) {
  }
 public void roar(int num)
 {
-	playSound("Snarl_0"+num);
+	playSound("Snarl_0"+num, false,0);
 }
 
 public void show(String path){
