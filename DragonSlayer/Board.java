@@ -617,13 +617,13 @@ private void drawKnight()
 	
 	if(knight.currentDirection() != 0)
 	{
-		up = new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_"+knight.currentDirection()+".jpg");
-		down = new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_"+knight.currentDirection()+"Swing.jpg");
+		up = new ImageIcon("img/FlameKnight"+PIXELS_PER_SPACE+"_"+knight.currentDirection()+".jpg");
+		down = new ImageIcon("img/FlameKnight"+PIXELS_PER_SPACE+"_"+knight.currentDirection()+"Swing.jpg");
 	}
 	else
 	{
-		up = new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_"+knight.getLastDir()+".jpg");
-		down = new ImageIcon("img/Knight"+PIXELS_PER_SPACE+"_"+knight.getLastDir()+"Swing.jpg");
+		up = new ImageIcon("img/FlameKnight"+PIXELS_PER_SPACE+"_"+knight.getLastDir()+".jpg");
+		down = new ImageIcon("img/FlameKnight"+PIXELS_PER_SPACE+"_"+knight.getLastDir()+"Swing.jpg");
 	}
 	
 	
