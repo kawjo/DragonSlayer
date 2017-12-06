@@ -73,7 +73,7 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     }
     
     knight = new Knight(1,.5,getXPosition(findKnight()),getYPosition(findKnight()));
-    dragon = new Dragon(4,.2,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
+    dragon = new Dragon(level,.2,getXPosition(findDragon()),getYPosition(findDragon()),UP); //Change UP to maze.getDragonDirection()
     knightJLabel = new JLabel();
     dragonJLabel = new JLabel[dragon.TAILS+1];
     dragonIntLabel = new JLabel();
@@ -684,7 +684,7 @@ public void reset(boolean didKnightKillDragon, int level) throws Exception{
 	if(didKnightKillDragon){
 		dragon.tailGotChoppedOff(getXPosition(findDragon()),getYPosition(findDragon()),UP);
 	} else {
-		dragon.restore(getXPosition(findDragon()),getYPosition(findDragon()),UP);
+		dragon.restore(getXPosition(findDragon()),getYPosition(findDragon()),UP,level);
 	}
 	
 	knightJLabel = new JLabel();

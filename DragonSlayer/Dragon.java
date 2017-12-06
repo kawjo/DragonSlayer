@@ -322,8 +322,8 @@ public class Dragon {
 		return dir;
 	}
 	
-	public void restore(int x, int y, int d){
-		tailsLeft = TAILS;
+	public void restore(int x, int y, int d, int tails){
+		tailsLeft = tails;
 		resetDragon(x,y,d);
 	}
 	
