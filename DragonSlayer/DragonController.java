@@ -22,6 +22,7 @@ import java.awt.*; // for graphics & MouseListener
 import java.awt.event.*; // need for events and MouseListener
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask; // use as a timer 
 import javax.swing.JLabel; //use for display text
@@ -129,8 +130,9 @@ class DragonController implements MouseListener, KeyListener  {
 					
 
 					gameBoard.playSound("DragonKill_single",false,6);
-
-					gameBoard.show("img/DragonEaten.jpg");
+					Random r = new Random();
+					int i = r.nextInt(5)+1;
+					gameBoard.show("img/DragonEaten"+i+".jpg");
 					gameBoard.reset(false,level);
 					System.out.println("YOU LOST");
 					System.out.println("SUCKER");
@@ -170,6 +172,15 @@ class DragonController implements MouseListener, KeyListener  {
 							gameBoard.playSound("finalwin",false,4);
 							level = 1;
 							gameBoard.reset(false,level);
+							TimerTask timerTask = new TimerTask() {
+		                        @Override
+		                        public void run() {
+		                            runTimer();
+		                        }
+		                    };
+		                    gameTimer.cancel();
+		                    gameTimer = new java.util.Timer();
+		                    gameTimer.schedule(timerTask, 0,INITIAL_MOVE_TIMER - (level-1)*6);
 							gamePause = true;
 							Thread.sleep(10000);
 							gamePause = false;
