@@ -31,10 +31,14 @@ import javax.swing.JLabel; //use for display text
 class DragonController implements MouseListener, KeyListener  {
     
     private static final int INITIAL_MOVE_TIMER = 40; // time in milliseconds on timer
+    
+    private String cheatString = "";
+    private String alphabet = "abcdefghijklmnopqrstuvwxyz";
  
     private Container gameContentPane;
     private boolean gameIsReady = false;
     private boolean gamePause = false;
+    private boolean isStart = false;
     
     private java.util.Timer gameTimer = new java.util.Timer();
     
@@ -101,6 +105,7 @@ class DragonController implements MouseListener, KeyListener  {
         //boardHolder.setComponentZOrder(startPanel,0);
         //startString.setFont(new Font(null,Font.PLAIN,100));
         gameBoard.show("img/DragonSlayer.JPG");
+        isStart = true;
     }   
     
     //this run() function overrides run() in java.util.TimerTask
@@ -233,13 +238,65 @@ class DragonController implements MouseListener, KeyListener  {
     }
 
 	public void keyTyped(KeyEvent e) {
-		
-		;
-		
+		if(e.getKeyChar()=='q'){
+			cheatString = "";
+		} else if(alphabet.indexOf(e.getKeyChar())>0 && !cheatString.endsWith(String.valueOf(e.getKeyChar()))){
+			cheatString += e.getKeyChar();
+			if(cheatString.length()>20){
+				cheatString = "";
+			} else {
+				boolean valid = false;
+				int n = 0;
+				if(cheatString.equals("levelone")){
+					n = 1; valid = true;
+				}
+				if(cheatString.equals("leveltwo")){
+					n = 2; valid = true;
+				}
+				if(cheatString.equals("levelthree")){
+					n = 3; valid = true;
+				}
+				if(cheatString.equals("levelfour")){
+					n = 4; valid = true;
+				}
+				if(cheatString.equals("levelfive")){
+					n = 5; valid = true;
+				}
+				if(valid){
+					cheatString = "";
+					level = n;
+					gameIsReady = false;
+					gameBoard.show("img/DragonLevel"+level+".JPG");
+					gameBoard.playSound("finalwin",false,4);
+					TimerTask timerTask = new TimerTask() {
+                        @Override
+                        public void run() {
+                            runTimer();
+                        }
+                    };
+                    gameTimer.cancel();
+                    gameTimer = new java.util.Timer();
+                    gameTimer.schedule(timerTask, 0,INITIAL_MOVE_TIMER - (level-1)*6);
+                    try{
+                    gameBoard.reset(false,level);
+				    gamePause = true;
+					Thread.sleep(2000);
+					gamePause = false;
+                    }catch(Exception ex){System.out.println(ex.toString());}
+				}
+			}
+		}
+		System.out.println(cheatString);
 	}
 
 	public void keyPressed(KeyEvent e) {
-		if(!gameIsReady&&!gamePause&&gameBoard.isShowing()){gameBoard.stopShow();gameIsReady=true;}
+		if(!gameIsReady&&!gamePause&&gameBoard.isShowing()){
+			if(isStart){
+				gameBoard.stopShow(); gameBoard.show("img/Instructions.jpg");
+			} else {
+				gameBoard.stopShow();gameIsReady=true;
+			}
+		}
 		
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
 		{
@@ -257,11 +314,13 @@ class DragonController implements MouseListener, KeyListener  {
 	    {
 	    		gameBoard.knight().setNextDirection(DOWN);
 	    }
-		
+
 	}
 
 	public void keyReleased(KeyEvent e) {
-		;
+		if(isStart){
+			isStart = false;
+		}
 		
 	}
 	
