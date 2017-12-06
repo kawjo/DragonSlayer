@@ -253,7 +253,7 @@ class DragonController implements MouseListener, KeyListener  {
 				if(cheatString.equals("leveltwo")){
 					n = 2; valid = true;
 				}
-				if(cheatString.equals("levelthree")){
+				if(cheatString.equals("levelthre")){
 					n = 3; valid = true;
 				}
 				if(cheatString.equals("levelfour")){
