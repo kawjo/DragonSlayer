@@ -843,5 +843,15 @@ public void undoCheats(){
 	}
 }
 
+public void teleport(){
+	knight.setLocation(1450,50);
+	knight.setCurrentDirection(0);
+	knight.setNextDirection(0);
+}
+
+
+
+
+
 
 }

@@ -34,6 +34,7 @@ class DragonController implements MouseListener, KeyListener  {
     
     private String cheatString = "";
     private String alphabet = "abcdefghijklmnopqrstuvwxyz";
+    private boolean teleport = false;
  
     private Container gameContentPane;
     private boolean gameIsReady = false;
@@ -139,6 +140,7 @@ class DragonController implements MouseListener, KeyListener  {
 					int i = r.nextInt(5)+1;
 					gameBoard.show("img/DragonEaten"+i+".jpg");
 					gameBoard.undoCheats();
+					teleport = false;
 					gameBoard.reset(false,level);
 					System.out.println("YOU LOST");
 					System.out.println("SUCKER");
@@ -248,6 +250,7 @@ class DragonController implements MouseListener, KeyListener  {
 			} else {
 				boolean valid = false;
 				boolean invis = false;
+				boolean tele = false;
 				int n = 0;
 				if(cheatString.equals("levelone")){
 					n = 1; valid = true;
@@ -272,6 +275,9 @@ class DragonController implements MouseListener, KeyListener  {
 				}
 				if(cheatString.equals("nolight")){
 					n = 3; invis = true;
+				}
+				if(cheatString.equals("teleport")){
+					tele = true;
 				}
 				if(valid){
 					cheatString = "";
@@ -309,6 +315,9 @@ class DragonController implements MouseListener, KeyListener  {
 					break;
 					}
 				}
+				if(tele){
+					teleport = true;
+				}
 			}
 		}
 		System.out.println(cheatString);
@@ -321,6 +330,10 @@ class DragonController implements MouseListener, KeyListener  {
 			} else {
 				gameBoard.stopShow();gameIsReady=true;
 			}
+		}
+		
+		if(teleport && e.getKeyCode() == KeyEvent.VK_SPACE){
+			gameBoard.teleport();
 		}
 		
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
