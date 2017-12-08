@@ -154,7 +154,7 @@ class DragonController implements MouseListener, KeyListener  {
 							//startString.setText("<html>YOU BEAT LEVEL "+level+"!<br>press any key to play again</html>");
 							//startPanel.setVisible(true);
 							level++;
-							gameBoard.show("img/DragonLevel"+level+".JPG");
+							gameBoard.show("img/d"+level+".JPG");
 							gameBoard.playSound("finalwin",false,4);
 							TimerTask timerTask = new TimerTask() {
 		                        @Override
