@@ -1,6 +1,3 @@
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.Random;
 
 public class Knight {
 
@@ -13,7 +10,6 @@ public class Knight {
 	private boolean isAlive = false;
 	private double SPEED = 1;
 	private boolean isAtIntersection;
-	private int[] knightDirs;
 	private int recentDir;
 	private boolean canMove;
 	
@@ -56,7 +52,6 @@ public class Knight {
 	
 	private void yesMove(int pixToMove, int [] dirOptions)
 	{
-		knightDirs = dirOptions;
 		
 		/*System.out.println("Pre-move current Dir: " + currentDirection);
 		System.out.println("Pre-move next Dir: " + nextDirection);
@@ -86,14 +81,13 @@ public class Knight {
 			}
 		else
 		{
-			for(int i =0; i<dirOptions.length; i++)
-			{
-				if(didDirectionChange() && dirOptions[i] == nextDirection)
+			for (int dirOption : dirOptions) {
+				if(didDirectionChange() && dirOption == nextDirection)
 				{
 					upDateDirection();
 					break;
 				}
-				else if(dirOptions[i] == currentDirection)
+				else if(dirOption == currentDirection)
 				{
 					upDateDirection();
 					setMovability(true);

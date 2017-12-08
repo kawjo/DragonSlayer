@@ -1,32 +1,14 @@
 
 import javax.swing.JFrame; // for JFrame
-import javax.swing.JOptionPane; // messages are displayed using JOptionPane
-import javax.swing.JPanel;
-
-import com.sun.media.jfxmedia.AudioClip;
-import com.sun.media.sound.AudioFloatInputStream;
-
-import sun.applet.Main;
-
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.FloatControl;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.SourceDataLine;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.ImageIcon; // messages have an icon
 import java.awt.*; // for graphics & MouseListener 
 import java.awt.event.*; // need for events and MouseListener
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+
 import java.util.Random;
-import java.util.Timer;
 import java.util.TimerTask; // use as a timer 
-import javax.swing.JLabel; //use for display text
 
 
 class DragonController implements MouseListener, KeyListener  {
@@ -145,16 +127,16 @@ class DragonController implements MouseListener, KeyListener  {
 					gameBoard.undoCheats();
 					teleport = false;
 					gameBoard.reset(false,level);
-					System.out.println("YOU LOST");
-					System.out.println("SUCKER");
+					//System.out.println("YOU LOST");
+					//System.out.println("SUCKER");
 					gamePause = true;
 					Thread.sleep(3000);
 					gamePause = false;
 					
 				} else if(gameBoard.dragon().areTailsExtended()&&gameBoard.didKnightKillDragon()){
 					gameIsReady=false;
-					System.out.println("Tails extended:"+gameBoard.dragon().areTailsExtended());
-					System.out.println("Tails left:"+gameBoard.dragon().tailsLeft());
+					//System.out.println("Tails extended:"+gameBoard.dragon().areTailsExtended());
+					//System.out.println("Tails left:"+gameBoard.dragon().tailsLeft());
 					if(gameBoard.dragon().tailsLeft()==0){
 						if(level<5){
 							//startString.setText("<html>YOU BEAT LEVEL "+level+"!<br>press any key to play again</html>");
@@ -209,17 +191,17 @@ class DragonController implements MouseListener, KeyListener  {
 						gameBoard.show(img5);
 						gameBoard.reset(true,level);
 					}
-					System.out.println("YOU WON!");
+					//System.out.println("YOU WON!");
 					gamePause = true;
 					Thread.sleep(500);
 					gamePause = false;
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println(e.getMessage());
-				System.out.println(e.getLocalizedMessage());
-				System.out.println(e.toString());
+				//e.printStackTrace();
+				//System.out.println(e.getMessage());
+				//System.out.println(e.getLocalizedMessage());
+				//System.out.println(e.toString());
 			}
         
         }
@@ -306,19 +288,19 @@ class DragonController implements MouseListener, KeyListener  {
 				    gamePause = true;
 					Thread.sleep(2000);
 					gamePause = false;
-                    }catch(Exception ex){System.out.println(ex.toString());}
+                    }catch(Exception ex){}
 				}
 				if(invis){
 					cheatString = "";
 					switch(n){
 					case 1: gameBoard.setInvisKnight();
-					System.out.println("KNIGHT IS INVISIBLE");
+					//System.out.println("KNIGHT IS INVISIBLE");
 					break;
 					case 2: gameBoard.setInvisDragon();
-					System.out.println("DRAGON IS INVISIBLE");
+					//System.out.println("DRAGON IS INVISIBLE");
 					break;
 					case 3: gameBoard.setInvisBoard();
-					System.out.println("BOARD IS INVISIBLE");
+					//System.out.println("BOARD IS INVISIBLE");
 					break;
 					}
 				}
@@ -327,7 +309,7 @@ class DragonController implements MouseListener, KeyListener  {
 				}
 			}
 		}
-		System.out.println(cheatString);
+		//System.out.println(cheatString);
 	}
 
 	public void keyPressed(KeyEvent e) {

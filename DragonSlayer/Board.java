@@ -1,7 +1,4 @@
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -13,9 +10,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import java.awt.*;
 import java.awt.geom.Area;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -32,7 +26,7 @@ private JLabel[] dragonJLabel;
 private JLabel dragonIntLabel;
 private ImageIcon tailImage;
 private ImageIcon headImage;
-private ImageIcon dragonImage;
+
 private JLabel knightJLabel;
 private Knight knight;
 private final int DRAGON = 9;
@@ -94,9 +88,13 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     		dragonImage = head;
     		tailImage = new ImageIcon(dragonImage);
     	} else {
+
     		URL head = getClass().getResource("img/Dragon"+PIXELS_PER_SPACE+".jpg");
     		dragonImage = head;
-    		this.dragonImage = new ImageIcon(dragonImage);
+    		
+
+    		
+
     	}
     		dragonJLabel[i].setIcon(new ImageIcon(dragonImage));
     		dragonJLabel[i].setBounds(getXPosition(findDragon()),getYPosition(findDragon()),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
@@ -619,7 +617,7 @@ public boolean didKnightKillDragon(){
 			Area areaD = new Area(dragonJLabel[i].getBounds());
 			if(areaC.intersects(areaD.getBounds2D()))
 			{
-				System.out.println("TAIL CHOPPED");
+				//System.out.println("TAIL CHOPPED");
 				return areaC.intersects(areaD.getBounds2D());
 			}
 		}
@@ -789,11 +787,11 @@ public void playSound(String fileName, boolean loop, int dbBoost) {
        audioClip.start();
        if(loop) {audioClip.loop(Clip.LOOP_CONTINUOUSLY);}
     } catch (UnsupportedAudioFileException e) {
-       e.printStackTrace();
+       //e.printStackTrace();
     } catch (IOException e) {
-       e.printStackTrace();
+       //e.printStackTrace();
     } catch (LineUnavailableException e) {
-       e.printStackTrace();
+       //e.printStackTrace();
     }
  }
 public void roar(int num)
