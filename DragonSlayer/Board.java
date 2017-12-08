@@ -627,7 +627,7 @@ public boolean didKnightKillDragon(){
 }
 
 
-private void draw(){
+private void draw() throws UnsupportedAudioFileException, IOException{
 	//knightJLabel.setVisible(false);
 	dragonIntLabel.setVisible(false);
 	//for(int i = 0; i < dragon.tailsLeft()+1; i++){
@@ -768,15 +768,33 @@ public void reset(boolean didKnightKillDragon, int level) throws Exception{
     	knightJLabel.setVisible(false);
     }
 }
-public void playSound(String fileName, boolean loop, int dbBoost) {
-    try {
-        File soundFile = new File("sounds/"+fileName+".au"); 
+public void playSound(String fileName, boolean loop, int dbBoost) throws UnsupportedAudioFileException, IOException {
+    /*try {
+    		URL sound = getClass().getResource("sounds/"+fileName+".au");
+        File soundFile = new File(sound); 
         AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);              
         AudioFormat format = audioIn.getFormat();
         DataLine.Info info = new DataLine.Info(Clip.class, format);
         Clip audioClip = (Clip) AudioSystem.getLine(info);
        audioClip.open(audioIn);
-       
+       */
+		URL url = getClass().getResource("sounds/"+fileName+".au");
+        Clip audioClip = null;
+		try {
+			audioClip = AudioSystem.getClip();
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        // getAudioInputStream() also accepts a File or InputStream
+        AudioInputStream ais = AudioSystem.
+            getAudioInputStream( url );
+        try {
+			audioClip.open(ais);
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
        if(dbBoost!=0)
        {
       	 	FloatControl gainControl = 
@@ -786,15 +804,15 @@ public void playSound(String fileName, boolean loop, int dbBoost) {
       
        audioClip.start();
        if(loop) {audioClip.loop(Clip.LOOP_CONTINUOUSLY);}
-    } catch (UnsupportedAudioFileException e) {
+    /*} catch (UnsupportedAudioFileException e) {
        //e.printStackTrace();
     } catch (IOException e) {
        //e.printStackTrace();
     } catch (LineUnavailableException e) {
        //e.printStackTrace();
-    }
+    }*/
  }
-public void roar(int num)
+public void roar(int num) throws UnsupportedAudioFileException, IOException
 {
 	playSound("Snarl_0"+num, false,0);
 }

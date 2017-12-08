@@ -1,4 +1,5 @@
 
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame; // for JFrame
 import java.awt.*; // for graphics & MouseListener 
 import java.awt.event.*; // need for events and MouseListener
@@ -273,7 +274,15 @@ class DragonController implements MouseListener, KeyListener  {
 					gameIsReady = false;
 					URL img6 = getClass().getResource("img/DragonLevel"+level+".JPG");
 					gameBoard.show(img6);
-					gameBoard.playSound("finalwin",false,4);
+					try {
+						gameBoard.playSound("finalwin",false,4);
+					} catch (UnsupportedAudioFileException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					TimerTask timerTask = new TimerTask() {
                         @Override
                         public void run() {
