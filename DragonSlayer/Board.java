@@ -611,7 +611,7 @@ public boolean didKnightKillDragon(){
 			Area areaD = new Area(dragonJLabel[i].getBounds());
 			if(areaC.intersects(areaD.getBounds2D()))
 			{
-				System.out.println("TAIL CHOPPED");
+				//System.out.println("TAIL CHOPPED");
 				return areaC.intersects(areaD.getBounds2D());
 			}
 		}
@@ -781,11 +781,11 @@ public void playSound(String fileName, boolean loop, int dbBoost) {
        audioClip.start();
        if(loop) {audioClip.loop(Clip.LOOP_CONTINUOUSLY);}
     } catch (UnsupportedAudioFileException e) {
-       e.printStackTrace();
+       //e.printStackTrace();
     } catch (IOException e) {
-       e.printStackTrace();
+       //e.printStackTrace();
     } catch (LineUnavailableException e) {
-       e.printStackTrace();
+       //e.printStackTrace();
     }
  }
 public void roar(int num)

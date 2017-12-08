@@ -34,7 +34,7 @@ public class Maze
 		}
 		catch(FileNotFoundException e)
 		{
-			System.out.println("File " + fileName + " not found.");
+			//System.out.println("File " + fileName + " not found.");
 			return;
 		}
 		initialized = true;

@@ -267,7 +267,7 @@ public class Dragon {
 		if(dir != opposite(headDirection)){
 			return dir;
 		} else {
-			System.out.println("PICKING RANDOM");
+			//System.out.println("PICKING RANDOM");
 			return randChoice(dirs);
 		}
 	}
