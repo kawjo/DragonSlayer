@@ -18,6 +18,7 @@ import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 public class Board {
@@ -63,11 +64,13 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     for(int i = 0; i < mazeJLabels.length; i++){
     		mazeJLabels[i] = new JLabel();
     		if(board[i] == 2){
-    			String image = "img/StoneBlock"+PIXELS_PER_SPACE+".jpg";
-        		mazeJLabels[i].setIcon(new ImageIcon(image));
+    			//String image = "img/StoneBlock"+PIXELS_PER_SPACE+".jpg";
+    			URL img = getClass().getResource("img/StoneBlock"+PIXELS_PER_SPACE+".jpg");
+        		mazeJLabels[i].setIcon(new ImageIcon(img));
     		} 
     		else {
-    			mazeJLabels[i].setIcon(new ImageIcon("img/BlackSquare.jpg"));
+    			URL img = getClass().getResource("img/BlackSquare.jpg");
+    			mazeJLabels[i].setIcon(new ImageIcon(img));
     	}
     	mazeJLabels[i].setBounds(getXPosition(i),getYPosition(i),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
     	gameContentPane.add(mazeJLabels[i]);
@@ -81,15 +84,18 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     dragonIntLabel = new JLabel();
     for(int i = 0; i < dragonJLabel.length; i++){
     	dragonJLabel[i] = new JLabel();
-    	String dragonImage = "";
+    	URL dragonImage;
     	if(i==0){
-    		dragonImage = "img/DragonHead"+PIXELS_PER_SPACE+6+".jpg";
+    		URL head = getClass().getResource("img/DragonHead"+PIXELS_PER_SPACE+6+".jpg");
+    		dragonImage = head;
     		headImage = new ImageIcon(dragonImage);
     	} else if (i == dragonJLabel.length - 1){
-    		dragonImage = "img/DragonTail"+PIXELS_PER_SPACE+dragon.getTailDirection()+".jpg";
+    		URL head = getClass().getResource("img/DragonTail"+PIXELS_PER_SPACE+dragon.getTailDirection()+".jpg");
+    		dragonImage = head;
     		tailImage = new ImageIcon(dragonImage);
     	} else {
-    		dragonImage = "img/Dragon"+PIXELS_PER_SPACE+".jpg";
+    		URL head = getClass().getResource("img/Dragon"+PIXELS_PER_SPACE+".jpg");
+    		dragonImage = head;
     		this.dragonImage = new ImageIcon(dragonImage);
     	}
     		dragonJLabel[i].setIcon(new ImageIcon(dragonImage));
@@ -99,14 +105,15 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     }
     
     
-    String knightImage = "img/Knight"+PIXELS_PER_SPACE+".jpg";
+    URL knightImage = getClass().getResource("img/Knight"+PIXELS_PER_SPACE+".jpg");
     knightJLabel.setIcon(new ImageIcon(knightImage));
     knightJLabel.setBounds(knight.getXLocation(),knight.getYLocation(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
     gameContentPane.add(knightJLabel);
     if(!invis){
     	knightJLabel.setVisible(true);
     }
-    dragonIntLabel.setIcon(new ImageIcon("img/DragonInt"+LEFT+UP+".jpg"));
+    URL img = getClass().getResource("img/DragonInt"+LEFT+UP+".jpg");
+    dragonIntLabel.setIcon(new ImageIcon(img));
     dragonIntLabel.setBounds(0,0,PIXELS_PER_SPACE,PIXELS_PER_SPACE);
     gameContentPane.add(dragonIntLabel);
     dragonIntLabel.setVisible(false);
@@ -283,7 +290,8 @@ private void upDateDragonLocation(){
 }
 
 private void drawDragon(){
-	headImage = new ImageIcon("img/DragonHead"+PIXELS_PER_SPACE+dragon.getHeadDirection()+".JPG");
+	URL img = getClass().getResource("img/DragonHead"+PIXELS_PER_SPACE+dragon.getHeadDirection()+".JPG");
+	headImage = new ImageIcon(img);
 	//System.out.println(headImage.toString());
 	dragonJLabel[0].setIcon(headImage);
 	dragonJLabel[0].setBounds(dragon.headX(),dragon.headY(),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
@@ -793,8 +801,8 @@ public void roar(int num)
 	playSound("Snarl_0"+num, false,0);
 }
 
-public void show(String path){
-	pause.setIcon(new ImageIcon(path));
+public void show(URL img){
+	pause.setIcon(new ImageIcon(img));
 	pause.setBounds(0,0,1600,900);
 	pause.setVisible(true);
 	isPauseScreenShowing = true;

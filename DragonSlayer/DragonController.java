@@ -22,6 +22,7 @@ import java.awt.*; // for graphics & MouseListener
 import java.awt.event.*; // need for events and MouseListener
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask; // use as a timer 
@@ -105,7 +106,8 @@ class DragonController implements MouseListener, KeyListener  {
 
         //boardHolder.setComponentZOrder(startPanel,0);
         //startString.setFont(new Font(null,Font.PLAIN,100));
-        gameBoard.show("img/DragonSlayer.JPG");
+        URL img = getClass().getResource("img/DragonSlayer.JPG");
+        gameBoard.show(img);
         isStart = true;
     }   
     
@@ -138,7 +140,8 @@ class DragonController implements MouseListener, KeyListener  {
 					gameBoard.playSound("DragonKill_single",false,6);
 					Random r = new Random();
 					int i = r.nextInt(5)+1;
-					gameBoard.show("img/DragonEaten"+i+".jpg");
+					URL img2 = getClass().getResource("img/DragonEaten"+i+".jpg");
+					gameBoard.show(img2);
 					gameBoard.undoCheats();
 					teleport = false;
 					gameBoard.reset(false,level);
@@ -157,7 +160,8 @@ class DragonController implements MouseListener, KeyListener  {
 							//startString.setText("<html>YOU BEAT LEVEL "+level+"!<br>press any key to play again</html>");
 							//startPanel.setVisible(true);
 							level++;
-							gameBoard.show("img/d"+level+".JPG");
+							URL img3 = getClass().getResource("img/d"+level+".JPG");
+							gameBoard.show(img3);
 							gameBoard.playSound("finalwin",false,4);
 							TimerTask timerTask = new TimerTask() {
 		                        @Override
@@ -176,7 +180,8 @@ class DragonController implements MouseListener, KeyListener  {
 							//startString.setText("<html>YOU BEAT THE ENTIRE GAME!<br>press any key to play again</html>");
 							//gameBoard.setVisible(false);
 							//startPanel.setVisible(true);
-							gameBoard.show("img/DragonWin.JPG");
+							URL img4 = getClass().getResource("img/DragonWin.JPG");
+							gameBoard.show(img4);
 							gameBoard.playSound("finalwin",false,4);
 							level = 1;
 							gameBoard.reset(false,level);
@@ -200,7 +205,8 @@ class DragonController implements MouseListener, KeyListener  {
 						gameBoard.playSound("tailChopped",false,0);
 
 						//startPanel.setVisible(true);
-						gameBoard.show("img/DragonTailChopped.JPG");
+						URL img5 = getClass().getResource("img/DragonTailChopped.JPG");
+						gameBoard.show(img5);
 						gameBoard.reset(true,level);
 					}
 					System.out.println("YOU WON!");
@@ -283,7 +289,8 @@ class DragonController implements MouseListener, KeyListener  {
 					cheatString = "";
 					level = n;
 					gameIsReady = false;
-					gameBoard.show("img/DragonLevel"+level+".JPG");
+					URL img6 = getClass().getResource("img/DragonLevel"+level+".JPG");
+					gameBoard.show(img6);
 					gameBoard.playSound("finalwin",false,4);
 					TimerTask timerTask = new TimerTask() {
                         @Override
@@ -326,7 +333,8 @@ class DragonController implements MouseListener, KeyListener  {
 	public void keyPressed(KeyEvent e) {
 		if(!gameIsReady&&!gamePause&&gameBoard.isShowing()){
 			if(isStart){
-				gameBoard.stopShow(); gameBoard.show("img/Instructions.jpg");
+				URL img7 = getClass().getResource("img/Instructions.jpg");
+				gameBoard.stopShow(); gameBoard.show(img7);
 			} else {
 				gameBoard.stopShow();gameIsReady=true;
 			}
