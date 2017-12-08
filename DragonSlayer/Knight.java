@@ -1,5 +1,6 @@
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Knight {
 
@@ -204,4 +205,5 @@ public class Knight {
 		//if(==0) {recentDir = currentDirection;}
 		currentDirection = nextDirection;
 	}
+	
 }

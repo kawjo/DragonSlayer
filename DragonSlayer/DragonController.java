@@ -34,6 +34,7 @@ class DragonController implements MouseListener, KeyListener  {
     
     private String cheatString = "";
     private String alphabet = "abcdefghijklmnopqrstuvwxyz";
+    private boolean teleport = false;
  
     private Container gameContentPane;
     private boolean gameIsReady = false;
@@ -138,11 +139,13 @@ class DragonController implements MouseListener, KeyListener  {
 					Random r = new Random();
 					int i = r.nextInt(5)+1;
 					gameBoard.show("img/DragonEaten"+i+".jpg");
+					gameBoard.undoCheats();
+					teleport = false;
 					gameBoard.reset(false,level);
 					System.out.println("YOU LOST");
 					System.out.println("SUCKER");
 					gamePause = true;
-					Thread.sleep(5000);
+					Thread.sleep(3000);
 					gamePause = false;
 					
 				} else if(gameBoard.dragon().areTailsExtended()&&gameBoard.didKnightKillDragon()){
@@ -246,6 +249,8 @@ class DragonController implements MouseListener, KeyListener  {
 				cheatString = "";
 			} else {
 				boolean valid = false;
+				boolean invis = false;
+				boolean tele = false;
 				int n = 0;
 				if(cheatString.equals("levelone")){
 					n = 1; valid = true;
@@ -253,7 +258,7 @@ class DragonController implements MouseListener, KeyListener  {
 				if(cheatString.equals("leveltwo")){
 					n = 2; valid = true;
 				}
-				if(cheatString.equals("levelthree")){
+				if(cheatString.equals("levelthre")){
 					n = 3; valid = true;
 				}
 				if(cheatString.equals("levelfour")){
@@ -261,6 +266,18 @@ class DragonController implements MouseListener, KeyListener  {
 				}
 				if(cheatString.equals("levelfive")){
 					n = 5; valid = true;
+				}
+				if(cheatString.equals("invisible")){
+					n = 1; invis = true;
+				}
+				if(cheatString.equals("enemy")){
+					n = 2; invis = true;
+				}
+				if(cheatString.equals("nolight")){
+					n = 3; invis = true;
+				}
+				if(cheatString.equals("teleport")){
+					tele = true;
 				}
 				if(valid){
 					cheatString = "";
@@ -284,6 +301,23 @@ class DragonController implements MouseListener, KeyListener  {
 					gamePause = false;
                     }catch(Exception ex){System.out.println(ex.toString());}
 				}
+				if(invis){
+					cheatString = "";
+					switch(n){
+					case 1: gameBoard.setInvisKnight();
+					System.out.println("KNIGHT IS INVISIBLE");
+					break;
+					case 2: gameBoard.setInvisDragon();
+					System.out.println("DRAGON IS INVISIBLE");
+					break;
+					case 3: gameBoard.setInvisBoard();
+					System.out.println("BOARD IS INVISIBLE");
+					break;
+					}
+				}
+				if(tele){
+					teleport = true;
+				}
 			}
 		}
 		System.out.println(cheatString);
@@ -296,6 +330,10 @@ class DragonController implements MouseListener, KeyListener  {
 			} else {
 				gameBoard.stopShow();gameIsReady=true;
 			}
+		}
+		
+		if(teleport && e.getKeyCode() == KeyEvent.VK_SPACE){
+			gameBoard.teleport();
 		}
 		
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
