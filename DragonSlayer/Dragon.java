@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -19,7 +18,6 @@ public class Dragon {
 	private int tailDirection;
 	private int headDirection;
 	private int tailsLeft;
-	private boolean isDead;
 	private boolean isInIntersection = false;
 	private boolean isAtIntersection = false;
 	private boolean isExtended = false;
@@ -214,12 +212,8 @@ public class Dragon {
 	public int intY(){return intersecYLoc;} public int intX(){return intersecXLoc;}
 	
 	public void tailGotChoppedOff(int x, int y, int d){
-		if(tailsLeft==0){
-			isDead = true;
-		} else {
 			tailsLeft--;
 			resetDragon(x,y,d);
-		}
 	}
 	
 	private int randChoice(int[] dirs){

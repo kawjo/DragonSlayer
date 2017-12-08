@@ -1,7 +1,4 @@
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -13,9 +10,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import java.awt.*;
 import java.awt.geom.Area;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,7 +25,7 @@ private JLabel[] dragonJLabel;
 private JLabel dragonIntLabel;
 private ImageIcon tailImage;
 private ImageIcon headImage;
-private ImageIcon dragonImage;
+
 private JLabel knightJLabel;
 private Knight knight;
 private final int DRAGON = 9;
@@ -90,7 +84,6 @@ public Board(Maze m,Container gameContentPane) throws Exception{
     		tailImage = new ImageIcon(dragonImage);
     	} else {
     		dragonImage = "img/Dragon"+PIXELS_PER_SPACE+".jpg";
-    		this.dragonImage = new ImageIcon(dragonImage);
     	}
     		dragonJLabel[i].setIcon(new ImageIcon(dragonImage));
     		dragonJLabel[i].setBounds(getXPosition(findDragon()),getYPosition(findDragon()),PIXELS_PER_SPACE,PIXELS_PER_SPACE);
